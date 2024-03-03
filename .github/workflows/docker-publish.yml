@@ -6,19 +6,16 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: filiprybinski/myapp:latest
+  IMAGE_NAME: "$(echo "${{github.actor}}" | tr '[:upper:]' '[:lower:]')/myapp:latest"
 
 jobs:
   publish:
-    name: publish image
+    name: Build and Publish Image
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Fetch MyApp
         uses: actions/checkout@v3
-      - name: LIST
-        run: |
-          ls
 
       - name: Login
         run: |
