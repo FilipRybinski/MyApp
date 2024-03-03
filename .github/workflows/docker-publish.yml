@@ -21,7 +21,8 @@ jobs:
       - name: Print current directory
         run: |
           pwd
-          ls -l
+          cd ..
+          ls
       - name: Build and Publish Backend
         run: |
           docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
