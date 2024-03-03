@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: $(echo "${{github.actor}}" | tr '[:upper:]' '[:lower:]')/myapp:latest
+  IMAGE_NAME: filiprybinski/myapp:latest
 
 jobs:
   publish:
