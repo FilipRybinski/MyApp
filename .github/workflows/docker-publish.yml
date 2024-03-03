@@ -21,7 +21,6 @@ jobs:
       - name: Print current directory
         run: |
           pwd
-          cd ..
           ls
       - name: Build and Publish Backend
         run: |
