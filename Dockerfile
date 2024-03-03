@@ -1,10 +1,11 @@
 #build stage
 FROM node:lts-alpine as build
 WORKDIR /app
-COPY package*.json ./
+COPY ./src/ClientApp/MyApp ./
 RUN npm install
-COPY . .
-RUN npm run build
+RUN npm install -g @angular/cli@latest
+RUN ng build 
+
 
 # production stage
 FROM nginx:stable-alpine as production
