@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: $(echo "${{github.actor}}" | tr '[:upper:]' '[:lower:]')/myapp:latest
+  IMAGE_NAME: ${{github.actor}}/myapp:latest
 
 jobs:
   publish:
@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Login
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
