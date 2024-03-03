@@ -13,15 +13,16 @@ jobs:
     name: publish image
     runs-on: ubuntu-latest
 
-    
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: LIST
+        uses: ls
+
       - name: Login
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
-      - name: Print current directory
-        run: |
-          pwd
-          ls
+
       - name: Build and Publish Backend
         run: |
           docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
