@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{github.actor}}/myapp:latest
+  IMAGE_NAME: $(echo "${{github.actor}}" | tr '[:upper:]' '[:lower:]')/myapp:latest
 
 jobs:
   publish:
@@ -20,5 +20,5 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME,,}}
-          docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME,,}}
+          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
