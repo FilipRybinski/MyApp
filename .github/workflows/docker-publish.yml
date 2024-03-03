@@ -20,5 +20,5 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
-          docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME,,}}
+          docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME,,}}
