@@ -7,7 +7,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: $(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')/myapp:latest
-  DOCKER_PATH: docker
 
 jobs:
   publish:
@@ -24,7 +23,7 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}/${{env.DOCKER_PATH}}
+          docker build . --tag ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
           docker push ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
   deploy:
     needs: publish
