@@ -1,0 +1,12 @@
+##
+/MyApp.Api/obj
+/MyApp.Api/bin
+##
+/src/MyApp.Api/bin
+/src/MyApp.Api/obj
+##
+/MyApp.Tests.Unit/bin
+/MyApp.Tests.Unit/obj
+
+##
+/.idea
