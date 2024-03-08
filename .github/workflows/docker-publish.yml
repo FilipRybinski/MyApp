@@ -20,8 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: String manipulation
-        uses: ASzc/change-string-case-action@v1
+      - name: lowercase github.repository
+        run: |
+          echo "USER_NAME=`echo ${{github.repository}} | tr '[:upper:]' '[:lower:]'`" >>${GITHUB_ENV}
 
       - name: Login
         run: |
@@ -29,13 +30,13 @@ jobs:
 
       - name: Build and Publish Frontend
         run: |
-          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.FRONTEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase }}/${{env.FRONTEND_IMAGE}}
+          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{USER_NAME}}/${{env.FRONTEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{USER_NAME}}/${{env.FRONTEND_IMAGE}}
 
       - name: Build and Publish Backend
         run: |
-          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.BACKEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{USER_NAME}}/${{env.BACKEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{USER_NAME}}/${{env.BACKEND_IMAGE}}
 
 
   deploy:
