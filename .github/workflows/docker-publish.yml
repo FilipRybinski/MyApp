@@ -30,12 +30,12 @@ jobs:
 
       - name: Build and Publish Frontend
         run: |
-          docker build -f ${{FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${USER_NAME}/${{env.FRONTEND_IMAGE}}
+          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${USER_NAME}/${{env.FRONTEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${USER_NAME}/${{env.FRONTEND_IMAGE}}
 
       - name: Build and Publish Backend
         run: |
-          docker build -f ${{BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${USER_NAME}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${USER_NAME}/${{env.BACKEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${USER_NAME}/${{env.BACKEND_IMAGE}}
 
 
