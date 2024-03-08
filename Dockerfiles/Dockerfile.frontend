@@ -3,7 +3,9 @@ WORKDIR /app
 COPY ./src/ClientApp/MyApp ./
 RUN npm install
 RUN npm install -g @angular/cli@latest
-RUN apt-get update && apt-get install -y google-chrome-stable
+RUN apk update \
+    && apk add --no-cache chromium
+ENV CHROME_BIN=/usr/bin/chromium-browser  
 RUN ng test --watch=false --browsers=ChromeHeadless
 RUN ng build 
 
