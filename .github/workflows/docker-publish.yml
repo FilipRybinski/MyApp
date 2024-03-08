@@ -29,13 +29,13 @@ jobs:
 
       - name: Build and Publish Frontend
         run: |
-          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.FRONTEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.FRONTEND_IMAGE}}
+          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.FRONTEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase }}/${{env.FRONTEND_IMAGE}}
 
       - name: Build and Publish Backend
         run: |
-          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.BACKEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.BACKEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{ github.actor.outputs.lowercase  }}/${{env.BACKEND_IMAGE}}
 
 
   deploy:
