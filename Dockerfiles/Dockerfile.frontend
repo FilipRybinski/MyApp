@@ -3,6 +3,7 @@ WORKDIR /app
 COPY ./src/ClientApp/MyApp ./
 RUN npm install
 RUN npm install -g @angular/cli@latest
+RUN ng test --watch=false --browsers=ChromeHeadless
 RUN ng build 
 
 FROM nginx:stable-alpine as production
