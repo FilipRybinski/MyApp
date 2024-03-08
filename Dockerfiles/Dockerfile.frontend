@@ -1,11 +1,13 @@
 FROM node:lts-alpine as build
+RUN apk add chromium
 WORKDIR /app
+
+ENV CHROME_BIN=/usr/bin/chromium-browser
+
 COPY ./src/ClientApp/MyApp ./
+
 RUN npm install
 RUN npm install -g @angular/cli@latest
-RUN apk update \
-    && apk add --no-cache chromium
-ENV CHROME_BIN=/usr/bin/chromium-browser  
 RUN ng test --watch=false --browsers=ChromeHeadless
 RUN ng build 
 
