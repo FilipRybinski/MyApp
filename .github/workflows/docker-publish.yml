@@ -22,7 +22,7 @@ jobs:
 
       - name: Convert to lowercase
         run: |
-          echo "::set-env name=USER_NAME::$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower
+            echo "::set-env name=USER_NAME::$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')"
 
       - name: Login
         run: |
