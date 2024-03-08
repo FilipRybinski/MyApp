@@ -12,30 +12,16 @@ env:
   BACKEND_IMAGE: myapp-backend:latest
 
 jobs:
-  convert-actor-username:
-    name: Convert actor username
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Convert actor username to lowercase
-        id: USER_NAME
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.actor }}
-          format: lowercase
-
   build-and-publish-images:
     name: Build & Publish Images
     runs-on: ubuntu-latest
 
-    needs: convert-actor-username
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: String manipulation
+        uses: Entepotenz/change-string-case-action@v1
 
       - name: Login
         run: |
@@ -43,13 +29,13 @@ jobs:
 
       - name: Build and Publish Frontend
         run: |
-          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{needs.convert-actor-username.outputs.USER_NAME}}/${{env.FRONTEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{needs.convert-actor-username.outputs.USER_NAME}}/${{env.FRONTEND_IMAGE}}
+          docker build -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.FRONTEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.FRONTEND_IMAGE}}
 
       - name: Build and Publish Backend
         run: |
-          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{needs.convert-actor-username.outputs.USER_NAME}}/${{env.BACKEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{needs.convert-actor-username.outputs.USER_NAME}}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.BACKEND_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{ github.actor.lowercase }}/${{env.BACKEND_IMAGE}}
 
 
   deploy:
