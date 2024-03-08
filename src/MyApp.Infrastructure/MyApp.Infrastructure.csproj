@@ -6,11 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="DAL\Configurations\" />
-      <Folder Include="DAL\Migrations\" />
-      <Folder Include="DAL\Repositories\" />
-      <Folder Include="Exceptions\" />
-    </ItemGroup>
-
 </Project>

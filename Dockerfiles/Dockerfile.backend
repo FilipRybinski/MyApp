@@ -1,0 +1,26 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /app
+
+EXPOSE 80
+EXPOSE 443
+
+COPY MyApp.sln .
+COPY src/MyApp.Api/*.csproj src/MyApp.Api/
+COPY src/MyApp.Application/*.csproj src/MyApp.Application/
+COPY src/MyApp.Core/*.csproj src/MyApp.Core/
+COPY src/MyApp.Infrastructure/*.csproj src/MyApp.Infrastructure/
+COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
+RUN dotnet restore 
+
+COPY . .
+
+RUN dotnet build -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
