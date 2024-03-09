@@ -8,15 +8,22 @@
   align-items: center;
   font-family: boldedRegular;
   color: white;
+
   .name{
+    position: relative;
     font-size: 8rem;
+
+    &:after{
+      position: relative;
+      content: '';
+    }
   }
+
   .time{
     right: 1rem;
     top: 0;
     font-size: $font-big;
     position: absolute;
     text-align: center;
-
   }
 }
