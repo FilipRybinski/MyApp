@@ -12,24 +12,22 @@ RUN npm install -g @angular/cli@latest
 RUN ng test --watch=false
 RUN ng build 
 
-# Stage 2: Install OpenSSL
-FROM alpine:latest as openssl
-RUN apk add --no-cache openssl
+# FROM alpine:latest as openssl
+# RUN apk add --no-cache openssl
 
-# Stage 3: Generate SSL Certificates
-FROM openssl as certgen
-WORKDIR /etc/ssl/private
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx.key -out nginx.crt -subj "/C=PL/ST=POLAND/L=POLAND/O=myappzone/OU=IT Department/CN=myappzone.pl"
+# FROM openssl as certgen
+# WORKDIR /etc/ssl/private
+# RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx.key -out nginx.crt -subj "/C=PL/ST=POLAND/L=POLAND/O=myappzone/OU=IT Department/CN=myappzone.pl"
 
-# Stage 4: Final Image with NGINX and SSL
 FROM nginx:stable-alpine as production
 
-# Copy built Angular app
 COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
 
-# Copy SSL certificates from OpenSSL stage
-COPY --from=certgen /etc/ssl/private/nginx.crt /etc/ssl/certs/nginx.crt
-COPY --from=certgen /etc/ssl/private/nginx.key /etc/ssl/private/nginx.key
+COPY ./config/certificate.crt /etc/ssl/certs/nginx.crt
+COPY ./config/private.key /etc/ssl/private/nginx.key
+
+# COPY --from=certgen /etc/ssl/private/nginx.crt /etc/ssl/certs/nginx.crt
+# COPY --from=certgen /etc/ssl/private/nginx.key /etc/ssl/private/nginx.key
 
 # Add SSL configuration to NGINX
 COPY config/nginx.conf /etc/nginx/nginx.conf
