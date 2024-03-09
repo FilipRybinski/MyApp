@@ -30,7 +30,7 @@ jobs:
 
       - name: Build and Publish Frontend
         run: |
-          docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE)}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
+          docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
 
       - name: Build and Publish Backend
