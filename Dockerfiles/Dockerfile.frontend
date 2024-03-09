@@ -1,3 +1,4 @@
+# Stage 1: Build Angular App
 FROM node:lts-alpine as build
 RUN apk add chromium
 WORKDIR /app
@@ -11,8 +12,27 @@ RUN npm install -g @angular/cli@latest
 RUN ng test --watch=false
 RUN ng build 
 
+# Stage 2: Install Certbot using Alpine package manager
+FROM alpine:latest as certbot
+RUN apk add --no-cache certbot
+
+# Stage 3: Generate SSL Certificates
+FROM certbot as certgen
+RUN mkdir -p /var/www/certbot
+RUN certbot certonly --webroot -w /var/www/certbot --email rybciaw77@gmail.com --agree-tos -d myappzone.pl
+
+# Stage 4: Final Image with NGINX and SSL
 FROM nginx:stable-alpine as production
+
+# Copy built Angular app
 COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
+
+# Copy SSL certificates from Certbot stage
+COPY --from=certgen /etc/letsencrypt/live/myappzone.pl/fullchain.pem /etc/ssl/certs/nginx.crt
+COPY --from=certgen /etc/letsencrypt/live/myappzone.pl/privkey.pem /etc/ssl/private/nginx.key
+
+# Add SSL configuration to NGINX
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
