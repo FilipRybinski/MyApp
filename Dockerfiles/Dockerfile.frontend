@@ -12,26 +12,13 @@ RUN npm install -g @angular/cli@latest
 RUN ng test --watch=false
 RUN ng build 
 
-# FROM alpine:latest as openssl
-# RUN apk add --no-cache openssl
-
-# FROM openssl as certgen
-# WORKDIR /etc/ssl/private
-# RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx.key -out nginx.crt -subj "/C=PL/ST=POLAND/L=POLAND/O=myappzone/OU=IT Department/CN=myappzone.pl"
-
 FROM nginx:stable-alpine as production
-RUN apk add --no-cache unrar
-COPY ./config/myappzone.pl.rar /tmp/certificate.rar
-RUN unrar x -p myappzone /tmp/certificate.rar -o+ /tmp
 
 COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
 
-COPY --from=production /tmp/certificate.crt /etc/ssl/certs/nginx.crt
-COPY --from=production /tmp/private.key /etc/ssl/private/nginx.key
-# COPY --from=certgen /etc/ssl/private/nginx.crt /etc/ssl/certs/nginx.crt
-# COPY --from=certgen /etc/ssl/private/nginx.key /etc/ssl/private/nginx.key
+COPY ./config/certificate.crt /etc/ssl/certs/nginx.crt
+COPY ./config/private.key /etc/ssl/private/nginx.key
 
-# Add SSL configuration to NGINX
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
