@@ -32,7 +32,7 @@ COPY --from=certgen /etc/letsencrypt/live/myappzone.pl/fullchain.pem /etc/ssl/ce
 COPY --from=certgen /etc/letsencrypt/live/myappzone.pl/privkey.pem /etc/ssl/private/nginx.key
 
 # Add SSL configuration to NGINX
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY config/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
