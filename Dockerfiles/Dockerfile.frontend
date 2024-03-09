@@ -16,8 +16,11 @@ FROM nginx:stable-alpine as production
 
 COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
 
-COPY ./config/certificate.crt /etc/ssl/certs/nginx.crt
-COPY ./config/private.key /etc/ssl/private/nginx.key
+ARG CERTIFICATE_CONTENT
+ARG PRIVATE_KEY_CONTENT
+
+RUN echo "$CERTIFICATE_CONTENT" > /etc/ssl/certs/nginx.crt
+RUN echo "$PRIVATE_KEY_CONTENT" > /etc/ssl/private/nginx.key
 
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
