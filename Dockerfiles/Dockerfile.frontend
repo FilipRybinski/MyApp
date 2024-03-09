@@ -13,7 +13,6 @@ RUN ng build
 
 FROM nginx:stable-alpine as production
 COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
-COPY config/nginx.conf /usr/share/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
