@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnDestroy {
-  title = 'MyApp';
+  title = 'MyAppZone';
   currentTime!: Date;
   private timerSubscription: Subscription;
   constructor() {
