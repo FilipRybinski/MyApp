@@ -1,0 +1,22 @@
+@import "../variables.scss";
+.sample{
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to left top, #4776E6, #8E54E9) no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: boldedRegular;
+  color: white;
+  .name{
+    font-size: 8rem;
+  }
+  .time{
+    right: 1rem;
+    top: 0;
+    font-size: $font-big;
+    position: absolute;
+    text-align: center;
+
+  }
+}
