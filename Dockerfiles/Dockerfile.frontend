@@ -19,7 +19,7 @@ RUN apk add --no-cache certbot
 # Stage 3: Generate SSL Certificates
 FROM certbot as certgen
 RUN mkdir -p /var/www/certbot
-RUN certbot certonly --webroot -w /var/www/certbot --email rybciaw77@gmail.com --agree-tos -d myappzone.pl --non-interactive
+RUN certbot certonly --standalone --email rybciaw77@gmail.com --agree-tos -d myappzone.pl --non-interactive
 
 # Stage 4: Final Image with NGINX and SSL
 FROM nginx:stable-alpine as production
