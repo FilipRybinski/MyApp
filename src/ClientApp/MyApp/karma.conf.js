@@ -27,7 +27,12 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadless: {
         base: 'Chrome',
-        flags: ['--no-sandbox', '--disable-gpu', '--headless', '--remote-debugging-port=9222'],
+        flags: [
+          '--no-sandbox',
+          '--disable-gpu',
+          '--headless',
+          '--remote-debugging-port=9222',
+        ],
       },
     },
     coverageReporter: {
