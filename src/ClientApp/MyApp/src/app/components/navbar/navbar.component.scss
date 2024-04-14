@@ -1,0 +1,33 @@
+@import '../../../styles/variables';
+
+.navbar-container {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: $background-color-black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+
+  &-dropdown {
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+      color: $background-color-green;
+    }
+  }
+
+  &-logo {
+    width: 1rem;
+    height: 1rem;
+    background: url("../../../assets/logo/logo.png") no-repeat center;
+    background-size: contain;
+
+  }
+
+  &-actions {
+    
+    .mat-mdc-raised-button {
+      background-color: $background-color-green;
+    }
+  }
+}

@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<div class="navbar-container">
+  <div class="navbar-container-dropdown">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu>
+      <button mat-menu-item>Finances</button>
+      <button mat-menu-item>Management</button>
+    </mat-menu>
+  </div>
+  <div class="navbar-container-logo"></div>
+  <div class="navbar-container-actions">
+    <button mat-raised-button>Login</button>
+  </div>
+</div>
