@@ -14,7 +14,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "translate:all": "ng extract-i18n --output-path src/locale",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "check:before:commit": "npm run build && npm run test"
   },
   "private": true,
   "dependencies": {
