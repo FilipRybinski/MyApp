@@ -3,17 +3,12 @@
 .navbar-container {
   box-sizing: border-box;
   width: 100%;
-  background-color: $background-color-black;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
 
   &-dropdown {
-
-    .mat-mdc-icon-button.mat-mdc-button-base {
-      color: $background-color-green;
-    }
   }
 
   &-logo {
@@ -25,9 +20,5 @@
   }
 
   &-actions {
-    
-    .mat-mdc-raised-button {
-      background-color: $background-color-green;
-    }
   }
 }
