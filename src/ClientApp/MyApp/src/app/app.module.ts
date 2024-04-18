@@ -6,7 +6,7 @@ import { MaterialModule } from './modules/material.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginDialogComponent } from './components/dialogs/login-dialog/login-dialog.component';
+import { LoginDialogComponent } from './dialogs/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [

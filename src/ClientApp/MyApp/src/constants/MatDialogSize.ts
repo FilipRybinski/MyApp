@@ -1,5 +1,5 @@
 export const MatDialogSize = {
-  SMALL: '400px',
+  SMALL: '300px',
   MEDIUM: '600px',
   LARGE: '800px',
 };

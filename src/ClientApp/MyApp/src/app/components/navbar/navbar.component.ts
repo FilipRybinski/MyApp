@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginDialogComponent } from '../dialogs/login-dialog/login-dialog.component';
+import { LoginDialogComponent } from '../../dialogs/login-dialog/login-dialog.component';
 import { MatDialogSize } from '../../../constants/MatDialogSize';
 
 @Component({
