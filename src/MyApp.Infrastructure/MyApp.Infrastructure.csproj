@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DAL\Repositories\" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0-preview.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.3.24172.4" />
+      <ProjectReference Include="..\MyApp.Core\MyApp.Core.csproj" />
     </ItemGroup>
 
 </Project>

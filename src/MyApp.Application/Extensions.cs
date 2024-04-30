@@ -1,5 +1,11 @@
-﻿namespace MyApp.Application;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class Extensions
+namespace MyApp.Application;
+
+public static class Extensions
 {
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        return services;
+    }
 }

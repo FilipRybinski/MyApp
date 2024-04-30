@@ -1,5 +1,11 @@
-﻿namespace MyApp.Core;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class Extensions
+namespace MyApp.Core;
+
+public static class Extensions
 {
+    public static IServiceCollection AddCore(this IServiceCollection services)
+    {
+        return services;
+    }
 }
