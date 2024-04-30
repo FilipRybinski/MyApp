@@ -2,20 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './modules/material.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { FooterComponent } from './components/footer/footer.component';
-import { LoginDialogComponent } from './dialogs/login-dialog/login-dialog.component';
+import { SharedModule } from './shared/shared.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    LoginDialogComponent,
-  ],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, HomeModule, SharedModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
