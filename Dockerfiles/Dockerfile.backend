@@ -21,7 +21,7 @@ RUN dotnet build -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
