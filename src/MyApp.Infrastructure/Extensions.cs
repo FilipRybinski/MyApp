@@ -1,13 +1,30 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Infrastructure.Auth;
 using MyApp.Infrastructure.DAL;
+using MyApp.Infrastructure.Exceptions;
+using MyApp.Infrastructure.Security;
 
 namespace MyApp.Infrastructure;
 
 public static class Extensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
     {
-        services.AddPostgres();
+        services.AddPostgres(configuration);
+        services.AddSecurity();
+        services.AddAuth(configuration);
+        services.AddHttpContextAccessor();
+        
         return services;
+    }
+
+    public static WebApplication UseInfrastructure(this WebApplication app)
+    {
+        /*app.UseMiddleware<ExceptionMiddleware>();*/
+        app.MapControllers();
+        
+        return app;
     }
 }

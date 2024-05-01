@@ -1,11 +1,14 @@
 
 using Microsoft.EntityFrameworkCore;
+using MyApp.Core.Entities;
 
 namespace MyApp.Infrastructure.DAL;
 
 internal sealed class MyAppDbContext : DbContext
 {
 
+    public DbSet<User> Users { get; set; }
+    
     public MyAppDbContext(DbContextOptions<MyAppDbContext> dbContextOptions) : base(dbContextOptions)
     {
         
