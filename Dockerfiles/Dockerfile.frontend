@@ -14,7 +14,7 @@ RUN ng build --configuration=production
 
 FROM nginx:stable-alpine as production
 
-# COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
+COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
 
 # ARG CERTIFICATE_CONTENT
 # ARG PRIVATE_KEY_CONTENT
