@@ -36,7 +36,7 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
 
   deploy:
