@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
+EXPOSE 80
+EXPOSE 443
 
 COPY MyApp.sln .
 COPY src/MyApp.Api/*.csproj src/MyApp.Api/
@@ -22,7 +24,5 @@ RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-EXPOSE 80
 
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
