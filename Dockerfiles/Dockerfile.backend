@@ -25,12 +25,20 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# Wygeneruj certyfikat SSL
+RUN dotnet dev-certs https -ep /root/.aspnet/https/aspnetapp.pfx -p twoje_haslo_do_certyfikatu
+
+# Kopiowanie skompilowanych plików aplikacji
+COPY --from=publish /app/publish .
+
+# Kopiowanie certyfikatu HTTPS
 COPY ./certs/aspnetapp.pfx /root/.aspnet/https/aspnetapp.pfx
+
+# Ustawienie zmiennej środowiskowej do zaufania certyfikatu
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password="twoje_haslo_do_certyfikatu"
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path="/root/.aspnet/https/aspnetapp.pfx"
 
-ENV DOTNET_SYSTEM_NET_HTTP_USESCLIENTCERTIFICATE=true
-
+# Ustawienie portu HTTPS
 ENV ASPNETCORE_URLS=https://+:443
 
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
