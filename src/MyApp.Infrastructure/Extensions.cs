@@ -31,11 +31,11 @@ public static class Extensions
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrl)
-            .AllowAnyHeader()
-            .WithMethods(CorsOptions.AllowedMethods)
-            .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
-            .AllowCredentials());
+        // app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrl)
+        //     .AllowAnyHeader()
+        //     .WithMethods(CorsOptions.AllowedMethods)
+        //     .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
+        //     .AllowCredentials());
         
         return app;
     }
