@@ -25,4 +25,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+COPY ./certs/aspnetapp.pfx /root/.aspnet/https/aspnetapp.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="twoje_haslo_do_certyfikatu"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path="/root/.aspnet/https/aspnetapp.pfx"
+
+ENV DOTNET_SYSTEM_NET_HTTP_USESCLIENTCERTIFICATE=true
+
+ENV ASPNETCORE_URLS=https://+:443
+
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
