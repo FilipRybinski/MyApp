@@ -14,15 +14,15 @@ RUN ng build --configuration=production
 
 FROM nginx:stable-alpine as production
 
-COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
+# COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
 
-ARG CERTIFICATE_CONTENT
-ARG PRIVATE_KEY_CONTENT
+# ARG CERTIFICATE_CONTENT
+# ARG PRIVATE_KEY_CONTENT
 
-RUN echo "$CERTIFICATE_CONTENT" > /etc/ssl/certs/nginx.crt
-RUN echo "$PRIVATE_KEY_CONTENT" > /etc/ssl/private/nginx.key
+# RUN echo "$CERTIFICATE_CONTENT" > /etc/ssl/certs/nginx.crt
+# RUN echo "$PRIVATE_KEY_CONTENT" > /etc/ssl/private/nginx.key
 
-COPY config/nginx.conf /etc/nginx/nginx.conf
+# COPY config/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
