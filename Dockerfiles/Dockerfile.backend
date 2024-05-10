@@ -25,4 +25,16 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# Provide SSL certificate and private key content as build arguments
+ARG CERTIFICATE_CONTENT
+ARG PRIVATE_KEY_CONTENT
+
+# Create SSL directory and copy certificate and private key
+RUN mkdir -p /https
+RUN echo "$CERTIFICATE_CONTENT" > /https/certificate.crt
+RUN echo "$PRIVATE_KEY_CONTENT" > /https/private.key
+
+# Expose HTTPS port
+EXPOSE 443
+
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
