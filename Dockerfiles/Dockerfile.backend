@@ -19,7 +19,7 @@ RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
 RUN dotnet build -c Release -o /app/build
 
 # Generate SSL certificate
-RUN dotnet dev-certs https -ep /app/certificates/aspnetapp.pfx -p <password>
+RUN dotnet dev-certs https -ep /app/certificates/aspnetapp.pfx -p MySecurePassword
 
 
 FROM build AS publish
