@@ -12,7 +12,10 @@ internal static class Extensions
     public static IServiceCollection AddPostgres(this IServiceCollection services,IConfiguration configuration)
     {
         var options = configuration.GetOptions<PostgresOptions>(SectionName);
-        services.AddDbContext<MyAppDbContext>(db => db.UseNpgsql(options.ConnectionString));
+        services.AddDbContext<MyAppDbContext>(db => db.UseNpgsql(options.ConnectionString,npgsqlOptionsAction=>
+        {
+            npgsqlOptionsAction.EnableRetryOnFailure();
+        }));
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUserRepository, PostgresUserRepository>();
         return services;
