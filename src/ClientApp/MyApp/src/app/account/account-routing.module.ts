@@ -5,7 +5,7 @@ import * as Pages from './pages';
 const routes: Routes = [{ path: '', component: Pages.AccountComponent }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class AccountRoutingModule {}

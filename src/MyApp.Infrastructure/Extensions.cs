@@ -10,8 +10,13 @@ namespace MyApp.Infrastructure;
 
 public static class Extensions
 {
+    private const string SectionName = "url";
+    private static CorsOptions CorsOptions;
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
     {
+        services.Configure<CorsOptions>(configuration.GetRequiredSection(SectionName));
+        CorsOptions=configuration.GetOptions<CorsOptions>(SectionName);
+        
         services.AddPostgres(configuration);
         services.AddSecurity();
         services.AddAuth(configuration);
@@ -23,7 +28,14 @@ public static class Extensions
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         /*app.UseMiddleware<ExceptionMiddleware>();*/
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.MapControllers();
+        app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrl)
+            .AllowAnyHeader()
+            .WithMethods(CorsOptions.AllowedMethods)
+            .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
+            .AllowCredentials());
         
         return app;
     }

@@ -15,9 +15,7 @@ public class SignInHandler : ICommandHandler<SignIn>
     }
     public async Task HandleAsync(SignIn command)
     {
-        
         var jwt = _authenticator.CreateToken(Guid.NewGuid(), command.password);
         _tokenStorage.Set(jwt);
-        
     }
 }

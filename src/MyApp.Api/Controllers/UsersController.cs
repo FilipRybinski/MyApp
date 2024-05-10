@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands;
@@ -25,11 +26,11 @@ public class UsersController : ControllerBase
         await _signUpHandler.HandleAsync(command);
         return NoContent();
     }
-    
+    [Authorize]
     [HttpPost("SignIn")]
     public async Task<ActionResult> Post(SignIn command)
     {
         await _signInHandler.HandleAsync(command);
-        return NoContent();
+        return Ok();
     }
 }
