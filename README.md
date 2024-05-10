@@ -3,7 +3,7 @@
 ## About MyApp 🥇
 
 ## Features 🥈
-1. lorem ipsum
+1. lorem ipsu
    - *lorem* **ipsum**
    - lorem ipsum
 1. lorem ipsum
