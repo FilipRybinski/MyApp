@@ -1,4 +1,4 @@
-const DEFAULT_URL = 'www.myappzone.pl:8088';
+const DEFAULT_URL = 'http://www.myappzone.pl:8088';
 export const environment = {
   production: true,
   URL: {
