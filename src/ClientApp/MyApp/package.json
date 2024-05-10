@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --configuration=development",
     "start:fr": "ng serve --configuration=fr",
     "start:de": "ng serve --configuration=de",
     "start:es": "ng serve --configuration=es",

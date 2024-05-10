@@ -10,7 +10,7 @@ COPY ./src/ClientApp/MyApp ./
 RUN npm install
 RUN npm install -g @angular/cli@latest
 RUN ng test --watch=false
-RUN ng build 
+RUN ng build --configuration=production
 
 FROM nginx:stable-alpine as production
 

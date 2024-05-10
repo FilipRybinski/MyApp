@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { URL } from '../../../constants/urls/url';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class AccountService {
 
   public test(): Observable<boolean> {
     return this._http.post<boolean>(
-      URL.SIGN_IN,
+      environment.URL.SIGN_IN,
       {
         username: 'string',
         password: 'string',
