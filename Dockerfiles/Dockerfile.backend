@@ -18,6 +18,10 @@ RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
 
 RUN dotnet build -c Release -o /app/build
 
+# Generate SSL certificate
+RUN dotnet dev-certs https -ep /app/certificates/aspnetapp.pfx -p <password>
+
+
 FROM build AS publish
 RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
 
@@ -25,20 +29,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Wygeneruj certyfikat SSL
-RUN dotnet dev-certs https -ep /root/.aspnet/https/aspnetapp.pfx -p twoje_haslo_do_certyfikatu
+# Copy the SSL certificate to the final image
+COPY --from=build /app/certificates/aspnetapp.pfx /app/certificates/
 
-# Kopiowanie skompilowanych plików aplikacji
-COPY --from=publish /app/publish .
-
-# Kopiowanie certyfikatu HTTPS
-COPY ./certs/aspnetapp.pfx /root/.aspnet/https/aspnetapp.pfx
-
-# Ustawienie zmiennej środowiskowej do zaufania certyfikatu
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password="twoje_haslo_do_certyfikatu"
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path="/root/.aspnet/https/aspnetapp.pfx"
-
-# Ustawienie portu HTTPS
+# Set environment variable to configure HTTPS
 ENV ASPNETCORE_URLS=https://+:443
 
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
