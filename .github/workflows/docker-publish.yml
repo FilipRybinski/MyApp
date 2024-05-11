@@ -51,10 +51,10 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
 
       - name: Create certificate file
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "echo '${{ secrets.CERTIFICATE }}' > ${{secrets.WORK_DIR}}/${{env.CERTIFICATE_FILENAME}}.crt"
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "echo '${{ secrets.CERTIFICATE }}' > ${{secrets.CERTIFICATE_DIRECTORY}}/${{env.CERTIFICATE_FILENAME}}.crt"
 
       - name: Create certificate private key file
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > ${{secrets.WORK_DIR}}/${{env.CERTIFICATE_FILENAME}}.key"
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > ${{secrets.CERTIFICATE_DIRECTORY}}/${{env.CERTIFICATE_FILENAME}}.key"
 
       - name: cleanup
         run: rm -rf ~/.ssh
