@@ -62,6 +62,12 @@ jobs:
       - name: Create certificate private key file
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
 
+      - name: Wait for certificate files to be created
+        run: |
+          while [ ! -f "${{secrets.CERTIFICATE_DIRECTORY}}/cert.crt" ] || [ ! -f "${{secrets.CERTIFICATE_DIRECTORY}}/cert.key" ]; do
+            sleep 1
+          done
+
       - name: Create certificate pfx file
         run: |
           ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.CERTIFICATE_DIRECTORY}} && openssl pkcs12 -export -out ${{env.CERTIFICATE_FILENAME}}.pfx -inkey ${{env.CERTIFICATE_FILENAME}}.key -in ${{env.CERTIFICATE_FILENAME}}.crt -passout pass:${{secrets.CERTIFICATE_PASSWORD}}"
