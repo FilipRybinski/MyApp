@@ -61,8 +61,9 @@ jobs:
       - name: Create Cert private key file
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
 
-      - name: Create Cert private key file
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && certutil -mergepfx cert.crt cert.pfx"
+      - name: Create Cert pfx file
+        run: |
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt -passout pass:password"
 
       - name: connect and pull
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && docker compose pull && docker compose up -d && exit"
