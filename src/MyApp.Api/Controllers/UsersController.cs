@@ -26,7 +26,6 @@ public class UsersController : ControllerBase
         await _signUpHandler.HandleAsync(command);
         return NoContent();
     }
-    [Authorize]
     [HttpPost("SignIn")]
     public async Task<ActionResult> Post(SignIn command)
     {
