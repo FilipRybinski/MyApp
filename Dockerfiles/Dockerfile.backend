@@ -29,17 +29,12 @@ WORKDIR /app
 # Copy the published application
 COPY --from=publish /app/publish .
 
-
-ARG CERTIFICATE_CONTENT
-ARG PRIVATE_KEY_CONTENT
-
-RUN echo "$CERTIFICATE_CONTENT" > cert.pem
-RUN echo "$PRIVATE_KEY_CONTENT" > key.pem
-
+# Generate SSL certificate and private key
+RUN dotnet dev-certs https -ep /app/cert.pfx -password
 
 # Expose ports
 EXPOSE 80
 EXPOSE 443
 
 # Set the entry point to use HTTPS
-ENTRYPOINT ["dotnet", "MyApp.Api.dll", "--urls", "https://+:443", "--certificate", "cert.pem", "--certificate-key", "key.pem"]
+ENTRYPOINT ["dotnet", "MyApp.Api.dll", "--urls", "https://+:443", "--cert", "/app/cert.pfx", "--cert-password", "password"]
