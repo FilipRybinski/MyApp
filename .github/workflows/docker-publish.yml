@@ -11,6 +11,7 @@ env:
   BACKEND_PATH: Dockerfiles/Dockerfile.backend
   FRONTEND_IMAGE: myapp-frontend:latest
   BACKEND_IMAGE: myapp-backend:latest
+  CERTIFICATE_FILENAME: cert
 
 jobs:
   build-and-publish-images:
@@ -55,15 +56,15 @@ jobs:
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
 
-      - name: Create Cert file
+      - name: Create certificate file
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{ secrets.CERTIFICATE }}' > cert.crt"
 
-      - name: Create Cert private key file
+      - name: Create certificate private key file
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
 
-      - name: Create Cert pfx file
+      - name: Create certificate pfx file
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt -passout pass:password"
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.CERTIFICATE_DIRECTORY}} && openssl pkcs12 -export -out ${{env.CERTIFICATE_FILENAME}}.pfx -inkey ${{env.CERTIFICATE_FILENAME}}.key -in ${{env.CERTIFICATE_FILENAME}}.crt -passout pass:${{secrets.CERTIFICATE_PASSWORD}}"
 
       - name: connect and pull
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && docker compose pull && docker compose up -d && exit"
