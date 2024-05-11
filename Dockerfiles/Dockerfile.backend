@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-# Copy project files and restore dependencies
 COPY MyApp.sln .
 COPY src/MyApp.Api/*.csproj src/MyApp.Api/
 COPY src/MyApp.Application/*.csproj src/MyApp.Application/
@@ -10,31 +9,20 @@ COPY src/MyApp.Infrastructure/*.csproj src/MyApp.Infrastructure/
 COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
 RUN dotnet restore 
 
-# Copy the rest of the application source code
 COPY . .
 
-# Run unit tests
 RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
 
-# Build the application
 RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-# Publish the application
 RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
-
-# Copy the published application
 COPY --from=publish /app/publish .
 
-# Generate SSL certificate and private key
-RUN dotnet dev-certs https -ep /app/cert.pfx -password
-
-# Expose ports
 EXPOSE 80
 EXPOSE 443
 
-# Set the entry point to use HTTPS
-ENTRYPOINT ["dotnet", "MyApp.Api.dll", "--urls", "https://+:443", "--cert", "/app/cert.pfx", "--cert-password", "password"]
+ENTRYPOINT ["dotnet", "MyApp.Api.dll"]

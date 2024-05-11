@@ -51,6 +51,9 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
 
+      - name: Copy SSL certificate to VPS
+        run: scp -i ~/.ssh/id_rsa ssl/cert.pfx ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:${{secrets.WORK_DIR}}
+
       - name: Login
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
