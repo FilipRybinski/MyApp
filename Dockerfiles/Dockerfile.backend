@@ -1,9 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-EXPOSE 80
-EXPOSE 443
-
 COPY MyApp.sln .
 COPY src/MyApp.Api/*.csproj src/MyApp.Api/
 COPY src/MyApp.Application/*.csproj src/MyApp.Application/
@@ -25,5 +22,17 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+EXPOSE 80
+EXPOSE 443
+
+# Install the .NET Core SDK for certificate generation
+RUN dotnet tool install --global dotnet-dev-certs --version 6.0.100-preview.5.21302.13
+
+# Generate a self-signed certificate
+RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p YourPassword
+
+# Set up SSL certificates
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="YourPassword"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
 
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
