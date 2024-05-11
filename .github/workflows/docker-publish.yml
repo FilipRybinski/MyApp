@@ -55,11 +55,14 @@ jobs:
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
 
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Create Cert file
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{ secrets.CERTIFICATE }}' > cert.crt"
 
-      - name: Copy files to VPS
-        run: scp -i ~/.ssh/id_rsa -r ssl/cert.pfx ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:${{secrets.WORK_DIR}}
+      - name: Create Cert private key file
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
+
+      - name: Create Cert private key file
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && certutil -mergepfx cert.crt cert.pfx"
 
       - name: connect and pull
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && docker compose pull && docker compose up -d && exit"
