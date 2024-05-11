@@ -25,8 +25,8 @@ COPY --from=publish /app/publish .
 EXPOSE 80
 EXPOSE 443
 
-# Install the .NET Core SDK for certificate generation
-RUN dotnet tool install --global dotnet-dev-certs --version 6.0.100-preview.5.21302.13
+# Download the dotnet-dev-certs tool from NuGet
+RUN dotnet tool install --global dotnet-dev-certs --version 6.0.100-preview.5.21302.13 --add-source https://dotnet.myget.org/F/dotnet-core/api/v3/index.json
 
 # Generate a self-signed certificate
 RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p password
