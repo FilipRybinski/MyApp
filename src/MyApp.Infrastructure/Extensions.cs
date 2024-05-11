@@ -34,7 +34,7 @@ public static class Extensions
         app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrl)
             .AllowAnyHeader()
             .WithMethods(CorsOptions.AllowedMethods)
-            .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
+            .SetIsOriginAllowed(origin => true)
             .AllowCredentials());
         
         return app;
