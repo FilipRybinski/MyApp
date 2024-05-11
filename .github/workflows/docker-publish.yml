@@ -40,8 +40,29 @@ jobs:
           docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
 
+  create-certificate:
+    name: create certificate
+    runs-on: ubuntu-latest
+    steps:
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
+
+      - name: Create certificate file
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{ secrets.CERTIFICATE }}' > cert.crt"
+
+      - name: Create certificate private key file
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
+
   deploy:
-    needs: build-and-publish-images
+    needs:
+      - build-and-publish-images
+      - create-certificate
     name: deploy
     runs-on: ubuntu-latest
 
@@ -55,18 +76,6 @@ jobs:
       - name: Login
         run: |
           echo ${{secrets.PAT}} | docker login ghcr.io -u ${{github.actor}} --password-stdin
-
-      - name: Create certificate file
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{ secrets.CERTIFICATE }}' > cert.crt"
-
-      - name: Create certificate private key file
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "cd ${{secrets.WORK_DIR}} && echo '${{secrets.CERTIFICATE_PRIVATE_KEY}}' > cert.key"
-
-      - name: Wait for certificate files to be created
-        run: |
-          while [ ! -f "${{secrets.CERTIFICATE_DIRECTORY}}/cert.crt" ] || [ ! -f "${{secrets.CERTIFICATE_DIRECTORY}}/cert.key" ]; do
-            sleep 1
-          done
 
       - name: Create certificate pfx file
         run: |
