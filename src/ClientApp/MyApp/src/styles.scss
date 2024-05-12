@@ -1,6 +1,7 @@
 //Import variables
 @import 'styles/variables.scss';
 @import 'styles/custom-theme-material.scss';
+@import 'styles/fonts.scss';
 
 html, body {
   height: 100%;
@@ -8,4 +9,5 @@ html, body {
 
 body {
   margin: 0;
+  font-size: $font-size-normal;
 }
