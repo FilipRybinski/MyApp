@@ -1,31 +1,27 @@
 @import "../../../../styles/variables";
 
-.footer {
-  width: 100%;
+.logo-section {
+  padding-bottom: 40px;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  gap: 10px;
+  color: $grey;
 
-  .logo-section {
+  .logo {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    align-items: flex-end;
 
-    .logo {
-      display: flex;
-      align-items: flex-end;
-
-      .icon {
-        width: 5rem;
-        height: 5rem;
-        background: url("../../../../assets/logo/logo.svg") no-repeat center;
-        background-size: contain;
-      }
-    }
-
-    .info {
-      color: $grey;
+    .icon {
+      width: 5rem;
+      height: 5rem;
+      background: url("../../../../assets/logo/logo.svg") no-repeat center;
+      background-size: contain;
     }
   }
+}
+
+.section {
+  padding-bottom: 24px;
 
   .title {
     text-transform: uppercase;
@@ -38,7 +34,7 @@
     text-transform: capitalize;
 
     > * {
-      margin-bottom: 0.5rem;
+      padding: 5px 0;
 
       > * {
         text-decoration: none;
@@ -47,4 +43,6 @@
     }
   }
 }
+
+
 

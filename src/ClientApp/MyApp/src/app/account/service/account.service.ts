@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 export class AccountService {
   constructor(private _http: HttpClient) {}
 
-  public test(): Observable<boolean> {
+  public SignIn(): Observable<boolean> {
     return this._http.post<boolean>(
       environment.URL.SIGN_IN,
       {

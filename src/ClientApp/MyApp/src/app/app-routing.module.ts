@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PATH } from '../constants/routing/path';
-import * as Pages from './home/pages';
+import * as Pages from './shared/pages';
 
 const routes: Routes = [
   {

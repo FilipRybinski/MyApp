@@ -1,0 +1,11 @@
+@import "../../../../styles/variables";
+
+.welcome-section {
+  height: 500px;
+  background: $light-grey;
+  background: -webkit-linear-gradient(to right, $darker-white, $light-grey);
+  background: linear-gradient(to right, $darker-white, $light-grey);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
