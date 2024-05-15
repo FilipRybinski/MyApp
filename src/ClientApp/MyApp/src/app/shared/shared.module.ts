@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import * as Components from './components';
 import * as Pages from './pages';
 import { MaterialModule } from '../materialUI/material.module';
+import { RouterLink } from '@angular/router';
+import { PageNotFoundComponent } from './pages';
 
 const declarationsAndExports = [
   Components.NavbarComponent,
@@ -10,8 +12,8 @@ const declarationsAndExports = [
 ];
 
 @NgModule({
-  declarations: [...declarationsAndExports],
-  imports: [MaterialModule],
+  declarations: [...declarationsAndExports, PageNotFoundComponent],
+  imports: [MaterialModule, RouterLink],
   exports: [...declarationsAndExports],
 })
 export class SharedModule {}

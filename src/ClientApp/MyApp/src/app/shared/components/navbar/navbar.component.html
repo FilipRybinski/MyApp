@@ -1,15 +1,19 @@
 <div class="navbar-container">
+  <div class="logo-section">
+    <div class="logo"></div>
+    <span class="text">MyAppZone</span>
+  </div>
   <div class="navbar-container-dropdown">
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu>
-      <button mat-menu-item>Finances</button>
-      <button mat-menu-item>Management</button>
+      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
+        Sign up
+      </button>
+      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
+        Sign in
+      </button>
     </mat-menu>
-  </div>
-  <div class="navbar-container-logo"></div>
-  <div class="navbar-container-actions">
-    <button mat-flat-button color="primary">Login</button>
   </div>
 </div>

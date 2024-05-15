@@ -4,7 +4,11 @@ import * as Pages from './pages';
 import { AccountComponent } from './pages';
 
 @NgModule({
-  declarations: [Pages.AccountComponent],
+  declarations: [
+    Pages.AccountComponent,
+    Pages.SignupComponent,
+    Pages.SigninComponent,
+  ],
   imports: [AccountRoutingModule],
   exports: [AccountComponent],
 })

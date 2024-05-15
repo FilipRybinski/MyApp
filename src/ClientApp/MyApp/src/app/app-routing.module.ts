@@ -33,6 +33,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./management/management.module').then(m => m.ManagementModule),
   },
+  // {
+  //   path: PATH.PAGE_NOT_FOUND,
+  //   component: Pages.PageNotFoundComponent,
+  // },
 ];
 
 @NgModule({

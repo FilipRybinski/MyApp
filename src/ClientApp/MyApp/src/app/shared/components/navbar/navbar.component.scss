@@ -8,17 +8,19 @@
   align-items: center;
   padding: 0.5rem 2rem;
 
-  &-dropdown {
-  }
+  .logo-section {
+    display: flex;
+    align-items: center;
 
-  &-logo {
-    width: 2rem;
-    height: 2rem;
-    background: url("../../../../assets/logo/logo.svg") no-repeat center;
-    background-size: contain;
+    .logo {
+      width: 2rem;
+      height: 2rem;
+      background: url("../../../../assets/logo/logo.svg") no-repeat center;
+      background-size: contain;
+    }
 
-  }
-
-  &-actions {
+    .text {
+      font-weight: $font-semi-bold;
+    }
   }
 }
