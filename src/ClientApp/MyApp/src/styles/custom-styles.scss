@@ -1,12 +1,11 @@
-.mdc-button {
+.custom-button {
   border-radius: 9px !important;
   text-transform: capitalize !important;
   padding: 0 28px !important;
 }
 
-.mat-primary {
-  background: black !important;
+mat-label {
+  text-transform: capitalize;
 }
-
 
 

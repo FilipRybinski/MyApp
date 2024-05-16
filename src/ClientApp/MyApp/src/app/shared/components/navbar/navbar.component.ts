@@ -7,7 +7,5 @@ import { PATH } from '../../../../constants/routing/path';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  constructor() {}
-
   protected readonly PATH = PATH;
 }

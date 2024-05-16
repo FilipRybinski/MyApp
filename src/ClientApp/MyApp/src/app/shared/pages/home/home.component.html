@@ -1,9 +1,23 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col welcome-section">
-      <button mat-flat-button color="primary" (click)="signIn()">
+  <div class="row welcome-section">
+    <div class="col-12 col-md-6">
+      <h1 class="welcome-text">
+        Access a library of free resources about your team
+      </h1>
+      <button
+        mat-flat-button
+        class="custom-button"
+        color="accent"
+        [routerLink]="['/', PATH.ACCOUNT, PATH.SIGN_UP]">
         get access now
       </button>
+    </div>
+    <div
+      class="col-8 col-md-4 d-flex justify-content-center align-content-center mt-5">
+      <img
+        class="img-fluid"
+        src="assets/images/resources.svg"
+        alt="resources image" />
     </div>
   </div>
 </div>

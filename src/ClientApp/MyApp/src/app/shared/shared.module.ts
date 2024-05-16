@@ -14,6 +14,6 @@ const declarationsAndExports = [
 @NgModule({
   declarations: [...declarationsAndExports, PageNotFoundComponent],
   imports: [MaterialModule, RouterLink],
-  exports: [...declarationsAndExports],
+  exports: [...declarationsAndExports, MaterialModule],
 })
 export class SharedModule {}

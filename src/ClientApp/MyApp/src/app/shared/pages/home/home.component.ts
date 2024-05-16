@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccountService } from '../../../account/service/account.service';
+import { PATH } from '../../../../constants/routing/path';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +7,5 @@ import { AccountService } from '../../../account/service/account.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(private _accountService: AccountService) {}
-
-  public signIn() {
-    this._accountService.SignIn().subscribe();
-  }
+  protected readonly PATH = PATH;
 }
