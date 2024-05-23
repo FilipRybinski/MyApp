@@ -1,7 +1,7 @@
 @import "../../../../styles/variables";
 
 .welcome-section {
-  padding: 3rem 0;
+  padding-top: 3rem;
   background: $light-grey;
   background: -webkit-linear-gradient(to right, $darker-white, $light-grey);
   background: linear-gradient(to right, $darker-white, $light-grey);
@@ -10,14 +10,6 @@
   align-items: center;
 }
 
-.welcome-image {
-  background: url("../../../../assets/images/resources.svg") no-repeat center;
-  background-size: cover;
-}
-
 .welcome-text {
-  font-size: $font-size-main-text;
   font-weight: $font-semi-bold;
-  height: fit-content;
-  line-height: 3rem;
 }
