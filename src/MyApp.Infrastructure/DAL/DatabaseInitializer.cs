@@ -29,6 +29,7 @@ internal sealed class DatabaseInitializer: IHostedService
                     new Role(UserRoleDictionary.Moderator),
                     new Role(UserRoleDictionary.Administrator)
                 });
+                dbContext.SaveChanges();
             }
         }
 
