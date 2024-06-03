@@ -15,6 +15,7 @@ internal static class Extensions
         services.AddDbContext<MyAppDbContext>(db => db.UseNpgsql(options.ConnectionString));
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUserRepository, PostgresUserRepository>();
+        services.AddScoped<IUserRoleRepository, PostgresUserRoleRepository>();
         return services;
     }
 

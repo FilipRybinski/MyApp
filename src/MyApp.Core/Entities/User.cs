@@ -8,18 +8,20 @@ public class User
     public string Password { get; private set; }
     public string Name { get; private set; }
     public string Surname { get; private set; }
-    public string Role { get; private set; }
+    public Guid RoleId { get; private set; }
     public DateTime CreatedAt { get; private set; }
+    
+    public virtual Role Role { get; private set; }
 
-    public User(Guid id, string email, string password, string name, string surname, string role, DateTime createdAt)
+    public User( string email, string username, string password, string name, string surname, Guid roleId)
     {
-        Id = id;
+        Id = new Guid();
         Email = email;
+        Username = username;
         Password = password;
         Name = name;
         Surname = surname;
-        Role = role;
-        CreatedAt = createdAt;
-
+        RoleId = roleId;
+        CreatedAt = DateTime.Now;
     }
 }

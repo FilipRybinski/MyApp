@@ -27,7 +27,7 @@ public static class Extensions
 
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
-        /*app.UseMiddleware<ExceptionMiddleware>();*/
+        app.UseMiddleware<ExceptionMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();

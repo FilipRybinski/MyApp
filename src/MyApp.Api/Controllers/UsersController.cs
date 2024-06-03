@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands;
+using MyApp.Application.Commands.SignIn;
+using MyApp.Application.Commands.SignUp;
 using MyApp.Application.Security;
 
 namespace MyApp.Api.Controllers;
@@ -19,15 +21,14 @@ public class UsersController : ControllerBase
         _signInHandler = signInHandler;
     }
     
-    [HttpPost("SignUp")]
-    public async Task<ActionResult> Post(SignUp command)
+    [HttpPost("[action]")]
+    public async Task<ActionResult> SignUp(SignUp command)
     {
-        command = command with { UserId = Guid.NewGuid() };
         await _signUpHandler.HandleAsync(command);
-        return NoContent();
+        return Ok();
     }
-    [HttpPost("SignIn")]
-    public async Task<ActionResult> Post(SignIn command)
+    [HttpPost("[action]")]
+    public async Task<ActionResult> SignIn(SignIn command)
     {
         await _signInHandler.HandleAsync(command);
         return Ok();

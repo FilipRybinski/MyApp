@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyApp.Core.Dictionary;
+using MyApp.Core.Entities;
 
 namespace MyApp.Infrastructure.DAL;
 
@@ -19,6 +21,15 @@ internal sealed class DatabaseInitializer: IHostedService
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<MyAppDbContext>();
             dbContext.Database.Migrate();
+            if (!dbContext.Roles.Any())
+            {
+                dbContext.Roles.AddRange(new List<Role>()
+                {
+                    new Role(UserRoleDictionary.User),
+                    new Role(UserRoleDictionary.Moderator),
+                    new Role(UserRoleDictionary.Administrator)
+                });
+            }
         }
 
         return Task.CompletedTask;

@@ -20,4 +20,6 @@ internal sealed class PostgresUserRepository : IUserRepository
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<User> IsUserExists(string email) => await _dbContext.Users.Include(r=>r.Role).FirstOrDefaultAsync(u => u.Email == email);
 }
