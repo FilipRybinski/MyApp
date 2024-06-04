@@ -42,7 +42,6 @@ export class SignupComponent implements OnInit {
       surname: this.form.value.surname,
       password: this.form.value.password,
     };
-    console.log(body);
     this._accountService.signUp(body).subscribe({
       next: res => console.log(res),
       error: err => console.log(err),
