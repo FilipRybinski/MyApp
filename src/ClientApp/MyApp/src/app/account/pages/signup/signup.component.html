@@ -1,32 +1,36 @@
 <div class="container-fluid">
   <div class="row justify-content-center mt-5">
     <div class="col-10 col-md-4 col-lg-3">
-      <form class="signup-from">
+      <form [formGroup]="form" class="signup-from">
+        <mat-form-field>
+          <mat-label>User Name</mat-label>
+          <input formControlName="username" matInput />
+        </mat-form-field>
         <mat-form-field>
           <mat-label>name</mat-label>
-          <input matInput />
+          <input formControlName="name" matInput />
         </mat-form-field>
         <mat-form-field>
           <mat-label>surname</mat-label>
-          <input matInput />
+          <input formControlName="surname" matInput />
         </mat-form-field>
         <mat-form-field>
           <mat-label>email</mat-label>
-          <input matInput />
+          <input formControlName="email" matInput />
         </mat-form-field>
         <mat-form-field>
           <mat-label>password</mat-label>
-          <input matInput />
+          <input type="password" formControlName="password" matInput />
         </mat-form-field>
         <mat-form-field>
           <mat-label>confirm password</mat-label>
-          <input matInput />
+          <input type="password" formControlName="confirmPassword" matInput />
         </mat-form-field>
         <button
           mat-flat-button
           class="custom-button"
           color="accent"
-          (click)="signIn()">
+          (click)="submit()">
           signup
         </button>
       </form>

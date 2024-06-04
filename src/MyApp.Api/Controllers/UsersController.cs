@@ -22,15 +22,15 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost("[action]")]
-    public async Task<ActionResult> SignUp(SignUp command)
+    public async Task<ActionResult<bool>> SignUp(SignUp command)
     {
         await _signUpHandler.HandleAsync(command);
-        return Ok();
+        return Ok(true);
     }
     [HttpPost("[action]")]
-    public async Task<ActionResult> SignIn(SignIn command)
+    public async Task<ActionResult<bool>> SignIn(SignIn command)
     {
         await _signInHandler.HandleAsync(command);
-        return Ok();
+        return Ok(true);
     }
 }

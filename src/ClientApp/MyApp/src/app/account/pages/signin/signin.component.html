@@ -1,17 +1,21 @@
 <div class="container-fluid">
   <div class="row justify-content-center mt-5">
     <div class="col-10 col-md-4 col-lg-3">
-      <form class="signin-from">
+      <form [formGroup]="form" class="signin-from">
         <mat-form-field>
           <mat-label>email</mat-label>
-          <input matInput />
+          <input formControlName="email" matInput />
         </mat-form-field>
         <mat-form-field>
           <mat-label>password</mat-label>
-          <input matInput />
+          <input type="password" formControlName="password" matInput />
         </mat-form-field>
 
-        <button disabled mat-flat-button class="custom-button" color="accent">
+        <button
+          (click)="submit()"
+          mat-flat-button
+          class="custom-button"
+          color="accent">
           signup
         </button>
       </form>

@@ -20,6 +20,7 @@ public static class Extensions
         services.AddPostgres(configuration);
         services.AddSecurity();
         services.AddAuth(configuration);
+        services.AddMiddleware();
         services.AddHttpContextAccessor();
         
         return services;
