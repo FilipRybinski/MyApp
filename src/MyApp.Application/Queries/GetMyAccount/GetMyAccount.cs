@@ -3,4 +3,4 @@ using MyApp.Application.DTO;
 
 namespace MyApp.Application.Queries.GetMyAccount;
 
-public record GetMyAccount : IQuery<UserDto>;
+public record GetMyAccount(Guid Id) : IQuery<UserDto>;

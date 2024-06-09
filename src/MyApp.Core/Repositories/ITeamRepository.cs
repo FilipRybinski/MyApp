@@ -7,4 +7,5 @@ public interface ITeamRepository
     Task<Team> GetMyTeam(Guid id);
     Task OpenTeam(Team team);
     Task CloseTeam(string name);
+    Task UpdateMyTeam(string name);
 }

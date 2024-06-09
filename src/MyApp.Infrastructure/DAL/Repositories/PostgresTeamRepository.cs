@@ -49,5 +49,18 @@ internal class PostgresTeamRepository : ITeamRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public async Task UpdateMyTeam(string name)
+    {
+        var user = await _userRepository.GetCurrentUser();
+        if (user.TeamId is null)
+        {
+            throw new Exception();
+        }
+
+        var team = await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == user.Id);
+        team.UpdateTeamName(name);
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<Team> GetMyTeam(Guid id) => await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == id);
 }

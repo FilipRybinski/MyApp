@@ -15,4 +15,6 @@ public class Team
 
     public virtual User Owner { get; private set; }
     public virtual IEnumerable<User> Members { get; private set; }
+
+    public void UpdateTeamName(string name) => Name = name;
 }

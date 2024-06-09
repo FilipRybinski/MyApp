@@ -3,4 +3,4 @@ using MyApp.Application.DTO;
 
 namespace MyApp.Application.Queries.GetMyTeam;
 
-public record GetMyTeam : IQuery<TeamDto>;
+public record GetMyTeam(Guid Id) : IQuery<TeamDto>;
