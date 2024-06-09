@@ -1,5 +1,5 @@
 using AutoMapper;
-using MyApp.Application.DTO;
+using MyApp.Core.DTO;
 using MyApp.Core.Entities;
 
 namespace MyApp.Application.Mapper.TeamMap;

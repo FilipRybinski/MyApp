@@ -4,8 +4,8 @@ using MyApp.Application.Commands.AddMembers;
 using MyApp.Application.Commands.CloseTeam;
 using MyApp.Application.Commands.OpenTeam;
 using MyApp.Application.Commands.UpdateMyTeam;
-using MyApp.Application.DTO;
 using MyApp.Application.Queries.GetMyTeam;
+using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
 

@@ -1,4 +1,4 @@
-using MyApp.Application.DTO;
+using MyApp.Core.DTO;
 
 namespace MyApp.Application.Security;
 

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyApp.Core.Entities;
+using MyApp.Core.Exceptions;
 using MyApp.Core.Repositories;
 
 namespace MyApp.Infrastructure.DAL.Repositories;
@@ -27,14 +28,14 @@ internal class PostgresTeamRepository : ITeamRepository
 
         if (user.TeamId is null)
         {
-            throw new Exception();
+            throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
 
         var team = await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == user.Id && t.Name == name);
 
         if (team is null)
         {
-            throw new Exception();
+            throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
 
         var membersAndOwner = await _dbContext.Users
@@ -54,7 +55,7 @@ internal class PostgresTeamRepository : ITeamRepository
         var user = await _userRepository.GetCurrentUser();
         if (user.TeamId is null)
         {
-            throw new Exception();
+            throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
 
         var team = await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == user.Id);

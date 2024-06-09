@@ -1,4 +1,4 @@
-namespace MyApp.Application.DTO;
+namespace MyApp.Core.DTO;
 
 public class TeamDto
 {

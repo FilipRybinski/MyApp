@@ -1,5 +1,5 @@
 using MyApp.Application.Abstractions;
-using MyApp.Application.DTO;
+using MyApp.Core.DTO;
 
 namespace MyApp.Application.Queries.GetMyTeam;
 

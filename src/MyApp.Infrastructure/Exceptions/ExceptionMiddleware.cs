@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using MyApp.Core.Exceptions;
 
 namespace MyApp.Infrastructure.Exceptions;
 
@@ -20,7 +21,9 @@ internal sealed class ExceptionMiddleware : IMiddleware
     {
         var (statusCode, error) = exception switch
         {
-            _ => (StatusCodes.Status500InternalServerError, "There was an error.")
+            CustomException => (StatusCodes.Status400BadRequest, new Error(exception
+                .GetType().Name.Replace("Exception", string.Empty), exception.Message)),
+            _ => (StatusCodes.Status500InternalServerError, new Error("Error", "There was an error"))
         };
 
         context.Response.StatusCode = statusCode;

@@ -1,6 +1,6 @@
 using AutoMapper;
 using MyApp.Application.Abstractions;
-using MyApp.Application.DTO;
+using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Queries.GetMyTeam;

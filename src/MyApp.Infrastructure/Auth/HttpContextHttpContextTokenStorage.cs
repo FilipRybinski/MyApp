@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using MyApp.Application.DTO;
 using MyApp.Application.Security;
+using MyApp.Core.DTO;
 
 namespace MyApp.Infrastructure.Auth;
 

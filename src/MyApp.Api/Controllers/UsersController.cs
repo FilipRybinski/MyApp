@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.SignIn;
 using MyApp.Application.Commands.SignUp;
-using MyApp.Application.DTO;
 using MyApp.Application.Queries.GetMyAccount;
+using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
 
