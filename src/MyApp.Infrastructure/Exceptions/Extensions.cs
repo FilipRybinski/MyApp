@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using MyApp.Infrastructure.Exceptions.Middleware;
 
 namespace MyApp.Infrastructure.Exceptions;
 

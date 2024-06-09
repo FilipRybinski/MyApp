@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using MyApp.Core.Exceptions;
 
-namespace MyApp.Infrastructure.Exceptions;
+namespace MyApp.Infrastructure.Exceptions.Middleware;
 
 internal sealed class ExceptionMiddleware : IMiddleware
 {

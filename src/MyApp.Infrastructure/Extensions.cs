@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyApp.Infrastructure.Auth;
 using MyApp.Infrastructure.DAL;
 using MyApp.Infrastructure.Exceptions;
+using MyApp.Infrastructure.Exceptions.Middleware;
 using MyApp.Infrastructure.Security;
 
 namespace MyApp.Infrastructure;
@@ -12,17 +13,18 @@ public static class Extensions
 {
     private const string SectionName = "url";
     private static CorsOptions CorsOptions;
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
+
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<CorsOptions>(configuration.GetRequiredSection(SectionName));
-        CorsOptions=configuration.GetOptions<CorsOptions>(SectionName);
-        
+        CorsOptions = configuration.GetOptions<CorsOptions>(SectionName);
+
         services.AddPostgres(configuration);
         services.AddSecurity();
         services.AddAuth(configuration);
         services.AddMiddleware();
         services.AddHttpContextAccessor();
-        
+
         return services;
     }
 
@@ -37,7 +39,7 @@ public static class Extensions
             .WithMethods(CorsOptions.AllowedMethods)
             .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
             .AllowCredentials());
-        
+
         return app;
     }
 }
