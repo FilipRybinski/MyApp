@@ -8,4 +8,6 @@ public interface IUserRepository
     public Task<IEnumerable<User>> GetUsersAsync();
     public Task AddUserAsync(User user);
     public Task<User> IsUserExists(string email);
+    public bool IsEmailAlreadyExists(string email);
+    public bool IsUserNameAlreadyExists(string username);
 }
