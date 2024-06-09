@@ -29,4 +29,5 @@ internal sealed class PostgresUserRepository : IUserRepository
     public bool IsEmailAlreadyExists(string email) => _dbContext.Users.Any(u => u.Email == email);
 
     public bool IsUserNameAlreadyExists(string username) => _dbContext.Users.Any(u => u.Username == username);
+    public async Task<User> GetCurrentUser(Guid id) => await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 }

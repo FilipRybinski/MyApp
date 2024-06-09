@@ -12,21 +12,21 @@ internal static class Extensions
 {
     private const string SectionName = "auth";
     private const string tokenName = "token";
-    
+
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<AuthOptions>(configuration.GetRequiredSection(SectionName));
         var options = configuration.GetOptions<AuthOptions>(SectionName);
 
         services
-            .AddSingleton<IAuthenticator,Authenticator>()
-            .AddSingleton<ITokenStorage,HttpContextTokenStorage>()
+            .AddSingleton<IAuthenticator, Authenticator>()
+            .AddSingleton<IHttpContextTokenStorage, HttpContextHttpContextTokenStorage>()
             .AddAuthentication(a =>
             {
                 a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddCookie(c=>c.Cookie.Name=tokenName)
+            .AddCookie(c => c.Cookie.Name = tokenName)
             .AddJwtBearer(j =>
             {
                 j.SaveToken = true;
