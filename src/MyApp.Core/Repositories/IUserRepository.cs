@@ -10,5 +10,5 @@ public interface IUserRepository
     public Task<User> IsUserExists(string email);
     public bool IsEmailAlreadyExists(string email);
     public bool IsUserNameAlreadyExists(string username);
-    public Task<User> GetCurrentUser(Guid id);
+    public Task<User> GetCurrentUser();
 }
