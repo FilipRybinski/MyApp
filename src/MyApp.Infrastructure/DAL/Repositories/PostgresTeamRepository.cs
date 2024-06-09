@@ -48,4 +48,6 @@ internal class PostgresTeamRepository : ITeamRepository
         _dbContext.Teams.Remove(team);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<Team> GetMyTeam(Guid id) => await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == id);
 }

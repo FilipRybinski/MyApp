@@ -9,14 +9,16 @@ namespace MyApp.Infrastructure.DAL;
 internal static class Extensions
 {
     private const string SectionName = "database";
-    public static IServiceCollection AddPostgres(this IServiceCollection services,IConfiguration configuration)
+
+    public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
     {
         var options = configuration.GetOptions<PostgresOptions>(SectionName);
         services.AddDbContext<MyAppDbContext>(db => db.UseNpgsql(options.ConnectionString));
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUserRepository, PostgresUserRepository>();
         services.AddScoped<IUserRoleRepository, PostgresUserRoleRepository>();
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior",true);
+        services.AddScoped<ITeamRepository, PostgresTeamRepository>();
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         return services;
     }
 
