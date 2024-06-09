@@ -7,21 +7,17 @@ namespace MyApp.Application.Commands.SignUp;
 
 public sealed class SignUpHandler : ICommandHandler<SignUp>
 {
-    private readonly IAuthenticator _authenticator;
-    private readonly IHttpContextTokenStorage _httpContextTokenStorage;
     private readonly IPasswordManager _passwordManager;
     private readonly IUserRepository _userRepository;
     private readonly IUserRoleRepository _userRoleRepository;
 
-    public SignUpHandler(IUserRepository userRepository, IUserRoleRepository userRoleRepository,
-        IPasswordManager passwordManager, IAuthenticator authenticator,
-        IHttpContextTokenStorage httpContextTokenStorage)
+    public SignUpHandler(IUserRepository userRepository,
+        IUserRoleRepository userRoleRepository,
+        IPasswordManager passwordManager)
     {
         _userRepository = userRepository;
         _userRoleRepository = userRoleRepository;
         _passwordManager = passwordManager;
-        _authenticator = authenticator;
-        _httpContextTokenStorage = httpContextTokenStorage;
     }
 
     public async Task HandleAsync(SignUp command)
@@ -37,7 +33,5 @@ public sealed class SignUpHandler : ICommandHandler<SignUp>
             defaultUserRole.Id);
 
         await _userRepository.AddUserAsync(user);
-        var jwt = _authenticator.CreateToken(user.Id, defaultUserRole.Name);
-        _httpContextTokenStorage.Set(jwt);
     }
 }
