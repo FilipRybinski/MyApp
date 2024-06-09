@@ -8,6 +8,6 @@ internal class UserRoleConfiguration : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
-        
+        builder.HasMany(u => u.Users).WithOne(u => u.Role);
     }
 }
