@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.SignIn;
@@ -38,7 +39,8 @@ public class UsersController : ControllerBase
         await _signInHandler.HandleAsync(command);
         return Ok(true);
     }
-
+    
+    [Authorize]
     [HttpGet("[action]")]
     public async Task<ActionResult<UserDto>> GetMyAccount()
     {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../service/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SignUp } from '../../../../interfaces/signUp';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { PATH } from '../../../../constants/routing/path';
+import { SnackBarService } from '../../../shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
     private readonly _accountService: AccountService,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
-    private readonly _snackBar: MatSnackBar
+    private readonly _snackBarService: SnackBarService
   ) {}
 
   public ngOnInit(): void {
@@ -49,8 +49,8 @@ export class SignupComponent implements OnInit {
     };
     this._accountService.signUp(body).subscribe({
       next: () => {
-        this._snackBar.open('Account created successfully!');
-        this._router.navigate([PATH.SIGN_IN]);
+        this._snackBarService.open('Account created successfully!');
+        this._router.navigate([PATH.ACCOUNT, PATH.SIGN_IN]);
       },
       error: err => console.log(err),
     });

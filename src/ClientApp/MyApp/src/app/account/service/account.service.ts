@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SignIn } from '../../../interfaces/signIn';
-import { SignUp } from '../../../interfaces/signUp';
+import { SignIn } from '../../../interfaces/account/signIn';
+import { SignUp } from '../../../interfaces/account/signUp';
+import { User } from '../../../interfaces/account/user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +18,9 @@ export class AccountService {
 
   public signUp(body: SignUp): Observable<boolean> {
     return this._http.post<boolean>(environment.URL.ACCOUNT.SIGN_UP, body);
+  }
+
+  public getMyAccount(): Observable<User> {
+    return this._http.get<User>(environment.URL.ACCOUNT.GET_MY_ACCOUNT);
   }
 }

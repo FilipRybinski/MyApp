@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
-import { PATH } from '../constants/routing/path';
+import { Component, OnInit } from '@angular/core';
+import { AccountService } from './account/service/account.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'MyAppZone';
-  protected readonly PATH = PATH;
+
+  constructor(private readonly _accountService: AccountService) {}
+
+  ngOnInit(): void {
+    this._accountService.getMyAccount().subscribe({
+      next: res => console.log(res),
+      error: res => console.log(res),
+    });
+  }
 }
