@@ -9,11 +9,10 @@ internal class TeamConfiguration : IEntityTypeConfiguration<Team>
     public void Configure(EntityTypeBuilder<Team> builder)
     {
         builder.HasOne(t => t.Owner)
-            .WithOne(u => u.Team).HasForeignKey<User>(u => u.TeamId);
+            .WithOne(u => u.Team);
 
         builder.HasMany(t => t.Members)
-            .WithOne(u => u.Member)
-            .HasForeignKey(u => u.MemberId);
+            .WithOne(u => u.Team);
 
         builder.Property(t => t.OwnerId).IsRequired();
         builder.Property(t => t.Id).IsRequired();

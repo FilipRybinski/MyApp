@@ -1,5 +1,5 @@
 using MyApp.Application.Abstractions;
 
-namespace MyApp.Application.Commands.AddMembers;
+namespace MyApp.Application.Commands.InviteMembers;
 
 public record InviteMembers(IEnumerable<Guid> Members) : ICommand;

@@ -5,7 +5,7 @@ using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Queries.GetMyTeam;
 
-public class GetMyTeamHandler : IQueryHandler<GetMyTeam, TeamDto>
+public class GetMyTeamHandler : IEmptyQueryHandler<TeamDto>
 {
     private readonly IMapper _mapper;
     private readonly ITeamRepository _teamRepository;
@@ -18,7 +18,7 @@ public class GetMyTeamHandler : IQueryHandler<GetMyTeam, TeamDto>
         _mapper = mapper;
     }
 
-    public async Task<TeamDto> HandleAsync(GetMyTeam query)
+    public async Task<TeamDto> HandleAsync()
     {
         var user = await _userRepository.GetCurrentUser();
         var team = await _teamRepository.GetMyTeam(user.Id);

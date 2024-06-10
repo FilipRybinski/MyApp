@@ -18,7 +18,7 @@ public class OpenTeamHandler : ICommandHandler<OpenTeam>
     public async Task HandleAsync(OpenTeam command)
     {
         var user = await _userRepository.GetCurrentUser();
-        if (user.TeamId is not null)
+        if (!await _teamRepository.IsTeamAlreadyCreated(user.Id))
         {
             throw new Exception();
         }

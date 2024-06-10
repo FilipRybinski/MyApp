@@ -5,7 +5,7 @@ using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Queries.GetMyAccount;
 
-public class GetMyAccountHandler : IQueryHandler<GetMyAccount, UserDto>
+public class GetMyAccountHandler : IEmptyQueryHandler<UserDto>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -16,7 +16,7 @@ public class GetMyAccountHandler : IQueryHandler<GetMyAccount, UserDto>
         _mapper = mapper;
     }
 
-    public async Task<UserDto> HandleAsync(GetMyAccount query)
+    public async Task<UserDto> HandleAsync()
     {
         var user = await _userRepository.GetCurrentUser();
         if (user is null)

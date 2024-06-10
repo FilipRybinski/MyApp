@@ -20,15 +20,10 @@ public class User
     public string Password { get; private set; }
     public string Name { get; private set; }
     public string Surname { get; private set; }
-    public Guid? TeamId { get; private set; }
-    public Guid? MemberId { get; private set; }
     public Guid RoleId { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
     public virtual Role Role { get; private set; }
     public virtual Team Team { get; private set; }
-    public virtual Team Member { get; private set; }
-
-    public void SetMembershipToDefault() => MemberId = default;
-    public void SetOwnerToDefault() => TeamId = default;
+    public virtual Member Member { get; private set; }
 }

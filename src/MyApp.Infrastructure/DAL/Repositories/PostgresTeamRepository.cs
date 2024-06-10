@@ -26,7 +26,7 @@ internal class PostgresTeamRepository : ITeamRepository
     {
         var user = await _userRepository.GetCurrentUser();
 
-        if (user.TeamId is null)
+        if (!await IsTeamAlreadyCreated(user.Id))
         {
             throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
@@ -38,14 +38,9 @@ internal class PostgresTeamRepository : ITeamRepository
             throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
 
-        var membersAndOwner = await _dbContext.Users
-            .Where(u => u.MemberId == team.Id || u.TeamId == team.Id).ToListAsync();
+        var membersAndOwner = await _dbContext.Members.Where(m => m.TeamId == team.Id).ToListAsync();
 
-        foreach (var entity in membersAndOwner)
-        {
-            entity.SetMembershipToDefault();
-        }
-
+        _dbContext.RemoveRange(membersAndOwner);
         _dbContext.Teams.Remove(team);
         await _dbContext.SaveChangesAsync();
     }
@@ -53,7 +48,8 @@ internal class PostgresTeamRepository : ITeamRepository
     public async Task UpdateMyTeam(string name)
     {
         var user = await _userRepository.GetCurrentUser();
-        if (user.TeamId is null)
+
+        if (!await IsTeamAlreadyCreated(user.Id))
         {
             throw new TeamNotAlreadyCreatedException(user.Id.ToString());
         }
@@ -62,6 +58,9 @@ internal class PostgresTeamRepository : ITeamRepository
         team.UpdateTeamName(name);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<bool> IsTeamAlreadyCreated(Guid userId) =>
+        await _dbContext.Teams.AnyAsync(t => t.OwnerId == userId);
 
     public async Task<Team> GetMyTeam(Guid id) => await _dbContext.Teams.FirstOrDefaultAsync(t => t.OwnerId == id);
 }

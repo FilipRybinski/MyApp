@@ -35,4 +35,7 @@ internal sealed class PostgresUserRepository : IUserRepository
 
     public async Task<User> GetCurrentUser() =>
         await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == _contextTokenStorage.GetCurrentUserIdentifier());
+
+    public async Task<IEnumerable<User>> GetUsersWithIdentifier(IEnumerable<Guid> identifiers) =>
+        await _dbContext.Users.Where(u => identifiers.Contains(u.Id)).ToListAsync();
 }

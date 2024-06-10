@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../service/account.service';
 import { SignUp } from '../../../../interfaces/signUp';
+import { Router } from '@angular/router';
+import { PATH } from '../../../../constants/routing/path';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +16,9 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private readonly _fb: FormBuilder,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _router: Router,
+    private readonly _snackBar: MatSnackBar
   ) {}
 
   public ngOnInit(): void {
@@ -35,7 +40,10 @@ export class SigninComponent implements OnInit {
       ...this.form.value,
     };
     this._accountService.signIn(body).subscribe({
-      next: res => console.log(res),
+      next: () => {
+        this._snackBar.open('Login successfully!');
+        this._router.navigate([PATH.DASHBOARD]);
+      },
       error: err => console.log(err),
     });
   }

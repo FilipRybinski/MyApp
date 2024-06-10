@@ -11,4 +11,5 @@ public interface IUserRepository
     public bool IsEmailAlreadyExists(string email);
     public bool IsUserNameAlreadyExists(string username);
     public Task<User> GetCurrentUser();
+    public Task<IEnumerable<User>> GetUsersWithIdentifier(IEnumerable<Guid> identifiers);
 }

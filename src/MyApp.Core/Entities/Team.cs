@@ -14,7 +14,7 @@ public class Team
     public Guid OwnerId { get; private set; }
 
     public virtual User Owner { get; private set; }
-    public virtual IEnumerable<User> Members { get; private set; }
+    public virtual IEnumerable<Member> Members { get; private set; }
 
     public void UpdateTeamName(string name) => Name = name;
 }

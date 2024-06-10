@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
-using MyApp.Application.Commands.AddMembers;
 using MyApp.Application.Commands.CloseTeam;
 using MyApp.Application.Commands.OpenTeam;
 using MyApp.Application.Commands.UpdateMyTeam;
-using MyApp.Application.Queries.GetMyTeam;
 using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
@@ -14,22 +12,19 @@ namespace MyApp.Api.Controllers;
 public class TeamController : ControllerBase
 {
     private readonly ICommandHandler<CloseTeam> _closeTeamHandler;
-    private readonly IQueryHandler<GetMyTeam, TeamDto> _getMyTeamHandler;
-    private readonly ICommandHandler<InviteMembers> _inviteMembersHandler;
+    private readonly IEmptyQueryHandler<TeamDto> _getMyTeamHandler;
     private readonly ICommandHandler<OpenTeam> _openTeamHandler;
     private readonly ICommandHandler<UpdateMyTeam> _updateMyTeamHandler;
 
     public TeamController(
         ICommandHandler<OpenTeam> openTeamHandler,
         ICommandHandler<CloseTeam> closeTeamHandler,
-        ICommandHandler<InviteMembers> inviteMembers,
-        IQueryHandler<GetMyTeam, TeamDto> getMyTeamHandler,
+        IEmptyQueryHandler<TeamDto> getMyTeamHandler,
         ICommandHandler<UpdateMyTeam> updateMyTeamHandler
     )
     {
         _openTeamHandler = openTeamHandler;
         _closeTeamHandler = closeTeamHandler;
-        _inviteMembersHandler = inviteMembers;
         _getMyTeamHandler = getMyTeamHandler;
         _updateMyTeamHandler = updateMyTeamHandler;
     }
@@ -48,17 +43,10 @@ public class TeamController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("[action]")]
-    public async Task<ActionResult> InviteMembers(InviteMembers command)
-    {
-        await _inviteMembersHandler.HandleAsync(command);
-        return Ok();
-    }
-
     [HttpGet("[action]")]
-    public async Task<ActionResult<TeamDto>> GetMyTem(GetMyTeam query)
+    public async Task<ActionResult<TeamDto>> GetMyTem()
     {
-        var result = await _getMyTeamHandler.HandleAsync(query);
+        var result = await _getMyTeamHandler.HandleAsync();
         return Ok(result);
     }
 

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../service/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignUp } from '../../../../interfaces/signUp';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { PATH } from '../../../../constants/routing/path';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +16,9 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private readonly _accountService: AccountService,
-    private readonly _fb: FormBuilder
+    private readonly _fb: FormBuilder,
+    private readonly _router: Router,
+    private readonly _snackBar: MatSnackBar
   ) {}
 
   public ngOnInit(): void {
@@ -43,7 +48,10 @@ export class SignupComponent implements OnInit {
       password: this.form.value.password,
     };
     this._accountService.signUp(body).subscribe({
-      next: res => console.log(res),
+      next: () => {
+        this._snackBar.open('Account created successfully!');
+        this._router.navigate([PATH.SIGN_IN]);
+      },
       error: err => console.log(err),
     });
   }
