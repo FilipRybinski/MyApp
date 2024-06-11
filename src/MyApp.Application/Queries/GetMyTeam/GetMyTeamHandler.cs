@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
@@ -18,6 +19,7 @@ public class GetMyTeamHandler : IEmptyQueryHandler<TeamDto>
         _mapper = mapper;
     }
 
+    [Authorize]
     public async Task<TeamDto> HandleAsync()
     {
         var user = await _userRepository.GetCurrentUser();

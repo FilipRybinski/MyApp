@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 import { MaterialModule } from '../../../materialUI/material.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -11,7 +12,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [MaterialModule, RouterModule.forRoot([])],
+      imports: [MaterialModule, RouterModule.forRoot([]), HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);

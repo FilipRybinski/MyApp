@@ -3,8 +3,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Application.Commands.CloseTeam;
 using MyApp.Application.Commands.OpenTeam;
-using MyApp.Application.Commands.SignIn;
 using MyApp.Application.Commands.SignUp;
+using MyApp.Application.Queries.SignIn;
 using MyApp.Application.Validators.CommandValidators;
 
 namespace MyApp.Application.Validators;

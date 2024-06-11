@@ -7,6 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -19,6 +23,10 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatListModule,
+    MatDividerModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatIconModule,
@@ -28,6 +36,10 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatListModule,
+    MatDividerModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MaterialModule {}

@@ -19,9 +19,9 @@ public class GetFeatureFlagsHandler : IEmptyQueryHandler<FeatureFlagsDto>
         var user = await _userRepository.GetCurrentUser();
         var featureFlags = user.Role.Name switch
         {
-            UserRoleDictionary.Moderator => new FeatureFlagsDto(true, false, false),
-            UserRoleDictionary.Administrator => new FeatureFlagsDto(true, false, false),
-            _ => new FeatureFlagsDto(true, false, false),
+            UserRoleDictionary.Moderator => new FeatureFlagsDto(false, true, false),
+            UserRoleDictionary.Administrator => new FeatureFlagsDto(false, true, false),
+            _ => new FeatureFlagsDto(false, true, false),
         };
 
         return featureFlags;

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
-using MyApp.Application.Commands.SignIn;
 using MyApp.Application.Commands.SignUp;
+using MyApp.Application.Queries.SignIn;
 using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
@@ -12,18 +12,21 @@ namespace MyApp.Api.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IEmptyQueryHandler<UserDto> _getMyAccountHandler;
-    private readonly ICommandHandler<SignIn> _signInHandler;
+    private readonly IQueryHandler<SignIn,UserDto> _signInHandler;
     private readonly ICommandHandler<SignUp> _signUpHandler;
+    private readonly IEmptyQueryHandler<ActionResultDto> _logOutHandler;
 
     public UsersController(
         ICommandHandler<SignUp> signUpHandler,
-        ICommandHandler<SignIn> signInHandler,
-        IEmptyQueryHandler<UserDto> getMyAccountHandler
+        IQueryHandler<SignIn,UserDto> signInHandler,
+        IEmptyQueryHandler<UserDto> getMyAccountHandler,
+        IEmptyQueryHandler<ActionResultDto> logOutHandler
     )
     {
         _signUpHandler = signUpHandler;
         _signInHandler = signInHandler;
         _getMyAccountHandler = getMyAccountHandler;
+        _logOutHandler = logOutHandler;
     }
 
     [HttpPost("[action]")]
@@ -34,10 +37,18 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<ActionResult<bool>> SignIn(SignIn command)
+    public async Task<ActionResult<UserDto>> SignIn(SignIn command)
     {
-        await _signInHandler.HandleAsync(command);
-        return Ok(true);
+        var result=await _signInHandler.HandleAsync(command);
+        return Ok(result);
+    }
+
+    [Authorize]
+    [HttpGet("[action]")]
+    public async Task<ActionResult<ActionResultDto>> LogOut()
+    {
+        var result=await _logOutHandler.HandleAsync();
+        return Ok(result);
     }
     
     [Authorize]

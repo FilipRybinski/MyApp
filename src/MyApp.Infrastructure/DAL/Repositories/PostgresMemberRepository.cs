@@ -31,7 +31,8 @@ internal class PostgresMemberRepository : IMemberRepository
 
         var newMembers = usersWithoutTeam.Select(u => new Member(u.Id, owner.Team.Id));
 
-        await _dbContext.Members.AddRangeAsync(newMembers);
+        await _dbContext.AddRangeAsync(newMembers);
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task RemoveMembers(IEnumerable<Guid> members)
@@ -49,7 +50,9 @@ internal class PostgresMemberRepository : IMemberRepository
     }
 
     public async Task<IEnumerable<User>> GetAvailableMembers() =>
-        await _dbContext.Users.Include(u => u.Member).Where(m => m.Member == null).ToListAsync();
+        await _dbContext.Users
+            .Include(u => u.Member)
+            .Where(m => m.Member == null).ToListAsync();
 
 
     public async Task<IEnumerable<User>> GetMyTeamMembers()

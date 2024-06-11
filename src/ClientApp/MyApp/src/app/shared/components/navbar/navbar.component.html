@@ -8,12 +8,22 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu>
-      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
-        Sign up
-      </button>
-      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
-        Sign in
-      </button>
+      @if (!_storeService.user) {
+        <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
+          Sign up
+        </button>
+        <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
+          Sign in
+        </button>
+      } @else {
+        <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard</button>
+        <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">
+          Management
+        </button>
+        <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logOut()">
+          Log out
+        </button>
+      }
     </mat-menu>
   </div>
 </div>

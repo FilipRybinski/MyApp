@@ -11,8 +11,13 @@ export const environment = {
     ACCOUNT: {
       SIGN_IN: `${DEFAULT_URL}/Users/SignIn`,
       SIGN_UP: `${DEFAULT_URL}/Users/SignUp`,
+      LOG_OUT: `${DEFAULT_URL}/Users/LogOut`,
       GET_MY_TEAM: `${DEFAULT_URL}/Team/GetMyTem`,
       GET_MY_ACCOUNT: `${DEFAULT_URL}/Users/GetMyAccount`,
+    },
+    MEMBERS: {
+      GET_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/GetAvailableMembers`,
+      GET_MY_TEAM_MEMBERS: `${DEFAULT_URL}/Member/GetMyTeamMembers`,
     },
     FEATURE_FLAGS: `${DEFAULT_URL}/FeatureFlags/GetFeatureFlags`,
   },

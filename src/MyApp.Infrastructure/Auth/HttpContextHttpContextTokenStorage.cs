@@ -8,6 +8,7 @@ namespace MyApp.Infrastructure.Auth;
 internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStorage
 {
     private const string TokenKey = "token";
+    private const int ExpireTime = 1;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
 
@@ -33,11 +34,25 @@ internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStor
         HttpContextResponseInjectToken(jwt);
     }
 
+    public ActionResultDto Remove()
+    {
+        var httpOnlyCookie = new CookieOptions
+        {
+            Expires = DateTime.Now.AddDays(-ExpireTime),
+            HttpOnly = true,
+            Secure = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.None
+        };
+        _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, string.Empty, httpOnlyCookie);
+        return new ActionResultDto(true);
+    }
+
     private void HttpContextResponseInjectToken(JwtDto jwt)
     {
         var httpOnlyCookie = new CookieOptions
         {
-            Expires = DateTime.Now.AddDays(1),
+            Expires = DateTime.Now.AddDays(ExpireTime),
             HttpOnly = true,
             Secure = true,
             IsEssential = true,

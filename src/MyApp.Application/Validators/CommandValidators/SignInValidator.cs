@@ -1,5 +1,6 @@
 using FluentValidation;
-using MyApp.Application.Commands.SignIn;
+using MyApp.Application.Queries.SignIn;
+
 
 namespace MyApp.Application.Validators.CommandValidators;
 

@@ -45,10 +45,9 @@ public class TeamController : ControllerBase
         await _closeTeamHandler.HandleAsync(command);
         return Ok();
     }
-
-    [Authorize]
+    
     [HttpGet("[action]")]
-    public async Task<ActionResult<TeamDto>> GetMyTem()
+    public async Task<ActionResult<TeamDto>> GetMyTeam()
     {
         var result = await _getMyTeamHandler.HandleAsync();
         return Ok(result);

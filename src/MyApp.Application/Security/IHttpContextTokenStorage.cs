@@ -6,4 +6,5 @@ public interface IHttpContextTokenStorage
 {
     Guid? GetCurrentUserIdentifier();
     void Set(JwtDto jwt);
+    ActionResultDto Remove();
 }
