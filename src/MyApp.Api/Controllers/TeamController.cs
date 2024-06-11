@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.CloseTeam;
@@ -29,6 +30,7 @@ public class TeamController : ControllerBase
         _updateMyTeamHandler = updateMyTeamHandler;
     }
 
+    [Authorize]
     [HttpPost("[action]")]
     public async Task<ActionResult> CreateTeam(OpenTeam command)
     {
@@ -36,6 +38,7 @@ public class TeamController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpDelete("[action]")]
     public async Task<ActionResult> CloseMyTeam(CloseTeam command)
     {
@@ -43,6 +46,7 @@ public class TeamController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpGet("[action]")]
     public async Task<ActionResult<TeamDto>> GetMyTem()
     {
@@ -50,6 +54,7 @@ public class TeamController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPut("[action]")]
     public async Task<ActionResult> UpdateMyTeam(UpdateMyTeam command)
     {

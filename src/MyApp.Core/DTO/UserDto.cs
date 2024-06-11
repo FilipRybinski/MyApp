@@ -1,6 +1,6 @@
 namespace MyApp.Core.DTO;
 
-public class UserDto
+public sealed class UserDto
 {
     public Guid Id { get; private set; }
     public string Email { get; private set; }

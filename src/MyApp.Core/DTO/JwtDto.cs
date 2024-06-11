@@ -1,6 +1,6 @@
 namespace MyApp.Core.DTO;
 
-public class JwtDto
+public sealed class JwtDto
 {
     public string AccessToken { get; set; }
 }

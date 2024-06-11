@@ -1,6 +1,6 @@
 namespace MyApp.Core.DTO;
 
-public class TeamDto
+public sealed class TeamDto
 {
     public string Name { get; private set; }
 }

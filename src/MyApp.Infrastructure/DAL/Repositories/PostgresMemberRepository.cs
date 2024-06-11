@@ -47,4 +47,20 @@ internal class PostgresMemberRepository : IMemberRepository
         _dbContext.Members.RemoveRange(membersToRemove);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<User>> GetAvailableMembers() =>
+        await _dbContext.Users.Include(u => u.Member).Where(m => m.Member == null).ToListAsync();
+
+
+    public async Task<IEnumerable<User>> GetMyTeamMembers()
+    {
+        var owner = await _userRepository.GetCurrentUser();
+
+        if (owner.Team is null)
+        {
+            throw new TeamNotAlreadyCreatedException(owner.Id.ToString());
+        }
+
+        return await _dbContext.Users.Include(u => u.Member).Where(m => m.Member.TeamId == owner.Team.Id).ToListAsync();
+    }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Queries.PrintMembersPdfDocument;
@@ -15,6 +16,7 @@ public class PrintController : ControllerBase
         _printMembersPdfDocumentHandler = printMembersPdfDocumentHandler;
     }
 
+    [Authorize]
     [HttpPost("[action]")]
     public async Task<FileResult> PrintMembersPdfDocument(PrintMembersPdfDocument query)
     {
