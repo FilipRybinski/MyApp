@@ -16,8 +16,10 @@ export class InitializeService {
 
   public async initialize(): Promise<void> {
     try {
-      this.currentUser = await firstValueFrom(this.getMyAccount());
-      this.featureFlags = await firstValueFrom(this.getFeatureFlags());
+      await firstValueFrom(this.getMyAccount()).then(async user => {
+        this.currentUser = user;
+        this.featureFlags = await firstValueFrom(this.getFeatureFlags());
+      });
     } catch (error) {
       console.error('Failed to initialize application', error);
     }
