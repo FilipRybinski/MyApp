@@ -14,5 +14,6 @@ export const environment = {
       GET_MY_TEAM: `${DEFAULT_URL}/Team/GetMyTem`,
       GET_MY_ACCOUNT: `${DEFAULT_URL}/Users/GetMyAccount`,
     },
+    FEATURE_FLAGS: `${DEFAULT_URL}/FeatureFlags/GetFeatureFlags`,
   },
 };
