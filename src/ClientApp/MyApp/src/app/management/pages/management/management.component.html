@@ -1,110 +1,22 @@
 <div class="container-fluid mt-5">
-  @if (myTeam) {
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-12 col-md-10">
-        <div
-          class="d-flex justify-content-between align-items-center mt-2 mb-2 ms-2">
-          <div class="d-flex align-items-center gap-2">
-            <h2 class="m-0">MyTeam members</h2>
-            <button
-              mat-icon-button
-              aria-label="Example icon button with a vertical three dot icon"
-              (click)="createAndEditTeam()">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </div>
-
-          @if (!!myMembers.length) {
-            <button
-              mat-flat-button
-              class="custom-button"
-              color="accent"
-              [disabled]="!myTeam"
-              (click)="downloadList()">
-              Download list
-            </button>
-          }
-        </div>
-        <mat-divider></mat-divider>
-        <mat-list>
-          @for (member of myMembers; track member) {
-            <mat-list-item
-              >{{ member.name | titlecase }}
-              {{ member.surname | titlecase }}
-            </mat-list-item>
-          }
-        </mat-list>
-      </div>
-    </div>
-  } @else {
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-12 col-md-10">
-        <div
-          class="d-flex justify-content-between align-items-center mt-2 mb-2 ms-2">
-          <h2 class="m-0">Create Team</h2>
-          <button
-            mat-flat-button
-            class="custom-button"
-            color="accent"
-            (click)="createAndEditTeam()">
-            Create
-          </button>
-        </div>
-        <mat-divider></mat-divider>
-      </div>
-    </div>
-  }
-
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-12 col-md-10">
-      <div
-        class="d-flex justify-content-between align-items-center mt-2 mb-2 ms-2">
-        <h2 class="m-0">Available members</h2>
-
-        <div class="d-flex gap-4 align-items-center">
-          <mat-slide-toggle
-            [(ngModel)]="listView"
-            (click)="reset()"></mat-slide-toggle>
-          <button
-            mat-flat-button
-            class="custom-button"
-            color="accent"
-            [disabled]="!myTeam"
-            (click)="inviteMembers()">
-            Invite
-          </button>
-        </div>
+    @if (isLoading) {
+      <div>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <mat-divider></mat-divider>
-      @if (listView) {
-        <mat-selection-list>
-          @for (member of availableMembers; track member) {
-            <mat-list-option [value]="member.id"
-              >{{ member.name | titlecase }}
-              {{ member.surname | titlecase }}
-            </mat-list-option>
-          }
-        </mat-selection-list>
-      } @else {
-        <form class="mt-2">
-          <mat-form-field>
-            <mat-label>Users</mat-label>
-            <input
-              type="text"
-              placeholder="Pick one"
-              matInput
-              [formControl]="searchForUser"
-              [matAutocomplete]="auto" />
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-              @for (user of availableMembersOptions; track user) {
-                <mat-option [value]="user"
-                  >{{ user.name }} {{ user.surname }}
-                </mat-option>
-              }
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-      }
-    </div>
+    } @else {
+      <div class="col-12 col-sm-12 col-md-10">
+        <app-my-team
+          [myTeam]="myTeam"
+          [myMembers]="myMembers"
+          (updateResources)="handleUpdateResources()" />
+      </div>
+      <div class="col-12 col-sm-12 col-md-10">
+        <app-available-members
+          [myTeam]="myTeam"
+          [availableMembers]="availableMembers"
+          (updateResources)="handleUpdateResources()" />
+      </div>
+    }
   </div>
 </div>

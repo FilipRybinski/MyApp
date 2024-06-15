@@ -51,11 +51,11 @@ internal class PostgresMemberRepository : IMemberRepository
 
     public async Task<IEnumerable<User>> GetAvailableMembers()
     {
-        var user = this._userRepository.GetCurrentUser();
+        var user = await this._userRepository.GetCurrentUser();
 
         var result = await _dbContext.Users
             .Include(u => u.Member)
-            .Where(m => m.Member == null && !Equals(m.Id, user.Id)).ToListAsync();
+            .Where(m => m.Member == null && m.Id != user.Id).ToListAsync();
 
         return result;
     }

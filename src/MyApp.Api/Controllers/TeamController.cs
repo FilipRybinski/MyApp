@@ -41,7 +41,7 @@ public class TeamController : ControllerBase
 
     [Authorize]
     [HttpDelete("[action]")]
-    public async Task<ActionResult> CloseMyTeam(CloseTeam command)
+    public async Task<ActionResult> CloseMyTeam([FromQuery] CloseTeam command)
     {
         await _closeTeamHandler.HandleAsync(command);
         return Ok();

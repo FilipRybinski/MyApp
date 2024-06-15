@@ -21,4 +21,10 @@ export class TeamService {
   public createTeam(body: Team): Observable<null> {
     return this._http.post<null>(environment.URL.TEAM.CREATE_TEAM, body);
   }
+
+  public closeTeam(body: Team): Observable<null> {
+    return this._http.delete<null>(environment.URL.TEAM.DELETE_TEAM, {
+      params: { ...body },
+    });
+  }
 }

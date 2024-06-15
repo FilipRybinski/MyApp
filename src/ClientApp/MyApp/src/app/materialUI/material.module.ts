@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatIconModule,
@@ -43,6 +45,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    MatProgressBarModule,
   ],
 })
 export class MaterialModule {}
