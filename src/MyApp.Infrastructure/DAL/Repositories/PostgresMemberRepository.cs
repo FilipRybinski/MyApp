@@ -49,10 +49,16 @@ internal class PostgresMemberRepository : IMemberRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<User>> GetAvailableMembers() =>
-        await _dbContext.Users
+    public async Task<IEnumerable<User>> GetAvailableMembers()
+    {
+        var user = this._userRepository.GetCurrentUser();
+
+        var result = await _dbContext.Users
             .Include(u => u.Member)
-            .Where(m => m.Member == null).ToListAsync();
+            .Where(m => m.Member == null && !Equals(m.Id, user.Id)).ToListAsync();
+
+        return result;
+    }
 
 
     public async Task<IEnumerable<User>> GetMyTeamMembers()
@@ -70,6 +76,7 @@ internal class PostgresMemberRepository : IMemberRepository
     public async Task<IEnumerable<User>> FindAvailableMember(string name) =>
         await _dbContext.Users
             .Include(m => m.Member)
-            .Where(u => (u.Name.ToLower().Contains(name.ToLower()) || u.Surname.ToLower().Contains(name.ToLower())) && u.Member == null)
+            .Where(u => (u.Name.ToLower().Contains(name.ToLower()) || u.Surname.ToLower().Contains(name.ToLower())) &&
+                        u.Member == null)
             .ToListAsync();
 }
