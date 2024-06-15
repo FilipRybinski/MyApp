@@ -8,4 +8,5 @@ public interface IMemberRepository
     Task RemoveMembers(IEnumerable<Guid> members);
     Task<IEnumerable<User>> GetAvailableMembers();
     Task<IEnumerable<User>> GetMyTeamMembers();
+    Task<IEnumerable<User>> FindAvailableMember(string name);
 }

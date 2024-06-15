@@ -34,7 +34,7 @@ internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStor
         HttpContextResponseInjectToken(jwt);
     }
 
-    public ActionResultDto Remove()
+    public void Remove()
     {
         var httpOnlyCookie = new CookieOptions
         {
@@ -45,7 +45,6 @@ internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStor
             SameSite = SameSiteMode.None
         };
         _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, string.Empty, httpOnlyCookie);
-        return new ActionResultDto(true);
     }
 
     private void HttpContextResponseInjectToken(JwtDto jwt)

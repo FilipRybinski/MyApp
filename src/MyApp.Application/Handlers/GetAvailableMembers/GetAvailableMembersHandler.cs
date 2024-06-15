@@ -1,11 +1,10 @@
 using AutoMapper;
-using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.GetAvailableMembers;
+namespace MyApp.Application.Handlers.GetAvailableMembers;
 
-public class GetAvailableMembersHandler : IEmptyQueryHandler<IEnumerable<UserDto>>
+public class GetAvailableMembersHandler : IGetAvailableMembersHandler
 {
     private readonly IMapper _mapper;
     private readonly IMemberRepository _memberRepository;

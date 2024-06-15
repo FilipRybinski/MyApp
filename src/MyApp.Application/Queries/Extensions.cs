@@ -12,10 +12,6 @@ internal static class Extensions
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
-        services.Scan(s => s.FromAssemblies(typeof(IEmptyQueryHandler<>).Assembly)
-            .AddClasses(c => c.AssignableTo(typeof(IEmptyQueryHandler<>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
         return services;
     }
 }

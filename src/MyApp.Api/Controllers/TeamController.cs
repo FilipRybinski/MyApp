@@ -4,6 +4,7 @@ using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.CloseTeam;
 using MyApp.Application.Commands.OpenTeam;
 using MyApp.Application.Commands.UpdateMyTeam;
+using MyApp.Application.Handlers.GetMyTeam;
 using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
@@ -13,14 +14,14 @@ namespace MyApp.Api.Controllers;
 public class TeamController : ControllerBase
 {
     private readonly ICommandHandler<CloseTeam> _closeTeamHandler;
-    private readonly IEmptyQueryHandler<TeamDto> _getMyTeamHandler;
+    private readonly IGetMyTeam _getMyTeamHandler;
     private readonly ICommandHandler<OpenTeam> _openTeamHandler;
     private readonly ICommandHandler<UpdateMyTeam> _updateMyTeamHandler;
 
     public TeamController(
         ICommandHandler<OpenTeam> openTeamHandler,
         ICommandHandler<CloseTeam> closeTeamHandler,
-        IEmptyQueryHandler<TeamDto> getMyTeamHandler,
+        IGetMyTeam getMyTeamHandler,
         ICommandHandler<UpdateMyTeam> updateMyTeamHandler
     )
     {
@@ -45,7 +46,7 @@ public class TeamController : ControllerBase
         await _closeTeamHandler.HandleAsync(command);
         return Ok();
     }
-    
+
     [HttpGet("[action]")]
     public async Task<ActionResult<TeamDto>> GetMyTeam()
     {

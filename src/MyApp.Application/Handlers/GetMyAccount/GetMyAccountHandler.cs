@@ -1,11 +1,10 @@
 using AutoMapper;
-using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.GetMyAccount;
+namespace MyApp.Application.Handlers.GetMyAccount;
 
-public class GetMyAccountHandler : IEmptyQueryHandler<UserDto>
+public class GetMyAccountHandler : IGetMyAccountHandler
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;

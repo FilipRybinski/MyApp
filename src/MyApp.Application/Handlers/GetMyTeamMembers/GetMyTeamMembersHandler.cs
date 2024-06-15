@@ -1,13 +1,10 @@
-
-
 using AutoMapper;
-using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.GetMyTeamMembers;
+namespace MyApp.Application.Handlers.GetMyTeamMembers;
 
-public class GetMyTeamMembersHandler : IQueryHandler<GetMyTeamMembers,IEnumerable<UserDto>>
+public class GetMyTeamMembersHandler : IGetMyTeamMembersHandler
 {
     private readonly IMapper _mapper;
     private readonly IMemberRepository _memberRepository;
@@ -18,7 +15,7 @@ public class GetMyTeamMembersHandler : IQueryHandler<GetMyTeamMembers,IEnumerabl
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<UserDto>> HandleAsync(GetMyTeamMembers query)
+    public async Task<IEnumerable<UserDto>> HandleAsync()
     {
         var members = await _memberRepository.GetMyTeamMembers();
         return _mapper.Map<IEnumerable<UserDto>>(members);

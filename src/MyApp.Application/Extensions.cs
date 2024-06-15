@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyApp.Application.Commands;
+using MyApp.Application.Handlers;
 using MyApp.Application.Mapper;
 using MyApp.Application.Queries;
 using MyApp.Application.Validators;
@@ -12,6 +13,7 @@ public static class Extensions
     {
         services.AddCommands();
         services.AddQueries();
+        services.AddHandlers();
         services.AddMapper();
         services.AddValidators();
         return services;

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Application.Abstractions;
+using MyApp.Application.Handlers.GetFeatureFlags;
 using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
@@ -9,9 +9,9 @@ namespace MyApp.Api.Controllers;
 [Route("[controller]")]
 public class FeatureFlagsController : ControllerBase
 {
-    private readonly IEmptyQueryHandler<FeatureFlagsDto> _featureFlagsHandler;
+    private readonly IGetFeatureFlagsHandler _featureFlagsHandler;
 
-    public FeatureFlagsController(IEmptyQueryHandler<FeatureFlagsDto> featureFlagsHandler)
+    public FeatureFlagsController(IGetFeatureFlagsHandler featureFlagsHandler)
     {
         _featureFlagsHandler = featureFlagsHandler;
     }

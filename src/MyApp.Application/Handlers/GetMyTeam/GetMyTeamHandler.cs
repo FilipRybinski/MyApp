@@ -1,12 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.GetMyTeam;
+namespace MyApp.Application.Handlers.GetMyTeam;
 
-public class GetMyTeamHandler : IEmptyQueryHandler<TeamDto>
+public class GetMyTeamHandler : IGetMyTeam
 {
     private readonly IMapper _mapper;
     private readonly ITeamRepository _teamRepository;

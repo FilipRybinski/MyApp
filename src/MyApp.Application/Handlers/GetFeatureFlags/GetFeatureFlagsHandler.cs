@@ -1,11 +1,10 @@
-using MyApp.Application.Abstractions;
 using MyApp.Core.Dictionary;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.GetFeatureFlags;
+namespace MyApp.Application.Handlers.GetFeatureFlags;
 
-public class GetFeatureFlagsHandler : IEmptyQueryHandler<FeatureFlagsDto>
+public class GetFeatureFlagsHandler : IGetFeatureFlagsHandler
 {
     private readonly IUserRepository _userRepository;
 

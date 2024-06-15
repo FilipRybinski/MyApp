@@ -66,4 +66,10 @@ internal class PostgresMemberRepository : IMemberRepository
 
         return await _dbContext.Users.Include(u => u.Member).Where(m => m.Member.TeamId == owner.Team.Id).ToListAsync();
     }
+
+    public async Task<IEnumerable<User>> FindAvailableMember(string name) =>
+        await _dbContext.Users
+            .Include(m => m.Member)
+            .Where(u => u.Name.Contains(name) && u.Member == null)
+            .ToListAsync();
 }

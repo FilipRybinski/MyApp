@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.SignUp;
+using MyApp.Application.Handlers.GetMyAccount;
+using MyApp.Application.Queries.LogOut;
 using MyApp.Application.Queries.SignIn;
 using MyApp.Core.DTO;
 
@@ -11,16 +13,16 @@ namespace MyApp.Api.Controllers;
 [Route("[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IEmptyQueryHandler<UserDto> _getMyAccountHandler;
-    private readonly IQueryHandler<SignIn,UserDto> _signInHandler;
+    private readonly IGetMyAccountHandler _getMyAccountHandler;
+    private readonly ILogOut _logOutHandler;
+    private readonly IQueryHandler<SignIn, UserDto> _signInHandler;
     private readonly ICommandHandler<SignUp> _signUpHandler;
-    private readonly IEmptyQueryHandler<ActionResultDto> _logOutHandler;
 
     public UsersController(
         ICommandHandler<SignUp> signUpHandler,
-        IQueryHandler<SignIn,UserDto> signInHandler,
-        IEmptyQueryHandler<UserDto> getMyAccountHandler,
-        IEmptyQueryHandler<ActionResultDto> logOutHandler
+        IQueryHandler<SignIn, UserDto> signInHandler,
+        IGetMyAccountHandler getMyAccountHandler,
+        ILogOut logOutHandler
     )
     {
         _signUpHandler = signUpHandler;
@@ -39,18 +41,18 @@ public class UsersController : ControllerBase
     [HttpPost("[action]")]
     public async Task<ActionResult<UserDto>> SignIn(SignIn command)
     {
-        var result=await _signInHandler.HandleAsync(command);
+        var result = await _signInHandler.HandleAsync(command);
         return Ok(result);
     }
 
     [Authorize]
     [HttpGet("[action]")]
-    public async Task<ActionResult<ActionResultDto>> LogOut()
+    public async Task<ActionResult> LogOut()
     {
-        var result=await _logOutHandler.HandleAsync();
-        return Ok(result);
+        await _logOutHandler.HandleAsync();
+        return Ok();
     }
-    
+
     [Authorize]
     [HttpGet("[action]")]
     public async Task<ActionResult<UserDto>> GetMyAccount()
