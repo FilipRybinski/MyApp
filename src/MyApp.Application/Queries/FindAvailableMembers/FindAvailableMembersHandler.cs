@@ -3,7 +3,7 @@ using MyApp.Application.Abstractions;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
 
-namespace MyApp.Application.Queries.FindUser;
+namespace MyApp.Application.Queries.FindAvailableMembers;
 
 public class FindAvailableMembersHandler : IQueryHandler<FindAvailableMembers, IEnumerable<UserDto>>
 {

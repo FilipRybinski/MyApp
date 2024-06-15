@@ -4,6 +4,7 @@ using MyApp.Application.Handlers.GetFeatureFlags;
 using MyApp.Application.Handlers.GetMyAccount;
 using MyApp.Application.Handlers.GetMyTeam;
 using MyApp.Application.Handlers.GetMyTeamMembers;
+using MyApp.Application.Queries.LogOut;
 
 namespace MyApp.Application.Handlers;
 
@@ -16,6 +17,7 @@ public static class Extensions
         services.AddScopedHandler<IGetMyAccountHandler, GetMyAccountHandler>();
         services.AddScopedHandler<IGetMyTeam, GetMyTeamHandler>();
         services.AddScopedHandler<IGetMyTeamMembersHandler, GetMyTeamMembersHandler>();
+        services.AddScopedHandler<ILogOut, LogOutHandler>();
         return services;
     }
 

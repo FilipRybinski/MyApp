@@ -70,6 +70,6 @@ internal class PostgresMemberRepository : IMemberRepository
     public async Task<IEnumerable<User>> FindAvailableMember(string name) =>
         await _dbContext.Users
             .Include(m => m.Member)
-            .Where(u => u.Name.Contains(name) && u.Member == null)
+            .Where(u => (u.Name.ToLower().Contains(name.ToLower()) || u.Surname.ToLower().Contains(name.ToLower())) && u.Member == null)
             .ToListAsync();
 }

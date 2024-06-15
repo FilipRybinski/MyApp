@@ -19,6 +19,7 @@ export const environment = {
       GET_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/GetAvailableMembers`,
       GET_MY_TEAM_MEMBERS: `${DEFAULT_URL}/Member/GetMyTeamMembers`,
       INVITE_MEMBERS: `${DEFAULT_URL}/Member/InviteMembers`,
+      FIND_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/FindAvailableMember`,
     },
     FEATURE_FLAGS: `${DEFAULT_URL}/FeatureFlags/GetFeatureFlags`,
   },

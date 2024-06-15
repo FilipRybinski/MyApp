@@ -5,7 +5,7 @@ using MyApp.Application.Commands.InviteMembers;
 using MyApp.Application.Commands.RemoveMembers;
 using MyApp.Application.Handlers.GetAvailableMembers;
 using MyApp.Application.Handlers.GetMyTeamMembers;
-using MyApp.Application.Queries.FindUser;
+using MyApp.Application.Queries.FindAvailableMembers;
 using MyApp.Core.DTO;
 
 namespace MyApp.Api.Controllers;
@@ -69,7 +69,7 @@ public class MemberController : ControllerBase
     [HttpGet("[action]")]
     public async Task<ActionResult<UserDto>> FindAvailableMember([FromQuery] FindAvailableMembers query)
     {
-        var result = _findAvailableMembers.HandleAsync(query);
+        var result = await _findAvailableMembers.HandleAsync(query);
         return Ok(result);
     }
 }

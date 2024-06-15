@@ -14,6 +14,10 @@ export class TeamService {
     return this._http.get<Team>(environment.URL.TEAM.GET_MY_TEAM);
   }
 
+  public updateMyTeam(body: Team): Observable<Team> {
+    return this._http.put<Team>(environment.URL.TEAM.UPDATE_MY_TEAM, body);
+  }
+
   public createTeam(body: Team): Observable<null> {
     return this._http.post<null>(environment.URL.TEAM.CREATE_TEAM, body);
   }

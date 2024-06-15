@@ -7,6 +7,7 @@ export const environment = {
       DELETE_TEAM: `${DEFAULT_URL}/Team/CloseMyTeam`,
       UPDATE_TEAM: `${DEFAULT_URL}/Team/UpdateMyTeam`,
       GET_MY_TEAM: `${DEFAULT_URL}/Team/GetMyTeam`,
+      UPDATE_MY_TEAM: `${DEFAULT_URL}/Team/UpdateMyTeam`,
     },
     ACCOUNT: {
       SIGN_IN: `${DEFAULT_URL}/Users/SignIn`,
@@ -19,6 +20,10 @@ export const environment = {
       GET_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/GetAvailableMembers`,
       GET_MY_TEAM_MEMBERS: `${DEFAULT_URL}/Member/GetMyTeamMembers`,
       INVITE_MEMBERS: `${DEFAULT_URL}/Member/InviteMembers`,
+      FIND_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/FindAvailableMember`,
+    },
+    PRINT: {
+      PRINT_MEMBERS_PDF_DOCUMENT: `${DEFAULT_URL}/Print/PrintMembersPdfDocument`,
     },
     FEATURE_FLAGS: `${DEFAULT_URL}/FeatureFlags/GetFeatureFlags`,
   },

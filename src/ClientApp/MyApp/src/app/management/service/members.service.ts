@@ -25,4 +25,23 @@ export class MembersService {
   public inviteMembers(body: { members: string[] }): Observable<null> {
     return this._http.post<null>(environment.URL.MEMBERS.INVITE_MEMBERS, body);
   }
+
+  public findMembers(name: string): Observable<User[]> {
+    return this._http.get<User[]>(
+      environment.URL.MEMBERS.FIND_AVAILABLE_MEMBERS,
+      {
+        params: { name: name },
+      }
+    );
+  }
+
+  public downloadMembersPdfDocument(body: {
+    members: string[];
+  }): Observable<Blob> {
+    return this._http.post(
+      environment.URL.PRINT.PRINT_MEMBERS_PDF_DOCUMENT,
+      body,
+      { responseType: 'blob' }
+    );
+  }
 }
