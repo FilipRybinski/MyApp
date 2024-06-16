@@ -1,3 +1,4 @@
+<script src="my-team.component.ts"></script>
 <div class="d-flex justify-content-between align-items-center mt-2 mb-2 ms-2">
   <div class="d-flex align-items-center gap-2">
     <div>
@@ -24,15 +25,18 @@
       <button [disabled]="!myTeam" mat-menu-item (click)="closeTeam()">
         Remove
       </button>
+      <button [disabled]="!myTeam" mat-menu-item (click)="removeMembers()">
+        Remove Members
+      </button>
     </mat-menu>
   </div>
 </div>
 <mat-divider></mat-divider>
-<mat-list>
+<mat-selection-list>
   @for (member of myMembers; track member) {
-    <mat-list-item
+    <mat-list-option [value]="member.id"
       >{{ member.name | titlecase }}
       {{ member.surname | titlecase }}
-    </mat-list-item>
+    </mat-list-option>
   }
-</mat-list>
+</mat-selection-list>

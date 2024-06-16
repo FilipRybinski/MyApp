@@ -21,6 +21,7 @@ export const environment = {
       GET_MY_TEAM_MEMBERS: `${DEFAULT_URL}/Member/GetMyTeamMembers`,
       INVITE_MEMBERS: `${DEFAULT_URL}/Member/InviteMembers`,
       FIND_AVAILABLE_MEMBERS: `${DEFAULT_URL}/Member/FindAvailableMember`,
+      REMOVE_MY_MEMBERS: `${DEFAULT_URL}/Member/RemoveMembers`,
     },
     PRINT: {
       PRINT_MEMBERS_PDF_DOCUMENT: `${DEFAULT_URL}/Print/PrintMembersPdfDocument`,

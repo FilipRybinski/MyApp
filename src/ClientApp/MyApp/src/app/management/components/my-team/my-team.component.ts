@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Team } from '../../../../interfaces/team/team';
 import { User } from '../../../../interfaces/account/user';
 import { CreateTeamComponent } from '../../dialogs';
@@ -7,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MembersService } from '../../service/members.service';
 import { PATH } from '../../../../constants/routing/path';
 import { TeamService } from '../../service/team.service';
+import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'app-my-team',
@@ -18,11 +25,24 @@ export class MyTeamComponent {
   @Input() public myMembers!: User[];
   @Output() updateResources = new EventEmitter<void>();
 
+  @ViewChild(MatSelectionList) selectedMember!: MatSelectionList;
+
   constructor(
     private readonly _dialogService: MatDialog,
     private readonly _membersService: MembersService,
     private readonly _teamsService: TeamService
   ) {}
+
+  public removeMembers() {
+    const body = {
+      members: this.selectedMember.selectedOptions.selected.map(
+        option => option.value
+      ),
+    };
+    this._membersService.removeMembers(body).subscribe(() => {
+      this.updateResources.emit();
+    });
+  }
 
   public createAndEditTeam() {
     this._dialogService

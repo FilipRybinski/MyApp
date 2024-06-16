@@ -18,10 +18,10 @@ public class MemberController : ControllerBase
     private readonly IGetAvailableMembersHandler _getAvailableMembersHandler;
     private readonly IGetMyTeamMembersHandler _getMyTeamMembersHandler;
     private readonly ICommandHandler<InviteMembers> _inviteMembersHandler;
-    private readonly ICommandHandler<RemoveMembers> _removeMembersHandler;
+    private readonly ICommandHandler<RemoveMyMembers> _removeMembersHandler;
 
     public MemberController(ICommandHandler<InviteMembers> inviteMembers,
-        ICommandHandler<RemoveMembers> removeMembersHandler,
+        ICommandHandler<RemoveMyMembers> removeMembersHandler,
         IGetAvailableMembersHandler getAvailableMembersHandler,
         IGetMyTeamMembersHandler getMyTeamMembersHandler,
         IQueryHandler<FindAvailableMembers, IEnumerable<UserDto>> findAvailableMembers)
@@ -35,7 +35,7 @@ public class MemberController : ControllerBase
 
     [Authorize]
     [HttpGet("[action]")]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetAvailableMembers()
+    public async Task<ActionResult<IEnumerable<HateoasUserDto>>> GetAvailableMembers()
     {
         var result = await _getAvailableMembersHandler.HandleAsync();
         return Ok(result);
@@ -58,8 +58,8 @@ public class MemberController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("[action]")]
-    public async Task<ActionResult> RemoveMembers(RemoveMembers command)
+    [HttpPost("[action]")]
+    public async Task<ActionResult> RemoveMembers(RemoveMyMembers command)
     {
         await _removeMembersHandler.HandleAsync(command);
         return Ok();

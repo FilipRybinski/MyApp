@@ -4,5 +4,5 @@ namespace MyApp.Application.Handlers.GetAvailableMembers;
 
 public interface IGetAvailableMembersHandler
 {
-    Task<IEnumerable<UserDto>> HandleAsync();
+    Task<IEnumerable<HateoasUserDto>> HandleAsync();
 }

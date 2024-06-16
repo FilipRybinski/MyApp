@@ -35,12 +35,23 @@ export class AvailableMembersComponent implements OnInit {
   }
 
   public inviteMembers() {
-    console.log(this.searchForUser.value);
-    const body = {
-      members: this.selectedMember.selectedOptions.selected.map(
-        option => option.value
-      ),
-    };
+    let body;
+    if (this.listView) {
+      body = {
+        members: this.selectedMember.selectedOptions.selected.map(
+          option => option.value
+        ),
+      };
+    } else {
+      if (!this.searchForUser) {
+        return;
+      }
+      const user: User = this.searchForUser.value as unknown as User;
+      body = {
+        members: [user.id],
+      };
+    }
+
     this._membersService.inviteMembers(body).subscribe(() => {
       this.updateResources.emit();
     });

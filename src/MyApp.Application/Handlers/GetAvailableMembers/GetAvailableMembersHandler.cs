@@ -14,10 +14,16 @@ public class GetAvailableMembersHandler : IGetAvailableMembersHandler
         _memberRepository = memberRepository;
         _mapper = mapper;
     }
-
-    public async Task<IEnumerable<UserDto>> HandleAsync()
+    
+    public async Task<IEnumerable<HateoasUserDto>> HandleAsync()
     {
         var availableMembers = await _memberRepository.GetAvailableMembers();
-        return _mapper.Map<IEnumerable<UserDto>>(availableMembers);
+        var users=_mapper.Map<IEnumerable<HateoasUserDto>>(availableMembers);
+        foreach (var user in users)
+        {
+            user.generateLinks();
+        }
+
+        return users;
     }
 }
