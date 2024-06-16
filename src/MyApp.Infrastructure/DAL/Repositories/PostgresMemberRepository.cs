@@ -73,10 +73,13 @@ internal class PostgresMemberRepository : IMemberRepository
         return await _dbContext.Users.Include(u => u.Member).Where(m => m.Member.TeamId == owner.Team.Id).ToListAsync();
     }
 
-    public async Task<IEnumerable<User>> FindAvailableMember(string name) =>
-        await _dbContext.Users
+    public async Task<IEnumerable<User>> FindAvailableMember(string name)
+    {
+        var user = await _userRepository.GetCurrentUser();
+        return await _dbContext.Users
             .Include(m => m.Member)
             .Where(u => (u.Name.ToLower().Contains(name.ToLower()) || u.Surname.ToLower().Contains(name.ToLower())) &&
-                        u.Member == null)
+                        u.Member == null && u.Id != user.Id)
             .ToListAsync();
+    }
 }
