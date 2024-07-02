@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { ManagementRoutingModule } from './management-routing.module';
-import * as Pages from './pages';
-import * as Dialogs from './dialogs';
-import * as Components from './components';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ManagementComponent } from './pages/management/management.component';
 
 @NgModule({
   declarations: [
-    Pages.ManagementComponent,
-    Dialogs.CreateTeamComponent,
-    Components.MyTeamComponent,
-    Components.AvailableMembersComponent,
+    ManagementComponent
   ],
   imports: [ManagementRoutingModule, SharedModule, ReactiveFormsModule],
 })

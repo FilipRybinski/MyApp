@@ -3,9 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../service/account.service';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
-import { PATH } from '../../../../constants/routing/path';
-import { SnackBarService } from '../../../shared/service/snack-bar.service';
-import { StoreService } from '../../../shared/service/store.service';
 
 @Component({
   selector: 'app-signin',
@@ -18,9 +15,7 @@ export class SigninComponent implements OnInit {
   constructor(
     private readonly _fb: FormBuilder,
     private readonly _accountService: AccountService,
-    private readonly _router: Router,
-    private readonly _snackBarService: SnackBarService,
-    private readonly _storeService: StoreService
+    private readonly _router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -42,18 +37,6 @@ export class SigninComponent implements OnInit {
       ...this.form.value,
     };
 
-    this._accountService.signIn(body).subscribe({
-      next: user => {
-        this._storeService.user = user;
-        this._accountService.getFeatureFlags().subscribe({
-          next: featureFlags => {
-            this._storeService.flags = featureFlags;
-            this._snackBarService.open('Login successfully!');
-            this._router.navigate([PATH.MANAGEMENT]);
-          },
-        });
-      },
-      error: err => console.log(err),
-    });
+    this._accountService.signIn(body).subscribe();
   }
 }

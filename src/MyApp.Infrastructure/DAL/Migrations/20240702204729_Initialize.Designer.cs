@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyApp.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(MyAppDbContext))]
-    [Migration("20240610150455_NewRelations")]
-    partial class NewRelations
+    [Migration("20240702204729_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,28 +24,6 @@ namespace MyApp.Infrastructure.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("MyApp.Core.Entities.Member", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TeamId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Members");
-                });
 
             modelBuilder.Entity("MyApp.Core.Entities.Role", b =>
                 {
@@ -60,27 +38,6 @@ namespace MyApp.Infrastructure.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("MyApp.Core.Entities.Team", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
-
-                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("MyApp.Core.Entities.User", b =>
@@ -122,36 +79,6 @@ namespace MyApp.Infrastructure.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyApp.Core.Entities.Member", b =>
-                {
-                    b.HasOne("MyApp.Core.Entities.Team", "Team")
-                        .WithMany("Members")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyApp.Core.Entities.User", "User")
-                        .WithOne("Member")
-                        .HasForeignKey("MyApp.Core.Entities.Member", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyApp.Core.Entities.Team", b =>
-                {
-                    b.HasOne("MyApp.Core.Entities.User", "Owner")
-                        .WithOne("Team")
-                        .HasForeignKey("MyApp.Core.Entities.Team", "OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("MyApp.Core.Entities.User", b =>
                 {
                     b.HasOne("MyApp.Core.Entities.Role", "Role")
@@ -166,20 +93,6 @@ namespace MyApp.Infrastructure.DAL.Migrations
             modelBuilder.Entity("MyApp.Core.Entities.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("MyApp.Core.Entities.Team", b =>
-                {
-                    b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("MyApp.Core.Entities.User", b =>
-                {
-                    b.Navigation("Member")
-                        .IsRequired();
-
-                    b.Navigation("Team")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

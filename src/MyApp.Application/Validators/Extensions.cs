@@ -1,8 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Application.Commands.CloseTeam;
-using MyApp.Application.Commands.OpenTeam;
 using MyApp.Application.Commands.SignUp;
 using MyApp.Application.Queries.SignIn;
 using MyApp.Application.Validators.CommandValidators;
@@ -18,9 +16,6 @@ internal static class Extensions
 
         services.AddScopedValidator<SignUp, SignUpValidator>();
         services.AddScopedValidator<SignIn, SignInValidator>();
-        services.AddScopedValidator<OpenTeam, OpenTeamValidator>();
-        services.AddScopedValidator<CloseTeam, CloseTeamValidator>();
-
         return services;
     }
 

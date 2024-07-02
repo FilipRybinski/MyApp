@@ -1,14 +1,12 @@
 using MyApp.Application;
 using MyApp.Core;
 using MyApp.Infrastructure;
-using MyApp.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddCore()
     .AddApplication()
-    .AddServices()
     .AddInfrastructure(builder.Configuration)
     .AddControllers();
 

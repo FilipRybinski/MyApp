@@ -9,6 +9,5 @@ internal class UserProfile : Profile
     public UserProfile()
     {
         CreateMap<User, UserDto>();
-        CreateMap<User, HateoasUserDto>();
     }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { StoreService } from '../../service/store.service';
 import { PATH } from '../../../../constants/routing/path';
 import { AccountService } from '../../../account/service/account.service';
 
@@ -11,16 +10,5 @@ import { AccountService } from '../../../account/service/account.service';
 export class NavbarComponent {
   public readonly PATH = PATH;
 
-  constructor(
-    public readonly _storeService: StoreService,
-    private readonly _accountService: AccountService
-  ) {}
-
-  public logOut() {
-    this._accountService.logOut().subscribe({
-      next: () => {
-        this._storeService.loadInitialState();
-      },
-    });
-  }
+  constructor(private readonly _accountService: AccountService) {}
 }

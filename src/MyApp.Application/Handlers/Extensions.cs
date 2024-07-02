@@ -1,10 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Application.Handlers.GetAvailableMembers;
 using MyApp.Application.Handlers.GetFeatureFlags;
-using MyApp.Application.Handlers.GetMyAccount;
-using MyApp.Application.Handlers.GetMyTeam;
-using MyApp.Application.Handlers.GetMyTeamMembers;
-using MyApp.Application.Queries.LogOut;
 
 namespace MyApp.Application.Handlers;
 
@@ -12,12 +7,7 @@ public static class Extensions
 {
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
-        services.AddScopedHandler<IGetAvailableMembersHandler, GetAvailableMembersHandler>();
         services.AddScopedHandler<IGetFeatureFlagsHandler, GetFeatureFlagsHandler>();
-        services.AddScopedHandler<IGetMyAccountHandler, GetMyAccountHandler>();
-        services.AddScopedHandler<IGetMyTeam, GetMyTeamHandler>();
-        services.AddScopedHandler<IGetMyTeamMembersHandler, GetMyTeamMembersHandler>();
-        services.AddScopedHandler<ILogOut, LogOutHandler>();
         return services;
     }
 

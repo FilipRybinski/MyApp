@@ -17,8 +17,6 @@ internal static class Extensions
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUserRepository, PostgresUserRepository>();
         services.AddScoped<IUserRoleRepository, PostgresUserRoleRepository>();
-        services.AddScoped<ITeamRepository, PostgresTeamRepository>();
-        services.AddScoped<IMemberRepository, PostgresMemberRepository>();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         return services;
     }

@@ -6,19 +6,19 @@ using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Queries.SignIn;
 
-public class SignInHandler : IQueryHandler<SignIn,UserDto>
+public class SignInHandler : IQueryHandler<SignIn, UserDto>
 
 {
     private readonly IAuthenticator _authenticator;
     private readonly IHttpContextTokenStorage _httpContextTokenStorage;
-    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly IUserRepository _userRepository;
 
     public SignInHandler(IUserRepository userRepository,
         IAuthenticator authenticator,
         IHttpContextTokenStorage httpContextTokenStorage,
         IMapper mapper
-        )
+    )
     {
         _userRepository = userRepository;
         _authenticator = authenticator;
@@ -28,14 +28,7 @@ public class SignInHandler : IQueryHandler<SignIn,UserDto>
 
     public async Task<UserDto> HandleAsync(SignIn command)
     {
-        var user = await _userRepository.IsUserExists(command.Email);
-        if (user is null)
-        {
-            throw new Exception();
-        }
-
-        var jwt = _authenticator.CreateToken(user.Id, user.Role.Name);
-        _httpContextTokenStorage.Set(jwt);
-        return _mapper.Map<UserDto>(user);
+        //TODO: IMPLEMENTATION
+        throw new NotImplementedException();
     }
 }

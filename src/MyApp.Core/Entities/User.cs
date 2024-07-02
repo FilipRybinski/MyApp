@@ -24,6 +24,4 @@ public class User
     public DateTime CreatedAt { get; private set; }
 
     public virtual Role Role { get; private set; }
-    public virtual Team Team { get; private set; }
-    public virtual Member Member { get; private set; }
 }

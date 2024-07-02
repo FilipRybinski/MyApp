@@ -17,7 +17,7 @@ internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStor
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid? GetCurrentUserIdentifier()
+    public Guid? GetUserIdentifier()
     {
         if (Guid.TryParse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
                 out var identifier))

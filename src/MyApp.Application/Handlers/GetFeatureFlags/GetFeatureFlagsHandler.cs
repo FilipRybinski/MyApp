@@ -15,7 +15,12 @@ public class GetFeatureFlagsHandler : IGetFeatureFlagsHandler
 
     public async Task<FeatureFlagsDto> HandleAsync()
     {
-        var user = await _userRepository.GetCurrentUser();
+        var user = await _userRepository.GetUser();
+        if (user is null)
+        {
+            throw new Exception();
+        }
+
         var featureFlags = user.Role.Name switch
         {
             UserRoleDictionary.Moderator => new FeatureFlagsDto(false, true, false),

@@ -4,7 +4,7 @@ namespace MyApp.Application.Security;
 
 public interface IHttpContextTokenStorage
 {
-    Guid? GetCurrentUserIdentifier();
+    Guid? GetUserIdentifier();
     void Set(JwtDto jwt);
     void Remove();
 }
