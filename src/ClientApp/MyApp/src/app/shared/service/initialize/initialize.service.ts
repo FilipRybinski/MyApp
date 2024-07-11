@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AccountService } from '../../account/service/account.service';
+import { AccountService } from '../../../account/service/account/account.service';
+import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class InitializeService {
   constructor(
     private readonly _http: HttpClient,

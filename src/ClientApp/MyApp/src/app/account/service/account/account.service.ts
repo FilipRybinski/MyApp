@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { SignIn } from '../../../interfaces/account/signIn';
-import { SignUp } from '../../../interfaces/account/signUp';
-import { User } from '../../../interfaces/account/user';
-import { FeatureFlags } from '../../../interfaces/featureFlags/featureFlags';
+import { environment } from '../../../../environments/environment';
+import { SignIn } from '../../../../interfaces/account/signIn';
+import { SignUp } from '../../../../interfaces/account/signUp';
+import { User } from '../../../../interfaces/account/user';
+import { FeatureFlags } from '../../../../interfaces/featureFlags/featureFlags';
 
 @Injectable({
   providedIn: 'root',

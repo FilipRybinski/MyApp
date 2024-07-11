@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PATH } from '../../../../constants/routing/path';
-import { AccountService } from '../../../account/service/account.service';
+import { AccountService } from '../../../account/service/account/account.service';
 
 @Component({
   selector: 'app-navbar',

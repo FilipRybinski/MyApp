@@ -10,9 +10,9 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
-import { InitializeService } from './shared/service/initialize.service';
+import * as SharedService from './shared/service/index';
 
-export function initialize(initializeService: InitializeService) {
+export function initialize(initializeService: SharedService.InitializeService) {
   return () => initializeService.initialize();
 }
 
@@ -22,11 +22,11 @@ export function initialize(initializeService: InitializeService) {
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([credentialsInterceptor])),
-    InitializeService,
+    SharedService.InitializeService,
     {
       provide: APP_INITIALIZER,
       useFactory: initialize,
-      deps: [InitializeService],
+      deps: [SharedService.InitializeService],
       multi: true,
     },
   ],

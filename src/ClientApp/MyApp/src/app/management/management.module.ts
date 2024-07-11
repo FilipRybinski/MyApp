@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ManagementRoutingModule } from './management-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ManagementComponent } from './pages/management/management.component';
+import * as Pages from './pages';
 
 @NgModule({
-  declarations: [
-    ManagementComponent
-  ],
-  imports: [ManagementRoutingModule, SharedModule, ReactiveFormsModule],
+  declarations: [Pages.ManagementComponent],
+  imports: [ManagementRoutingModule, SharedModule],
 })
 export class ManagementModule {}
