@@ -9,6 +9,7 @@ env:
   REGISTRY: ghcr.io
   FRONTEND_PATH: Dockerfiles/Dockerfile.frontend
   BACKEND_PATH: Dockerfiles/Dockerfile.backend
+  APP_SETTINGS_PATH: src/MyApp.Api/appsettings.json
   FRONTEND_IMAGE: myapp-frontend:latest
   BACKEND_IMAGE: myapp-backend:latest
   CERTIFICATE_FILENAME: cert
@@ -38,7 +39,7 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          echo "${{ vars.APP_SETTINGS }}" > src/MyApp.Api/appsettings.json
+          echo "${{vars.APP_SETTINGS}}" > ${{env.APP_SETTINGS_PATH}}
           docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
 
