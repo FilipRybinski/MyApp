@@ -42,7 +42,9 @@ jobs:
 
       - name: Update appsettings.json from secret
         run: |
-          echo "${{secrets.APP_SETTINGS}}" | jq '.' > ${{env.APP_SETTINGS_PATH}}
+          echo "${{secrets.APP_SETTINGS}}" > secret.json
+          cat secret.json | jq '.' > ${{env.APP_SETTINGS_PATH}}
+        shell: bash
 
       - name: Build and Publish Backend
         run: |
