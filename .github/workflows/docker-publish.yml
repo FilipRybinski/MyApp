@@ -39,7 +39,7 @@ jobs:
 
       - name: Build and Publish Backend
         run: |
-          echo "${{vars.APP_SETTINGS }" > ${{env.APP_SETTINGS_PATH}}
+          echo "${{secrets.APP_SETTINGS}}" > ${{env.APP_SETTINGS_PATH}}
           docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
 
