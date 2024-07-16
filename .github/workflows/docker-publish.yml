@@ -24,9 +24,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install jq
-        run: sudo apt-get install jq
-
       - name: lowercase github.repository
         run: |
           echo "USER_NAME=`echo ${{github.repository}} | tr '[:upper:]' '[:lower:]'`" >>${GITHUB_ENV}
@@ -40,11 +37,13 @@ jobs:
           docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
 
-      - name: Update appsettings.json from secret
-        run: |
-          echo "${{secrets.APP_SETTINGS}}" > secret.json
-          cat secret.json | jq '.' > ${{env.APP_SETTINGS_PATH}}
-        shell: bash
+      - name: App Settings Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ${{env.APP_SETTINGS_PATH}}
+        env:
+          auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
+          database.connectionString: ${{env.APP_SETTINGS_CONNECTION_STRING}}
 
       - name: Build and Publish Backend
         run: |
