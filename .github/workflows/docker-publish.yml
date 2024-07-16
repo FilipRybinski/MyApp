@@ -42,8 +42,8 @@ jobs:
         with:
           files: ${{env.APP_SETTINGS_PATH}}
         env:
-          auth__signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
-          database__connectionString: ${{env.APP_SETTINGS_CONNECTION_STRING}}
+          auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
+          database.connectionString: ${{env.APP_SETTINGS_CONNECTION_STRING}}
 
       - name: Build and Publish Backend
         run: |
