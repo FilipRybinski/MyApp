@@ -17,6 +17,7 @@ env:
 
 jobs:
   build-and-publish-images:
+    needs: apply-configuration-backend
     name: Build & Publish Images
     runs-on: ubuntu-latest
 
@@ -36,14 +37,6 @@ jobs:
         run: |
           docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
-
-      - name: App Settings Variable Substitution
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ${{env.APP_SETTINGS_PATH}}
-        env:
-          auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
-          database.connectionString: ${{secrets.APP_SETTINGS_CONNECTION_STRING}}
 
       - name: Build and Publish Backend
         run: |
@@ -69,10 +62,23 @@ jobs:
       - name: cleanup
         run: rm -rf ~/.ssh
 
+  apply-configuration-backend:
+    name: apply configuration backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: App Settings Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ${{env.APP_SETTINGS_PATH}}
+        env:
+          auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
+          database.connectionString: ${{secrets.APP_SETTINGS_CONNECTION_STRING}}
+
   deploy:
     needs:
       - build-and-publish-images
       - create-certificate
+      - apply-configuration-backend
     name: deploy
     runs-on: ubuntu-latest
 
