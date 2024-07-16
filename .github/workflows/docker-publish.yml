@@ -44,6 +44,9 @@ jobs:
         env:
           auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
           database.connectionString: ${{env.APP_SETTINGS_CONNECTION_STRING}}
+          
+      - name: Display updated appsettings.json
+        run: cat ${{env.APP_SETTINGS_PATH}}
 
       - name: Build and Publish Backend
         run: |
