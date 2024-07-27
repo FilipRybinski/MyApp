@@ -6,6 +6,7 @@ COPY src/MyApp.Api/*.csproj src/MyApp.Api/
 COPY src/MyApp.Application/*.csproj src/MyApp.Application/
 COPY src/MyApp.Core/*.csproj src/MyApp.Core/
 COPY src/MyApp.Infrastructure/*.csproj src/MyApp.Infrastructure/
+COPY common/Common/*.csproj common/Common/
 COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
 RUN dotnet restore 
 
