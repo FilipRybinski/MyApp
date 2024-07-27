@@ -1,4 +1,5 @@
-using MyApp.Application.Abstractions;
+
+using Common.Abstractions;
 using MyApp.Application.Security;
 using MyApp.Core.Entities;
 using MyApp.Core.Repositories;

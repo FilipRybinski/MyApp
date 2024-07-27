@@ -1,5 +1,5 @@
+using Common.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Application.Abstractions;
 using MyApp.Application.Commands.SignUp;
 using MyApp.Application.Queries.SignIn;
 using MyApp.Core.DTO;

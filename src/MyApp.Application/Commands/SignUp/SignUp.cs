@@ -1,4 +1,6 @@
-using MyApp.Application.Abstractions;
+
+
+using Common.Abstractions;
 
 namespace MyApp.Application.Commands.SignUp;
 

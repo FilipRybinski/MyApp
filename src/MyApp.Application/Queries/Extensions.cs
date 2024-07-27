@@ -1,5 +1,7 @@
+using System.Reflection;
+using Common.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using MyApp.Application.Abstractions;
+
 
 namespace MyApp.Application.Queries;
 
@@ -7,7 +9,7 @@ internal static class Extensions
 {
     public static IServiceCollection AddQueries(this IServiceCollection services)
     {
-        services.Scan(s => s.FromAssemblies(typeof(IQueryHandler<,>).Assembly)
+        services.Scan(s => s.FromAssemblies(Assembly.GetExecutingAssembly())
             .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());

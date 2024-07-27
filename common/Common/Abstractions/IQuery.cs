@@ -1,4 +1,4 @@
-namespace MyApp.Application.Abstractions;
+namespace Common.Abstractions;
 
 public interface IQuery<TResult>
 {

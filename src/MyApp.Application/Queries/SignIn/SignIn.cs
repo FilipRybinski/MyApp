@@ -1,4 +1,5 @@
-using MyApp.Application.Abstractions;
+
+using Common.Abstractions;
 using MyApp.Core.DTO;
 
 namespace MyApp.Application.Queries.SignIn;

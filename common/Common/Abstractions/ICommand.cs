@@ -1,4 +1,4 @@
-namespace MyApp.Application.Abstractions;
+namespace Common.Abstractions;
 
 //Marker
 public interface ICommand

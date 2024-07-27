@@ -1,5 +1,5 @@
 using AutoMapper;
-using MyApp.Application.Abstractions;
+using Common.Abstractions;
 using MyApp.Application.Security;
 using MyApp.Core.DTO;
 using MyApp.Core.Repositories;
