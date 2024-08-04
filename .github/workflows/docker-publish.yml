@@ -8,8 +8,8 @@ on:
 env:
   REGISTRY: ghcr.io
   FRONTEND_PATH: Dockerfiles/Dockerfile.frontend
-  BACKEND_MYAPP_PATH: Dockerfiles/Dockerfile.myapp.backend
-  BACKEND_INTEGRATION_PATH: Dockerfiles/Dockerfile.integration.backend
+  BACKEND_MYAPP_PATH: Dockerfiles/Dockerfile.backend
+  BACKEND_INTEGRATION_PATH: Dockerfiles/Dockerfile.integration
   APP_SETTINGS_PATH: src/MyApp.Api/appsettings.json
   FRONTEND_IMAGE: myapp-frontend:latest
   BACKEND_MYAPP_IMAGE: myapp-backend:latest
