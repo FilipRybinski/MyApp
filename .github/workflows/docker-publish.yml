@@ -8,10 +8,12 @@ on:
 env:
   REGISTRY: ghcr.io
   FRONTEND_PATH: Dockerfiles/Dockerfile.frontend
-  BACKEND_PATH: Dockerfiles/Dockerfile.backend
+  BACKEND_MYAPP_PATH: Dockerfiles/Dockerfile.myapp.backend
+  BACKEND_INTEGRATION_PATH: Dockerfiles/Dockerfile.integration.backend
   APP_SETTINGS_PATH: src/MyApp.Api/appsettings.json
   FRONTEND_IMAGE: myapp-frontend:latest
-  BACKEND_IMAGE: myapp-backend:latest
+  BACKEND_MYAPP_IMAGE: myapp-backend:latest
+  BACKEND_INTEGRATION_IMAGE: integration-backend:latest
   CERTIFICATE_FILENAME: cert
   DOCKER_DEPENDENCIES: frontend backend
 
@@ -37,7 +39,7 @@ jobs:
           docker build --build-arg CERTIFICATE_CONTENT="${{secrets.CERTIFICATE}}" --build-arg PRIVATE_KEY_CONTENT="${{secrets.CERTIFICATE_PRIVATE_KEY}}" -f ${{env.FRONTEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
           docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.FRONTEND_IMAGE}}
 
-      - name: Apply appsettings backend
+      - name: Apply appsettings MyApp backend
         uses: microsoft/variable-substitution@v1
         with:
           files: ${{env.APP_SETTINGS_PATH}}
@@ -45,10 +47,15 @@ jobs:
           auth.signingKey: ${{secrets.APP_SETTINGS_SIGNING_KEY}}
           database.connectionString: ${{secrets.APP_SETTINGS_CONNECTION_STRING}}
 
-      - name: Build and Publish Backend
+      - name: Build and Publish MyApp Backend
         run: |
-          docker build -f ${{env.BACKEND_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
-          docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_IMAGE}}
+          docker build -f ${{env.BBACKEND_MYAPP_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_MYAPP_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_MYAPP_IMAGE}}
+
+      - name: Build and Publish Integration Backend
+        run: |
+          docker build -f ${{env.BACKEND_INTEGRATION_PATH}} . --tag ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_INTEGRATION_IMAGE}}
+          docker push ${{env.REGISTRY}}/${{env.USER_NAME}}/${{env.BACKEND_INTEGRATION_IMAGE}}
 
   create-certificate:
     name: create certificate

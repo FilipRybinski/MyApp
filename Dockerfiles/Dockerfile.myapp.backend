@@ -1,26 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-COPY MyApp.sln .
-COPY src/MyApp.Api/*.csproj src/MyApp.Api/
-COPY src/MyApp.Application/*.csproj src/MyApp.Application/
-COPY src/MyApp.Core/*.csproj src/MyApp.Core/
-COPY src/MyApp.Infrastructure/*.csproj src/MyApp.Infrastructure/
-
-COPY modules/integration/Integration.Api/*.csproj modules/integration/Integration.Api/
-COPY modules/integration/Integration.Application/*.csproj modules/integration/Integration.Application/
-COPY modules/integration/Integration.Core/*.csproj modules/integration/Integration.Core/
-COPY modules/integration/Integration.Infrastructure/*.csproj modules/integration/Integration.Infrastructure/
-
-COPY common/Common/*.csproj common/Common/
-COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
-RUN dotnet restore 
-
 COPY . .
+
+RUN dotnet restore 
 
 RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
 
-RUN dotnet build -c Release -o /app/build
+RUN dotnet build src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
