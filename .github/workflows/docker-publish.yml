@@ -15,7 +15,6 @@ env:
   BACKEND_MYAPP_IMAGE: myapp-backend:latest
   BACKEND_INTEGRATION_IMAGE: integration-backend:latest
   CERTIFICATE_FILENAME: cert
-  DOCKER_DEPENDENCIES: frontend backend
 
 jobs:
   build-frontend:
@@ -115,7 +114,7 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.CERTIFICATE_DIRECTORY }} && openssl pkcs12 -export -out ${{ env.CERTIFICATE_FILENAME }}.pfx -inkey ${{ env.CERTIFICATE_FILENAME }}.key -in ${{ env.CERTIFICATE_FILENAME }}.crt -passout pass:${{ secrets.CERTIFICATE_PASSWORD }}"
 
       - name: Connect and Pull
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d ${{ env.DOCKER_DEPENDENCIES }} && exit"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
 
       - name: Remove Old Images
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "yes | docker image prune -a && exit"
