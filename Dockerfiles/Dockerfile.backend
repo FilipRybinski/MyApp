@@ -5,7 +5,7 @@ COPY MyApp.sln .
 COPY src/*/*.csproj src/
 COPY modules/integration/*/*.csproj modules/integration/
 COPY common/Common/*.csproj common/Common/
-COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
+COPY src/MyApp.Tests.Unit/*.csproj src/MyApp.Tests.Unit/
 
 RUN dotnet restore 
 
