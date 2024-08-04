@@ -4,5 +4,5 @@ namespace MyApp.Application.Handlers.GetFeatureFlags;
 
 public interface IGetFeatureFlagsHandler
 {
-    Task<FeatureFlagsDto> HandleAsync();
+    FeatureFlagsDto Handle();
 }

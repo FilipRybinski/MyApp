@@ -1,5 +1,5 @@
 using FluentValidation;
-using MyApp.Application.Commands.SignUp;
+using MyApp.Application.Queries.SignUp;
 using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Validators.CommandValidators;

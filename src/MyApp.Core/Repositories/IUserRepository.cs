@@ -4,8 +4,9 @@ namespace MyApp.Core.Repositories;
 
 public interface IUserRepository
 {
-    public Task<User?> GetUser();
-    public Task AddUserAsync(User user);
+    public Task<User?> GetSessionUserAsync();
+    public Task<User> AddUserAsync(User user);
+    public Task<User?> GetUserByEmailAsync(string email);
     public bool IsEmailAlreadyExists(string email);
     public bool IsUserNameAlreadyExists(string username);
 }

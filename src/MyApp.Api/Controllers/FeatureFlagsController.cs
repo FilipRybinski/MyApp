@@ -15,11 +15,10 @@ public class FeatureFlagsController : ControllerBase
     {
         _featureFlagsHandler = featureFlagsHandler;
     }
-
-    [Authorize]
+    
     [HttpGet("[action]")]
-    public async Task<FeatureFlagsDto> GetFeatureFlags()
+    public ActionResult<FeatureFlagsDto> GetFeatureFlags()
     {
-        return await _featureFlagsHandler.HandleAsync();
+        return _featureFlagsHandler.Handle();
     }
 }

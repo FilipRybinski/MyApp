@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Application.Handlers.GetFeatureFlags;
+using MyApp.Application.Handlers.IsAuthorized;
 
 namespace MyApp.Application.Handlers;
 
@@ -8,6 +9,7 @@ public static class Extensions
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
         services.AddScopedHandler<IGetFeatureFlagsHandler, GetFeatureFlagsHandler>();
+        services.AddScopedHandler<IAuthorizedHandler, AuthorizedHandler>();
         return services;
     }
 

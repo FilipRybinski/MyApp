@@ -14,11 +14,11 @@ export class AccountService {
   constructor(private _http: HttpClient) {}
 
   public signIn(body: SignIn): Observable<User> {
-    return this._http.post<User>(environment.URL.ACCOUNT.SIGN_IN, body);
+    return this._http.post<User>(environment.URL.USERS.SIGN_IN, body);
   }
 
   public signUp(body: SignUp): Observable<boolean> {
-    return this._http.post<boolean>(environment.URL.ACCOUNT.SIGN_UP, body);
+    return this._http.post<boolean>(environment.URL.USERS.SIGN_UP, body);
   }
 
   public getFeatureFlags(): Observable<FeatureFlags> {

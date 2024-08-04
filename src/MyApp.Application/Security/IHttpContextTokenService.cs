@@ -2,9 +2,9 @@ using MyApp.Core.DTO;
 
 namespace MyApp.Application.Security;
 
-public interface IHttpContextTokenStorage
+public interface IHttpContextTokenService
 {
-    Guid? GetUserIdentifier();
+    Guid? ExtractUserIdentifier();
     void Set(JwtDto jwt);
     void Remove();
 }

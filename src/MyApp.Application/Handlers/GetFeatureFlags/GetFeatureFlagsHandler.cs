@@ -7,23 +7,15 @@ namespace MyApp.Application.Handlers.GetFeatureFlags;
 
 public class GetFeatureFlagsHandler : IGetFeatureFlagsHandler
 {
-    private readonly IUserRepository _userRepository;
     private readonly FeatureFlagsDto FeatureFlags;
 
-    public GetFeatureFlagsHandler(IUserRepository userRepository,IOptions<FeatureFlagsDto> featureFlags)
+    public GetFeatureFlagsHandler(IOptions<FeatureFlagsDto> featureFlags)
     {
-        _userRepository = userRepository;
         FeatureFlags = featureFlags.Value;
     }
 
-    public async Task<FeatureFlagsDto> HandleAsync()
+    public FeatureFlagsDto Handle()
     {
-        var user = await _userRepository.GetUser();
-        if (user is null)
-        {
-            throw new Exception();
-        }
-        
         return FeatureFlags;
     }
 }

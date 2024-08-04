@@ -1,8 +1,10 @@
 using Common.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using MyApp.Application.Commands.SignUp;
+using MyApp.Application.Handlers.IsAuthorized;
 using MyApp.Application.Queries.SignIn;
+using MyApp.Application.Queries.SignUp;
 using MyApp.Core.DTO;
+using MyApp.Core.Entities;
 
 namespace MyApp.Api.Controllers;
 
@@ -11,28 +13,36 @@ namespace MyApp.Api.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IQueryHandler<SignIn, UserDto> _signInHandler;
-    private readonly ICommandHandler<SignUp> _signUpHandler;
+    private readonly IQueryHandler<SignUp,UserDto> _signUpHandler;
+    private readonly IAuthorizedHandler _authorizedHandler;
 
     public UsersController(
-        ICommandHandler<SignUp> signUpHandler,
-        IQueryHandler<SignIn, UserDto> signInHandler
+        IQueryHandler<SignUp,UserDto> signUpHandler,
+        IQueryHandler<SignIn, UserDto> signInHandler,
+        IAuthorizedHandler authorizedHandler
     )
     {
         _signUpHandler = signUpHandler;
         _signInHandler = signInHandler;
+        _authorizedHandler = authorizedHandler;
     }
 
     [HttpPost("[action]")]
-    public async Task<ActionResult<bool>> SignUp(SignUp command)
+    public async Task<ActionResult<UserDto>> SignUp(SignUp command)
     {
-        await _signUpHandler.HandleAsync(command);
-        return Ok(true);
+        return Ok(await _signUpHandler.HandleAsync(command));
+
     }
 
     [HttpPost("[action]")]
     public async Task<ActionResult<UserDto>> SignIn(SignIn command)
     {
-        var result = await _signInHandler.HandleAsync(command);
-        return Ok(result);
+        return Ok(await _signInHandler.HandleAsync(command));
+    }
+
+    [HttpGet("[action]")]
+    public async Task<ActionResult<UserDto?>> IsAuthorized()
+    {
+        return Ok(await _authorizedHandler.HandleAsync());
     }
 }

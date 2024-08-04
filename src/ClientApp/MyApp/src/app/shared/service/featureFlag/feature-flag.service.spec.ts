@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
+import { FeatureFlagService } from './feature-flag.service';
 import * as SharedService from '../index';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('FeatureFlagService', () => {
+  let service: FeatureFlagService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SharedService.AuthService],
+      providers: [SharedService.FeatureFlagService],
     });
-    service = TestBed.inject(AuthService);
+    service = TestBed.inject(FeatureFlagService);
   });
 
   it('should be created', () => {

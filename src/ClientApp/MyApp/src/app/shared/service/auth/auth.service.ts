@@ -3,9 +3,7 @@ import { User } from '../../../../interfaces/account/user';
 
 type AuthUserType = User | null;
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   private authUser: WritableSignal<AuthUserType> = signal<AuthUserType>(null);
   public isAuth: WritableSignal<boolean> = signal<boolean>(false);
@@ -16,5 +14,6 @@ export class AuthService {
 
   public set setAuthUser(user: AuthUserType) {
     this.authUser.set(user);
+    user ? this.isAuth.set(true) : this.isAuth.set(false);
   }
 }

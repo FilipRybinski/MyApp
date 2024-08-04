@@ -7,23 +7,27 @@ namespace MyApp.Infrastructure.DAL.Repositories;
 
 internal sealed class PostgresUserRepository : IUserRepository
 {
-    private readonly IHttpContextTokenStorage _contextTokenStorage;
+    private readonly IHttpContextTokenService _contextTokenService;
     private readonly MyAppDbContext _dbContext;
 
-    public PostgresUserRepository(MyAppDbContext dbContext, IHttpContextTokenStorage contextTokenStorage)
+    public PostgresUserRepository(MyAppDbContext dbContext, IHttpContextTokenService contextTokenService)
     {
         _dbContext = dbContext;
-        _contextTokenStorage = contextTokenStorage;
+        _contextTokenService = contextTokenService;
     }
 
-    public async Task<User?> GetUser() =>
-        await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == _contextTokenStorage.GetUserIdentifier());
+    public async Task<User?> GetSessionUserAsync() =>
+        await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == _contextTokenService.ExtractUserIdentifier());
 
-    public async Task AddUserAsync(User user)
+    public async Task<User> AddUserAsync(User user)
     {
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
+        await _dbContext.Entry(user).ReloadAsync();
+        return user;
     }
+    public async Task<User?> GetUserByEmailAsync(string email) =>
+        await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
 
     public bool IsEmailAlreadyExists(string email) => _dbContext.Users.Any(u => u.Email == email);
 

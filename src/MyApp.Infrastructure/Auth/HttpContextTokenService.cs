@@ -5,19 +5,19 @@ using MyApp.Core.DTO;
 
 namespace MyApp.Infrastructure.Auth;
 
-internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStorage
+internal sealed class HttpContextTokenService : IHttpContextTokenService
 {
     private const string TokenKey = "token";
     private const int ExpireTime = 1;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-    public HttpContextHttpContextTokenStorage(IHttpContextAccessor httpContextAccessor)
+    public HttpContextTokenService(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid? GetUserIdentifier()
+    public Guid? ExtractUserIdentifier()
     {
         if (Guid.TryParse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
                 out var identifier))
@@ -30,11 +30,15 @@ internal sealed class HttpContextHttpContextTokenStorage : IHttpContextTokenStor
 
     public void Set(JwtDto jwt)
     {
-        _httpContextAccessor.HttpContext.Items.TryAdd(TokenKey, jwt);
         HttpContextResponseInjectToken(jwt);
     }
 
     public void Remove()
+    {
+        HttpContextResponseExtractToken();
+    }
+
+    private void HttpContextResponseExtractToken()
     {
         var httpOnlyCookie = new CookieOptions
         {

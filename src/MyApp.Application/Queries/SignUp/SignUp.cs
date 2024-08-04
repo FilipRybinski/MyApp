@@ -1,12 +1,13 @@
 
 
 using Common.Abstractions;
+using MyApp.Core.DTO;
 
-namespace MyApp.Application.Commands.SignUp;
+namespace MyApp.Application.Queries.SignUp;
 
 public record SignUp(
     string Email,
     string Username,
     string Name,
     string Surname,
-    string Password): ICommand;
+    string Password): IQuery<UserDto>;

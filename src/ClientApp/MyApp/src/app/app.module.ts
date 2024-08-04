@@ -12,6 +12,12 @@ import {
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
 import * as SharedService from './shared/service/index';
 
+const providersDependencies = [
+  SharedService.InitializeService,
+  SharedService.AuthService,
+  SharedService.FeatureFlagService,
+];
+
 export function initialize(initializeService: SharedService.InitializeService) {
   return () => initializeService.initialize();
 }
@@ -22,7 +28,7 @@ export function initialize(initializeService: SharedService.InitializeService) {
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([credentialsInterceptor])),
-    SharedService.InitializeService,
+    ...providersDependencies,
     {
       provide: APP_INITIALIZER,
       useFactory: initialize,
