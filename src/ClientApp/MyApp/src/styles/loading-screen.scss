@@ -4,10 +4,12 @@
   top: 0;
   width: 100%;
   height: 100%;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.3s ease-out;
 
   .logo {
     display: flex;
@@ -51,4 +53,8 @@
       background: #000
     }
   }
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
 }
