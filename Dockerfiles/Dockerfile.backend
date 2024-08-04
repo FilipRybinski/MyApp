@@ -2,14 +2,12 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
 COPY MyApp.sln .
-COPY src/**/*.csproj src/
-COPY modules/integration/*/*.csproj modules/integration/
-COPY common/Common/*.csproj common/Common/
-COPY MyApp.Tests.Unit/*.csproj MyApp.Tests.Unit/
+COPY src/ src/
+COPY modules/ modules/
+COPY common/ common/
+COPY MyApp.Tests.Unit/ MyApp.Tests.Unit/
 
 RUN dotnet restore 
-
-COPY . .
 
 RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
 
