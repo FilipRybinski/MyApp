@@ -3,19 +3,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../service/account/account.service';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
+import * as SharedServices from '../../../shared/service/index';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss',
+  providers: [SharedServices.AuthService],
 })
 export class SigninComponent implements OnInit {
   public form!: FormGroup;
+  public isLoading: boolean = false;
 
   constructor(
-    private readonly _fb: FormBuilder,
-    private readonly _accountService: AccountService,
-    private readonly _router: Router
+    private readonly fb: FormBuilder,
+    private readonly accountService: AccountService,
+    private readonly authService: SharedServices.AuthService,
+    private readonly router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -23,7 +27,7 @@ export class SigninComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.form = this._fb.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
@@ -36,7 +40,17 @@ export class SigninComponent implements OnInit {
     const body: SignUp = {
       ...this.form.value,
     };
-
-    this._accountService.signIn(body).subscribe();
+    this.isLoading = true;
+    this.accountService.signIn(body).subscribe({
+      next: user => {
+        this.isLoading = false;
+        this.router.navigate(['/']).then(() => {
+          this.authService.setAuthUser = user;
+        });
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+    });
   }
 }

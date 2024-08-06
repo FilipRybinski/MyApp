@@ -1,8 +1,8 @@
-using System.Security.Authentication;
 using AutoMapper;
 using Common.Abstractions;
 using MyApp.Application.Security;
 using MyApp.Core.DTO;
+using MyApp.Core.Exceptions;
 using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Queries.SignIn;
@@ -12,8 +12,8 @@ public class SignInHandler : IQueryHandler<SignIn, UserDto>
 {
     private readonly IAuthenticator _authenticator;
     private readonly IHttpContextTokenService _httpContextTokenService;
-    private readonly IPasswordManager _passwordManager;
     private readonly IMapper _mapper;
+    private readonly IPasswordManager _passwordManager;
     private readonly IUserRepository _userRepository;
 
     public SignInHandler(
@@ -34,17 +34,19 @@ public class SignInHandler : IQueryHandler<SignIn, UserDto>
     public async Task<UserDto> HandleAsync(SignIn query)
     {
         var result = await _userRepository.GetUserByEmailAsync(query.Email);
-        
+
         if (result is null)
         {
-            throw new InvalidCredentialException();
+            throw new InvalidCredentialsException();
         }
 
         if (!_passwordManager.Validate(query.Password, result.Password))
         {
-            throw new InvalidCredentialException(); 
+            throw new InvalidCredentialsException();
         }
-        _httpContextTokenService.Set(_authenticator.CreateToken(result.Id, result.Role.Name));
+
+        var token = _authenticator.CreateToken(result.Id, result.Role.Name);
+        _httpContextTokenService.Set(token);
         return _mapper.Map<UserDto>(result);
     }
 }

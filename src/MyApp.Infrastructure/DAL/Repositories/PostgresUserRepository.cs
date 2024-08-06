@@ -26,8 +26,9 @@ internal sealed class PostgresUserRepository : IUserRepository
         await _dbContext.Entry(user).ReloadAsync();
         return user;
     }
+
     public async Task<User?> GetUserByEmailAsync(string email) =>
-        await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
 
     public bool IsEmailAlreadyExists(string email) => _dbContext.Users.Any(u => u.Email == email);
 
