@@ -1,21 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClientModule } from '@angular/common/http';
-import * as SharedService from '../../app/shared/service';
+import { InitializeService } from './initialize.service';
+import { FeatureFlagService } from '../featureFlag/feature-flag.service';
+import { AuthService } from '../auth/auth.service';
 
 describe('InitializeService', () => {
-  let service: SharedService.InitializeService;
+  let service: InitializeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [
-        SharedService.InitializeService,
-        SharedService.FeatureFlagService,
-        SharedService.AuthService,
-      ],
+      providers: [InitializeService, FeatureFlagService, AuthService],
     });
-    service = TestBed.inject(SharedService.InitializeService);
+    service = TestBed.inject(InitializeService);
   });
 
   it('should be created', () => {
