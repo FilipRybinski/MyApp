@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
-import { User } from '../../../../interfaces/account/user';
-import { FeatureFlags } from '../../../../interfaces/featureFlags/featureFlags';
+import { User } from '../../interfaces/account/user';
+import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { AuthService } from '../auth/auth.service';
 import { FeatureFlagService } from '../featureFlag/feature-flag.service';
 

@@ -1,5 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { FeatureFlags } from '../../../../interfaces/featureFlags/featureFlags';
+import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 
 type FeatureFlagsType = FeatureFlags | null;
 

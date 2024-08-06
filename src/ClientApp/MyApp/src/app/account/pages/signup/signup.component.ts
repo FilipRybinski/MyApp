@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { PATH } from '../../../../constants/routing/path';
+import { AlertService } from '../../../shared/service';
 
 @Component({
   selector: 'app-signup',
@@ -12,11 +13,13 @@ import { PATH } from '../../../../constants/routing/path';
 })
 export class SignupComponent implements OnInit {
   public form!: FormGroup;
+  public isLoading: boolean = false;
 
   constructor(
-    private readonly _accountService: AccountService,
-    private readonly _fb: FormBuilder,
-    private readonly _router: Router
+    private readonly accountService: AccountService,
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly alertService: AlertService
   ) {}
 
   public ngOnInit(): void {
@@ -24,7 +27,7 @@ export class SignupComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.form = this._fb.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -38,6 +41,7 @@ export class SignupComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    this.isLoading = true;
     const body: SignUp = {
       email: this.form.value.email,
       username: this.form.value.username,
@@ -45,11 +49,16 @@ export class SignupComponent implements OnInit {
       surname: this.form.value.surname,
       password: this.form.value.password,
     };
-    this._accountService.signUp(body).subscribe({
+    this.accountService.signUp(body).subscribe({
       next: () => {
-        this._router.navigate([PATH.ACCOUNT, PATH.SIGN_IN]);
+        this.isLoading = false;
+        this.alertService.handleSuccess('Sign up successfully');
+        this.router.navigate([PATH.ACCOUNT, PATH.SIGN_IN]);
       },
-      error: err => console.log(err),
+      error: err => {
+        this.alertService.handleSuccess(err);
+        this.isLoading = false;
+      },
     });
   }
 }

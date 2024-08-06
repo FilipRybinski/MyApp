@@ -1,5 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { User } from '../../../../interfaces/account/user';
+import { User } from '../../interfaces/account/user';
 
 type AuthUserType = User | null;
 

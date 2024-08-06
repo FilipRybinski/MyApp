@@ -1,12 +1,10 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import * as SharedService from '../../app/shared/service';
 import { PATH } from '../../constants/routing/path';
+import { FeatureFlagService } from '../../service/featureFlag/feature-flag.service';
 
 export const featureFlagGuard: CanActivateFn = route => {
-  const featureFlagService: SharedService.FeatureFlagService = inject(
-    SharedService.FeatureFlagService
-  );
+  const featureFlagService: FeatureFlagService = inject(FeatureFlagService);
   const featureFlags = featureFlagService.getFeatureFlags;
   console.log(route.routeConfig?.path);
   switch (route.routeConfig?.path) {

@@ -1,11 +1,9 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import * as SharedService from '../../app/shared/service';
+import { AuthService } from '../../service/auth/auth.service';
 
 export const authorizeGuard: CanActivateFn = () => {
-  const authService: SharedService.AuthService = inject(
-    SharedService.AuthService
-  );
+  const authService: AuthService = inject(AuthService);
   const router = inject(Router);
   if (!authService.isAuth()) {
     router.navigate(['/']).then(() => {

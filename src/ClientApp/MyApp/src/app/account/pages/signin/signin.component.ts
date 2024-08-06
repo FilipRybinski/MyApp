@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../service/account/account.service';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
-import * as SharedServices from '../../../shared/service/index';
+import { AuthService } from '../../../../service/auth/auth.service';
+import * as SharedServices from '../../../shared/service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss',
-  providers: [SharedServices.AuthService],
+  providers: [AuthService],
 })
 export class SigninComponent implements OnInit {
   public form!: FormGroup;
@@ -18,8 +19,9 @@ export class SigninComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly accountService: AccountService,
-    private readonly authService: SharedServices.AuthService,
-    private readonly router: Router
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly alertService: SharedServices.AlertService
   ) {}
 
   public ngOnInit(): void {
@@ -44,11 +46,13 @@ export class SigninComponent implements OnInit {
     this.accountService.signIn(body).subscribe({
       next: user => {
         this.isLoading = false;
+        this.alertService.handleSuccess('Sign in successfully');
         this.router.navigate(['/']).then(() => {
           this.authService.setAuthUser = user;
         });
       },
-      error: () => {
+      error: err => {
+        this.alertService.handleError(err);
         this.isLoading = false;
       },
     });
