@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.Application.Handlers.GetFeatureFlags;
 using MyApp.Application.Handlers.IsAuthorized;
+using MyApp.Application.Handlers.Logout;
 
 namespace MyApp.Application.Handlers;
 
@@ -10,6 +11,7 @@ public static class Extensions
     {
         services.AddScopedHandler<IGetFeatureFlagsHandler, GetFeatureFlagsHandler>();
         services.AddScopedHandler<IAuthorizedHandler, AuthorizedHandler>();
+        services.AddScopedHandler<ILogoutHandler, LogoutHandler>();
         return services;
     }
 
