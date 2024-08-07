@@ -48,8 +48,9 @@ export class SigninComponent implements OnInit {
       next: user => {
         this.isLoading = false;
         this.alertService.handleSuccess('Sign in successfully');
-        this.authService.setAuthUser = user;
-        this.router.navigate(getHomeUrl());
+        this.router
+          .navigate(getHomeUrl())
+          .then(() => (this.authService.setAuthUser = user));
       },
       error: err => {
         this.alertService.handleError(err);
