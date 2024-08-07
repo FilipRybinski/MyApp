@@ -3,20 +3,19 @@
 </button>
 {{ authService.isAuth() }}
 <mat-menu #menu>
-  <ng-container *ngIf="!authService.isAuth()">
+  @if (!authService.isAuth()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       Sign up
     </button>
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
       Sign in
     </button>
-  </ng-container>
-  <ng-container *ngIf="authService.isAuth()">
+  } @else {
     <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">Marketplace</button>
     <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard</button>
     <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management</button>
     <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">
       Log out
     </button>
-  </ng-container>
+  }
 </mat-menu>
