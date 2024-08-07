@@ -1,2 +1,2 @@
-export * from './featureFlags/feature-flag.guard';
+export * from './featureFlag/feature-flag.guard';
 export * from './authorize/authorize.guard';

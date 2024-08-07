@@ -5,6 +5,7 @@ import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../service/auth/auth.service';
 import * as SharedServices from '../../../shared/service';
+import { getHomeUrl } from '../../../../constants/routing/path';
 
 @Component({
   selector: 'app-signin',
@@ -47,9 +48,8 @@ export class SigninComponent implements OnInit {
       next: user => {
         this.isLoading = false;
         this.alertService.handleSuccess('Sign in successfully');
-        this.router.navigate(['/']).then(() => {
-          this.authService.setAuthUser = user;
-        });
+        this.authService.setAuthUser = user;
+        this.router.navigate(getHomeUrl());
       },
       error: err => {
         this.alertService.handleError(err);

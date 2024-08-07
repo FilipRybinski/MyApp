@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PATH } from '../constants/routing/path';
 import * as Pages from './shared/pages';
 import * as Guards from '../guards/index';
+import { FeatureFlag } from '../enums/featureFlag';
 
 const routes: Routes = [
   {
@@ -21,19 +22,22 @@ const routes: Routes = [
   },
   {
     path: PATH.DASHBOARD,
-    canActivate: [Guards.featureFlagGuard],
+    canActivate: [Guards.featureFlagGuard, Guards.authorizeGuard],
+    data: { feature: FeatureFlag.DASHBOARD },
     loadChildren: () =>
       import('./dashboard/dashboard.module').then(m => m.DashboardModule),
   },
   {
     path: PATH.FINANCE,
-    canActivate: [Guards.featureFlagGuard],
+    canActivate: [Guards.featureFlagGuard, Guards.authorizeGuard],
+    data: { feature: FeatureFlag.FINANCE },
     loadChildren: () =>
       import('./finance/finance.module').then(m => m.FinanceModule),
   },
   {
     path: PATH.MANAGEMENT,
-    canActivate: [Guards.featureFlagGuard],
+    canActivate: [Guards.featureFlagGuard, Guards.authorizeGuard],
+    data: { feature: FeatureFlag.MANAGEMENT },
     loadChildren: () =>
       import('./management/management.module').then(m => m.ManagementModule),
   },

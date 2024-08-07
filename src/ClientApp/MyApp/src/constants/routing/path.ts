@@ -9,3 +9,7 @@ export const PATH = {
   MARKETPLACE: 'marketplace',
   PAGE_NOT_FOUND: '**',
 };
+
+export const getHomeUrl = (): string[] => {
+  return [PATH.HOME];
+};

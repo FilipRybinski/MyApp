@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
-import { MaterialModule } from '../../material.module';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared.module';
+import { AuthService } from '../../../../service/auth/auth.service';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -12,7 +12,8 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [MaterialModule, RouterModule.forRoot([]), HttpClientModule],
+      imports: [RouterModule.forRoot([]), SharedModule],
+      providers: [AuthService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);

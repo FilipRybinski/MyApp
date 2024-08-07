@@ -5,12 +5,8 @@ type AuthUserType = User | null;
 
 @Injectable()
 export class AuthService {
-  private authUser: WritableSignal<AuthUserType> = signal<AuthUserType>(null);
+  public authUser: WritableSignal<AuthUserType> = signal<AuthUserType>(null);
   public isAuth: WritableSignal<boolean> = signal<boolean>(false);
-
-  public get getAuthUser(): AuthUserType {
-    return this.authUser();
-  }
 
   public set setAuthUser(user: AuthUserType) {
     this.authUser.set(user);

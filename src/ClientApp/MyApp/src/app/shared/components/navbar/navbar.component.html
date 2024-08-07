@@ -3,23 +3,5 @@
     <div class="logo"></div>
     <span class="text">MyAppZone</span>
   </div>
-  <div class="navbar-container-dropdown">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu>
-      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
-        Sign up
-      </button>
-      <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
-        Sign in
-      </button>
-      <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">
-        Marketplace
-      </button>
-      <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard</button>
-      <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management</button>
-      <button mat-menu-item [routerLink]="[PATH.HOME]">Log out</button>
-    </mat-menu>
-  </div>
+  <app-navbar-menu />
 </div>

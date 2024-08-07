@@ -8,11 +8,15 @@ export class FeatureFlagService {
   private featureFlags: WritableSignal<FeatureFlagsType> =
     signal<FeatureFlagsType>(null);
 
-  public get getFeatureFlags(): FeatureFlagsType {
-    return this.featureFlags();
-  }
-
   public set setFeatureFlags(flags: FeatureFlagsType) {
     this.featureFlags.set(flags);
+  }
+
+  public isFeatureFlagEnabled(featureFlag: keyof FeatureFlags): boolean {
+    const featureFlags = this.featureFlags();
+    if (featureFlags) {
+      return featureFlags[featureFlag];
+    }
+    return false;
   }
 }
