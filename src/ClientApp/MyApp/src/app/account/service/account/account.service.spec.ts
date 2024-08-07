@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AccountService } from './account.service';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../../shared/shared.module';
 
 describe('AccountService', () => {
   let service: AccountService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [SharedModule],
     });
     service = TestBed.inject(AccountService);
   });
