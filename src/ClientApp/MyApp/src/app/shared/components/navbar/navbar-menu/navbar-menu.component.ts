@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
 import { AuthService } from '../../../../../service/auth/auth.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { SharedService } from '../../../service';
   selector: 'app-navbar-menu',
   templateUrl: './navbar-menu.component.html',
   styleUrl: './navbar-menu.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarMenuComponent {
   protected readonly PATH = PATH;
