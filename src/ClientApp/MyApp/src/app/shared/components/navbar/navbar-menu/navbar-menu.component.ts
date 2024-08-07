@@ -11,6 +11,7 @@ import { SharedService } from '../../../service';
 })
 export class NavbarMenuComponent {
   protected readonly PATH = PATH;
+  public isAuth: boolean = this.authService.isAuth();
 
   constructor(
     public readonly authService: AuthService,

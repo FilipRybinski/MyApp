@@ -1,9 +1,9 @@
 <button mat-icon-button [matMenuTriggerFor]="menu">
   <mat-icon>menu</mat-icon>
 </button>
-{{ authService.isAuth() }}
+{{ isAuth }}
 <mat-menu #menu>
-  @if (!authService.isAuth()) {
+  @if (!isAuth) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       Sign up
     </button>
