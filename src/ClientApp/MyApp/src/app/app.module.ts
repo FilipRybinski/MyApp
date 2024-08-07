@@ -7,6 +7,8 @@ import { credentialsInterceptor } from '../interceptors/credentials.interceptor'
 import { InitializeService } from '../service/initialize/initialize.service';
 import { AuthService } from '../service/auth/auth.service';
 import { FeatureFlagService } from '../service/featureFlag/feature-flag.service';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -14,7 +16,7 @@ export function initialize(initializeService: InitializeService) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [SharedModule],
+  imports: [SharedModule, AppRoutingModule, BrowserModule],
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([credentialsInterceptor])),

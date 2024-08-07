@@ -6,8 +6,6 @@ import { MaterialModule } from '../../modules/material.module';
 import { RouterLink } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from '../app-routing.module';
 
 const components = [
   Components.NavbarComponent,
@@ -19,13 +17,7 @@ const pages = [Pages.HomeComponent, Pages.PageNotFoundComponent];
 
 const services = [Services.AlertService, Services.SharedService];
 
-const dependencies = [
-  MaterialModule,
-  RouterLink,
-  HttpClientModule,
-  BrowserModule,
-  AppRoutingModule,
-];
+const dependencies = [MaterialModule, RouterLink, HttpClientModule];
 
 const pipes = [TitleCasePipe];
 
