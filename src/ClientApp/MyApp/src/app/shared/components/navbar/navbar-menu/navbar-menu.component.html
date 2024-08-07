@@ -1,0 +1,20 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu>
+  @if (!authService.isAuth()) {
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
+      Sign up
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
+      Sign in
+    </button>
+  } @else {
+    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">Marketplace</button>
+    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard</button>
+    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management</button>
+    <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">
+      Log out
+    </button>
+  }
+</mat-menu>

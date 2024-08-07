@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared.module';
 import { AuthService } from '../../../../service/auth/auth.service';
 
@@ -12,7 +11,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [RouterModule.forRoot([]), SharedModule],
+      imports: [SharedModule],
       providers: [AuthService],
     }).compileComponents();
 
