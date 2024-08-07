@@ -9,6 +9,7 @@ export class AuthService {
   public isAuth: WritableSignal<boolean> = signal<boolean>(false);
 
   public set setAuthUser(user: AuthUserType) {
+    console.log(!!user);
     this.isAuth.set(!!user);
     this.authUser.set(user);
   }
