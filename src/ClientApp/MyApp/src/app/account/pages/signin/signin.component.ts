@@ -46,11 +46,10 @@ export class SigninComponent implements OnInit {
     this.isLoading = true;
     this.accountService.signIn(body).subscribe({
       next: user => {
-        this.isLoading = false;
+        this.authService.setAuthUser = user;
         this.alertService.handleSuccess('Sign in successfully');
-        this.router
-          .navigate(getHomeUrl())
-          .then(() => (this.authService.setAuthUser = user));
+        this.isLoading = false;
+        this.router.navigate(getHomeUrl());
       },
       error: err => {
         this.alertService.handleError(err);

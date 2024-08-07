@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
 import { AuthService } from '../../../../../service/auth/auth.service';
 import { Router } from '@angular/router';
@@ -16,11 +16,7 @@ export class NavbarMenuComponent {
     public readonly authService: AuthService,
     private readonly sharedService: SharedService,
     private readonly router: Router
-  ) {
-    effect(() => {
-      console.log(`The count is: ${this.authService.isAuth()}`);
-    });
-  }
+  ) {}
 
   public logout(): void {
     this.sharedService.logout().subscribe({
