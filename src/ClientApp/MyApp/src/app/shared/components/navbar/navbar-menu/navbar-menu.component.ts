@@ -19,8 +19,11 @@ export class NavbarMenuComponent {
   ) {}
 
   public logout(): void {
-    this.authService.setAuthUser = null;
-    this.sharedService.logout().subscribe();
-    this.router.navigate(getHomeUrl());
+    this.sharedService.logout().subscribe({
+      next: () =>
+        this.router
+          .navigate(getHomeUrl())
+          .then(() => (this.authService.setAuthUser = null)),
+    });
   }
 }

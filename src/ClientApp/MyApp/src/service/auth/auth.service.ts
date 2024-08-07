@@ -9,7 +9,7 @@ export class AuthService {
   public isAuth: WritableSignal<boolean> = signal<boolean>(false);
 
   public set setAuthUser(user: AuthUserType) {
+    this.isAuth.set(!!user);
     this.authUser.set(user);
-    user ? this.isAuth.set(true) : this.isAuth.set(false);
   }
 }
