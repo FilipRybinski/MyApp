@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AlertService } from './alert.service';
-
-import { SharedModule } from '../../shared.module';
+import { SharedModule } from '../../app/shared/shared.module';
 
 describe('AlertService', () => {
   let service: AlertService;

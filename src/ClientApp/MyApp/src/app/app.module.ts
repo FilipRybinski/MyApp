@@ -5,6 +5,9 @@ import { InitializeService } from '../service/initialize/initialize.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -15,6 +18,8 @@ export function initialize(initializeService: InitializeService) {
   imports: [SharedModule, AppRoutingModule, BrowserModule],
   providers: [
     provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([credentialsInterceptor])),
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
     {
       provide: APP_INITIALIZER,
       useFactory: initialize,

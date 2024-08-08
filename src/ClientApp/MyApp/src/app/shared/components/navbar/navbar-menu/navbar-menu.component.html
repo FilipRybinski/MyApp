@@ -17,20 +17,24 @@
       <mat-icon>login</mat-icon>
     </button>
   } @else {
-    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">Marketplace
+    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">
+      Marketplace
       <mat-icon>shop</mat-icon>
     </button>
-    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard
+    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">
+      Dashboard
       <mat-icon>dashboard</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.FINANCE]">
       Finance
       <mat-icon>account_balance</mat-icon>
     </button>
-    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management
+    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">
+      Management
       <mat-icon>domain</mat-icon>
     </button>
-    <button mat-menu-item [routerLink]="[PATH.ACCOUNT,PATH.SETTINGS]">Settings
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SETTINGS]">
+      Settings
       <mat-icon>settings</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">

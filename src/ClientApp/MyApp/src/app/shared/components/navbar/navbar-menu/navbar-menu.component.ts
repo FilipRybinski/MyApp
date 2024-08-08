@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
 import { AuthService } from '../../../../../service/auth/auth.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../../../service';
+import { SharedService } from '../../../../../service/shared/shared.service';
 
 @Component({
   selector: 'app-navbar-menu',

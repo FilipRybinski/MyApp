@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { PATH } from '../../../../constants/routing/path';
-import { AlertService } from '../../../shared/service';
+import { AlertService } from '../../../../service/alert/alert.service';
 
 @Component({
   selector: 'app-signup',

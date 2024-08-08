@@ -6,9 +6,7 @@ import { SignIn } from '../../../../interfaces/account/signIn';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { User } from '../../../../interfaces/account/user';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AccountService {
   constructor(private _http: HttpClient) {}
 

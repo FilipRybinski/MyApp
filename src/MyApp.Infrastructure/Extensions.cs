@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,7 @@ public static class Extensions
 
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
+        ConfigureCulture("en");
         app.UseMiddleware<ExceptionMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
@@ -41,5 +43,12 @@ public static class Extensions
             .AllowCredentials());
 
         return app;
+    }
+
+    private static void ConfigureCulture(string language)
+    {
+        var culture = new CultureInfo(language);
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
     }
 }

@@ -4,8 +4,8 @@ import { AccountService } from '../../service/account/account.service';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../service/auth/auth.service';
-import * as SharedServices from '../../../shared/service';
 import { getHomeUrl } from '../../../../constants/routing/path';
+import { AlertService } from '../../../../service/alert/alert.service';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
     private readonly accountService: AccountService,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly alertService: SharedServices.AlertService
+    private readonly alertService: AlertService
   ) {}
 
   public ngOnInit(): void {

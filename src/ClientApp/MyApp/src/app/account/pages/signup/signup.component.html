@@ -29,6 +29,8 @@
         <button
           mat-flat-button
           color="accent"
+          [class.spinner]="isLoading"
+          [disabled]="isLoading"
           (click)="submit()">
           signup
         </button>

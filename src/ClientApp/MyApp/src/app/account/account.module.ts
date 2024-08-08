@@ -4,6 +4,7 @@ import * as Pages from './pages';
 import { AccountComponent } from './pages';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AccountService } from './service/account/account.service';
 
 @NgModule({
   declarations: [
@@ -14,5 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [AccountRoutingModule, SharedModule, ReactiveFormsModule],
   exports: [AccountComponent],
+  providers: [AccountService],
 })
 export class AccountModule {}
