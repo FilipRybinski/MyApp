@@ -4,8 +4,9 @@ import * as Pages from './pages';
 import * as Services from './service/index';
 import { MaterialModule } from '../../modules/material.module';
 import { RouterLink } from '@angular/router';
-import { NgIf, TitleCasePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { TitleCasePipe } from '@angular/common';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { credentialsInterceptor } from '../../interceptors/credentials.interceptor';
 
 const components = [
   Components.NavbarComponent,
@@ -15,15 +16,19 @@ const components = [
 
 const pages = [Pages.HomeComponent, Pages.PageNotFoundComponent];
 
-const services = [Services.AlertService, Services.SharedService];
+const services = [
+  Services.AlertService,
+  Services.SharedService,
+  provideHttpClient(withInterceptors([credentialsInterceptor])),
+];
 
-const dependencies = [MaterialModule, RouterLink, HttpClientModule];
+const dependencies = [MaterialModule, RouterLink];
 
 const pipes = [TitleCasePipe];
 
 @NgModule({
   declarations: [...pages, ...components],
-  imports: [...dependencies, ...pipes, NgIf],
+  imports: [...dependencies, ...pipes],
   exports: [...dependencies, ...pages, ...components, ...pipes],
   providers: [...services],
 })

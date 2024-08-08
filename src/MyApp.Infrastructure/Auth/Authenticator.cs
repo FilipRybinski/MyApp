@@ -33,6 +33,7 @@ internal sealed class Authenticator : IAuthenticator
         var expires = now.Add(_expiry);
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier,id.ToString()),
             new(JwtRegisteredClaimNames.Sub, id.ToString()),
             new(JwtRegisteredClaimNames.UniqueName, id.ToString()),
             new(ClaimTypes.Role, roleName)

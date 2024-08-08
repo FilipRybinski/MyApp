@@ -1,14 +1,12 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './shared/shared.module';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
 import { InitializeService } from '../service/initialize/initialize.service';
 import { AuthService } from '../service/auth/auth.service';
 import { FeatureFlagService } from '../service/featureFlag/feature-flag.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -19,7 +17,6 @@ export function initialize(initializeService: InitializeService) {
   imports: [SharedModule, AppRoutingModule, BrowserModule],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([credentialsInterceptor])),
     InitializeService,
     AuthService,
     FeatureFlagService,
