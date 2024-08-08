@@ -43,7 +43,8 @@ const routes: Routes = [
   },
   {
     path: PATH.MARKETPLACE,
-    canActivate: [Guards.authorizeGuard],
+    canActivate: [Guards.featureFlagGuard, Guards.authorizeGuard],
+    data: { feature: FeatureFlag.MARKETPLACE },
     loadChildren: () =>
       import('./marketplace/marketplace.module').then(m => m.MarketplaceModule),
   },

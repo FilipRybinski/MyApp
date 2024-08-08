@@ -1,3 +1,8 @@
+@if (authService.isAuth()) {
+  <button matTooltip="My Profile" mat-icon-button [routerLink]="[PATH.ACCOUNT]">
+    <mat-icon>person</mat-icon>
+  </button>
+}
 <button mat-icon-button [matMenuTriggerFor]="menu">
   <mat-icon>menu</mat-icon>
 </button>
@@ -5,16 +10,32 @@
   @if (!authService.isAuth()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       Sign up
+      <mat-icon>person_add</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
       Sign in
+      <mat-icon>login</mat-icon>
     </button>
   } @else {
-    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">Marketplace</button>
-    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard</button>
-    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management</button>
+    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">Marketplace
+      <mat-icon>shop</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">Dashboard
+      <mat-icon>dashboard</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.FINANCE]">
+      Finance
+      <mat-icon>account_balance</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">Management
+      <mat-icon>domain</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT,PATH.SETTINGS]">Settings
+      <mat-icon>settings</mat-icon>
+    </button>
     <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">
-      Log out
+      Logout
+      <mat-icon>logout</mat-icon>
     </button>
   }
 </mat-menu>

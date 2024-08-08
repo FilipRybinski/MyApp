@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     Pages.AccountComponent,
     Pages.SignupComponent,
     Pages.SigninComponent,
+    Pages.SettingsComponent,
   ],
   imports: [AccountRoutingModule, SharedModule, ReactiveFormsModule],
   exports: [AccountComponent],

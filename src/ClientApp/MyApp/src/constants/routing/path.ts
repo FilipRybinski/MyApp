@@ -3,6 +3,7 @@ export const PATH = {
   ACCOUNT: 'account',
   SIGN_IN: 'signin',
   SIGN_UP: 'signup',
+  SETTINGS: 'settings',
   MANAGEMENT: 'management',
   DASHBOARD: 'dashboard',
   FINANCE: 'finance',
