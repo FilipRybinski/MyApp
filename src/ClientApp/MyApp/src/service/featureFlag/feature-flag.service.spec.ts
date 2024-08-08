@@ -6,9 +6,7 @@ describe('FeatureFlagService', () => {
   let service: FeatureFlagService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [FeatureFlagService],
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(FeatureFlagService);
   });
 

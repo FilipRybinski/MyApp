@@ -7,7 +7,9 @@ import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { AuthService } from '../auth/auth.service';
 import { FeatureFlagService } from '../featureFlag/feature-flag.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class InitializeService {
   constructor(
     private readonly http: HttpClient,

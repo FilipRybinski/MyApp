@@ -3,7 +3,9 @@ import { User } from '../../interfaces/account/user';
 
 type AuthUserType = User | null;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   public authUser: WritableSignal<AuthUserType> = signal<AuthUserType>(null);
   public isAuth: WritableSignal<boolean> = signal<boolean>(false);

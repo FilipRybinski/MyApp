@@ -5,12 +5,12 @@ import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../service/auth/auth.service';
 import * as SharedServices from '../../../shared/service';
+import { getHomeUrl } from '../../../../constants/routing/path';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss',
-  providers: [AuthService],
 })
 export class SigninComponent implements OnInit {
   public form!: FormGroup;
@@ -45,10 +45,11 @@ export class SigninComponent implements OnInit {
     this.isLoading = true;
     this.accountService.signIn(body).subscribe({
       next: user => {
-        this.authService.setAuthUser = user;
         this.alertService.handleSuccess('Sign in successfully');
         this.isLoading = false;
-        // this.router.navigate(getHomeUrl());
+        this.router
+          .navigate(getHomeUrl())
+          .then(() => (this.authService.setAuthUser = user));
       },
       error: err => {
         this.alertService.handleError(err);

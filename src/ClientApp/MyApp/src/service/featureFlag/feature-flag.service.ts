@@ -3,7 +3,9 @@ import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 
 type FeatureFlagsType = FeatureFlags | null;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FeatureFlagService {
   private featureFlags: WritableSignal<FeatureFlagsType> =
     signal<FeatureFlagsType>(null);
