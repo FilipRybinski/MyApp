@@ -1,8 +1,5 @@
 //Import variables
 @import 'styles/variables.scss';
-@import 'styles/custom-theme-material.scss';
-@import 'styles/fonts.scss';
-@import 'styles/custom-styles.scss';
 @import 'styles/loading-animations';
 
 html, body {
@@ -11,6 +8,5 @@ html, body {
 
 body {
   margin: 0;
-  font-size: $font-size-normal;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
