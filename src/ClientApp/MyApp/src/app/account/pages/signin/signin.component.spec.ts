@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SigninComponent } from './signin.component';
-import { SharedModule } from '../../../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
+import { AccountModule } from '../../account.module';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -12,7 +13,8 @@ describe('SigninComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SigninComponent],
-      imports: [SharedModule, BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [AccountModule, BrowserAnimationsModule, ReactiveFormsModule],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);

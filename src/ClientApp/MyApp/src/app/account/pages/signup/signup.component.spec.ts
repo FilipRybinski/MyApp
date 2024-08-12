@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignupComponent } from './signup.component';
-import { SharedModule } from '../../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccountModule } from '../../account.module';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -11,7 +12,8 @@ describe('SignupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SignupComponent],
-      imports: [SharedModule, BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [BrowserAnimationsModule, ReactiveFormsModule, AccountModule],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignupComponent);

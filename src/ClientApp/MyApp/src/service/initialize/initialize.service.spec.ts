@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { InitializeService } from './initialize.service';
 import { SharedModule } from '../../app/shared/shared.module';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('InitializeService', () => {
   let service: InitializeService;
@@ -9,6 +10,7 @@ describe('InitializeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
+      providers: [provideHttpClient()],
     });
     service = TestBed.inject(InitializeService);
   });
