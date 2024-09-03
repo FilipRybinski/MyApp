@@ -15,6 +15,7 @@ env:
   BACKEND_MYAPP_IMAGE: myapp-backend:latest
   BACKEND_INTEGRATION_IMAGE: integration-backend:latest
   CERTIFICATE_FILENAME: cert
+  DOCKER_COMPOSE_FILE: docker-compose.yml
 
 jobs:
   build-frontend:
@@ -89,7 +90,7 @@ jobs:
 
       - name: Create Docker Compose file
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cat > ${{ secrets.WORK_DIR }}/docker-compose2.yml << 'EOL'
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cat > ${{ secrets.WORK_DIR }}/${{ env.DOCKER_COMPOSE_FILE }} << 'EOL'
           ${{ secrets.DOCKER_COMPOSE }}
           EOL"
 
