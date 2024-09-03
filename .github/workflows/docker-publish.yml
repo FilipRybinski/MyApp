@@ -88,7 +88,10 @@ jobs:
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo '${{ secrets.CERTIFICATE_PRIVATE_KEY }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.key"
 
       - name: Create Docker Compose file
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo '${{ secrets.DOCKER_COMPOSE }}' | base64 --decode > ${{ secrets.WORK_DIR }}/docker-compose2.yml"
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cat > ${{ secrets.WORK_DIR }}/docker-compose2.yml << 'EOL'
+          ${{ secrets.DOCKER_COMPOSE }}
+          EOL"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
