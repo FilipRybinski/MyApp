@@ -70,7 +70,7 @@ jobs:
           docker build -f ${{ env.BACKEND_INTEGRATION_PATH }} . --tag ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.BACKEND_INTEGRATION_IMAGE }}
           docker push ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.BACKEND_INTEGRATION_IMAGE }}
 
-  create-certificate:
+  create-dependencies-structure:
     name: Create Certificate
     runs-on: ubuntu-latest
     needs: build-backend
@@ -82,11 +82,15 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
-      - name: Create Certificate File
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo '${{ secrets.CERTIFICATE }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.crt"
+      - name: Create Main Directory
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ${{ secrets.WORK_DIR }}xxx"
 
-      - name: Create Certificate Private Key File
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo '${{ secrets.CERTIFICATE_PRIVATE_KEY }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.key"
+      - name: Create Certificate Directory and Files
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          mkdir -p ${{ secrets.CERTIFICATE_DIRECTORY }} &&
+          echo '${{ secrets.CERTIFICATE }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.crt &&
+          echo '${{ secrets.CERTIFICATE_PRIVATE_KEY }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.key"
 
       - name: Create Docker Compose file
         run: |
@@ -103,7 +107,7 @@ jobs:
     needs:
       [
         build-backend,
-        create-certificate,
+        create-dependencies-structure,
       ]
 
     steps:
