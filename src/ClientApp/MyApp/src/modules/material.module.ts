@@ -14,41 +14,32 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTreeModule } from '@angular/material/tree';
+
+const dependencies = [
+  CommonModule,
+  MatIconModule,
+  MatButtonModule,
+  MatMenuModule,
+  FormsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatTableModule,
+  MatListModule,
+  MatDividerModule,
+  MatSlideToggleModule,
+  MatProgressSpinnerModule,
+  MatAutocompleteModule,
+  MatProgressBarModule,
+  MatTooltipModule,
+  MatSidenavModule,
+  MatTreeModule,
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatListModule,
-    MatDividerModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-  ],
-  exports: [
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTableModule,
-    MatListModule,
-    MatDividerModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    MatAutocompleteModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-  ],
+  imports: [...dependencies],
+  exports: [...dependencies],
 })
 export class MaterialModule {}

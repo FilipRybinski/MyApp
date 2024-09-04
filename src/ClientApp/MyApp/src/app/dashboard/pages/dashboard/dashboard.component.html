@@ -1,1 +1,14 @@
-<p>dashboard</p>
+<mat-drawer-container class="side-menu-container" hasBackdrop>
+  <mat-drawer class="rounded-0 bg-white px-2 pt-4" #drawer>
+    <app-dashboard-menu />
+  </mat-drawer>
+  <mat-drawer-content class="p-2">
+    <div class="w-100">
+      <div class="w-100 d-flex justify-content-start align-items-center">
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>apps</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
