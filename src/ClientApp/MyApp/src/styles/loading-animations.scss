@@ -1,3 +1,4 @@
+//loading screen
 #loading-screen {
   position: fixed;
   left: 0;
@@ -9,7 +10,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.3s ease-out;
 
   .logo {
     display: flex;
@@ -55,9 +55,7 @@
   }
 }
 
-#loading-screen.fade-out {
-  opacity: 0;
-}
+// Spinner animation
 
 @keyframes spinner {
   to {
