@@ -1,4 +1,4 @@
-@if (authService.isAuth()) {
+@if (loggedInUser$()) {
   <button matTooltip="My Profile" mat-icon-button [routerLink]="[PATH.ACCOUNT]">
     <mat-icon>person</mat-icon>
   </button>
@@ -7,7 +7,7 @@
   <mat-icon>menu</mat-icon>
 </button>
 <mat-menu #menu>
-  @if (!authService.isAuth()) {
+  @if (!loggedInUser$()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       Sign up
       <mat-icon>person_add</mat-icon>

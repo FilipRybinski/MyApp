@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { InitializeService } from './initialize.service';
 import { SharedModule } from '../../app/shared/shared.module';
 import { provideHttpClient } from '@angular/common/http';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('InitializeService', () => {
   let service: InitializeService;
@@ -10,7 +11,7 @@ describe('InitializeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
-      providers: [provideHttpClient()],
+      providers: [provideHttpClient(), provideMockStore()],
     });
     service = TestBed.inject(InitializeService);
   });

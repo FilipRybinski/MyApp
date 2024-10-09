@@ -8,6 +8,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { AppStore } from '../store/app.state';
+import { EffectsModule } from '@ngrx/effects';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -15,7 +18,13 @@ export function initialize(initializeService: InitializeService) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [SharedModule, AppRoutingModule, BrowserModule],
+  imports: [
+    SharedModule,
+    AppRoutingModule,
+    BrowserModule,
+    StoreModule.forRoot(AppStore.reducers),
+    EffectsModule.forRoot(AppStore.effects),
+  ],
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([credentialsInterceptor])),

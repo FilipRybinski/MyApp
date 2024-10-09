@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../service/account/account.service';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../service/auth/auth.service';
 import { getHomeUrl } from '../../../../constants/routing/path';
 import { AlertService } from '../../../../service/alert/alert.service';
+import { Store } from '@ngrx/store';
+import { authorizeUser } from '../../../../store/startup/startup.action';
 
 @Component({
   selector: 'app-signin',
@@ -17,9 +18,9 @@ export class SigninComponent implements OnInit {
   public isLoading: boolean = false;
 
   constructor(
+    private readonly store: Store,
     private readonly fb: FormBuilder,
     private readonly accountService: AccountService,
-    private readonly authService: AuthService,
     private readonly router: Router,
     private readonly alertService: AlertService
   ) {}
@@ -49,7 +50,7 @@ export class SigninComponent implements OnInit {
         this.isLoading = false;
         this.router
           .navigate(getHomeUrl())
-          .then(() => (this.authService.setAuthUser = user));
+          .then(() => this.store.dispatch(authorizeUser({ user })));
       },
       error: err => {
         this.alertService.handleError(err);

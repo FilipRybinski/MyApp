@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
-import { AuthService } from '../../../../../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../../../service/shared/shared.service';
+import { Store } from '@ngrx/store';
+import { selectIsLoggedUserAuthorized } from '../../../../../store/startup/startup.selectors';
+import { deauthorizeUser } from '../../../../../store/startup/startup.action';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -10,10 +12,11 @@ import { SharedService } from '../../../../../service/shared/shared.service';
   styleUrl: './navbar-menu.component.scss',
 })
 export class NavbarMenuComponent {
+  private readonly store = inject(Store);
   protected readonly PATH = PATH;
+  public loggedInUser$ = this.store.selectSignal(selectIsLoggedUserAuthorized);
 
   constructor(
-    public readonly authService: AuthService,
     private readonly sharedService: SharedService,
     private readonly router: Router
   ) {}
@@ -23,7 +26,7 @@ export class NavbarMenuComponent {
       next: () =>
         this.router
           .navigate(getHomeUrl())
-          .then(() => (this.authService.setAuthUser = null)),
+          .then(() => this.store.dispatch(deauthorizeUser())),
     });
   }
 }

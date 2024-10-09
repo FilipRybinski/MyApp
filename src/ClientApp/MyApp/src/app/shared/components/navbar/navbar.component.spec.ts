@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar.component';
 import { SharedModule } from '../../shared.module';
 import { RouterModule } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -13,7 +14,7 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
       imports: [SharedModule, RouterModule.forRoot([])],
-      providers: [provideHttpClient()],
+      providers: [provideHttpClient(), provideMockStore()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);
