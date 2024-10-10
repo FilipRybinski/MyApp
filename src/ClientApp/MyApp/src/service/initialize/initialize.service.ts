@@ -17,12 +17,18 @@ export class InitializeService {
   ) {}
 
   public async initialize(): Promise<void> {
-    const [user, featureFlags] = await Promise.all([
-      firstValueFrom(this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)),
-      firstValueFrom(
-        this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
-      ),
-    ]);
-    this.store.dispatch(attachInitialData({ user, featureFlags }));
+    try {
+      const [user, featureFlags] = await Promise.all([
+        firstValueFrom(
+          this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
+        ),
+        firstValueFrom(
+          this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
+        ),
+      ]);
+      this.store.dispatch(attachInitialData({ user, featureFlags }));
+    } catch (error) {
+      console.error('Failed to initialize service');
+    }
   }
 }
