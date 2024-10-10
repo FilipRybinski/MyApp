@@ -1,7 +1,7 @@
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { LoggedInUser } from '../../interfaces/account/loggedInUser';
 import {
-  attachFeatureFlags,
+  attachInitialData,
   authorizeUser,
   deauthorizeUser,
 } from './startup.action';
@@ -28,6 +28,16 @@ export const initialStartupState: Startup = {
 export const StartupReducer = createReducer(
   initialStartupState,
   on(
+    attachInitialData,
+    (state, { user, featureFlags }): Startup => ({
+      loggedInUser: {
+        user: user ?? null,
+        isAuth: !!user,
+      },
+      featureFlags,
+    })
+  ),
+  on(
     authorizeUser,
     (state, { user }): Startup => ({
       ...state,
@@ -40,9 +50,5 @@ export const StartupReducer = createReducer(
   on(
     deauthorizeUser,
     (state): Startup => ({ ...state, loggedInUser: initialLoggedInUserState })
-  ),
-  on(
-    attachFeatureFlags,
-    (state, { featureFlags }): Startup => ({ ...state, featureFlags })
   )
 );
