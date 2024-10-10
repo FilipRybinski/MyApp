@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { AccountModule } from '../../account.module';
-import { provideMockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/state/testing';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;

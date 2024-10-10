@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { InitializeService } from './initialize.service';
 import { SharedModule } from '../../app/shared/shared.module';
 import { provideHttpClient } from '@angular/common/http';
-import { provideMockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/state/testing';
 
 describe('InitializeService', () => {
   let service: InitializeService;

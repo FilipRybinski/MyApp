@@ -2,14 +2,13 @@ import { Component, inject } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../../../service/shared/shared.service';
+import { selectIsLoggedUserAuthorized } from '../../../../../state/startup/startup.selectors';
+import { deauthorizeUser } from '../../../../../state/startup/startup.action';
 import { Store } from '@ngrx/store';
-import { selectIsLoggedUserAuthorized } from '../../../../../store/startup/startup.selectors';
-import { deauthorizeUser } from '../../../../../store/startup/startup.action';
 
 @Component({
   selector: 'app-navbar-menu',
   templateUrl: './navbar-menu.component.html',
-  styleUrl: './navbar-menu.component.scss',
 })
 export class NavbarMenuComponent {
   private readonly store = inject(Store);

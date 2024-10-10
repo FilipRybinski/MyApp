@@ -6,7 +6,7 @@
 <button mat-icon-button [matMenuTriggerFor]="menu">
   <mat-icon>menu</mat-icon>
 </button>
-<mat-menu #menu>
+<mat-menu class="!bg-white" #menu>
   @if (!loggedInUser$()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       Sign up

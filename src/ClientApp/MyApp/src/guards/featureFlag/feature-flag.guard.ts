@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { getHomeUrl } from '../../constants/routing/path';
 import { AlertService } from '../../service/alert/alert.service';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
+import { selectFeatureFlags } from '../../state/startup/startup.selectors';
 import { Store } from '@ngrx/store';
-import { selectFeatureFlags } from '../../store/startup/startup.selectors';
 
 export const featureFlagGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot

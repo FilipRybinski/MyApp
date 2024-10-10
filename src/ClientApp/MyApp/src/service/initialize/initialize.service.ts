@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { loadInitialData } from '../../state/startup/startup.action';
 import { Store } from '@ngrx/store';
-import { loadInitialData } from '../../store/startup/startup.action';
 
 @Injectable({
   providedIn: 'root',

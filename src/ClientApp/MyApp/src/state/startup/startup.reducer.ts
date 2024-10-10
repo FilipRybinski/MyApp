@@ -1,12 +1,12 @@
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { LoggedInUser } from '../../interfaces/account/loggedInUser';
-import { createReducer, on } from '@ngrx/store';
 import {
   attachFeatureFlags,
   authorizeUser,
   deauthorizeUser,
 } from './startup.action';
 import { Startup } from '../../interfaces/state/startup';
+import { createReducer, on } from '@ngrx/store';
 
 export const initialFeatureFlagsState: FeatureFlags = {
   dashboard: false,

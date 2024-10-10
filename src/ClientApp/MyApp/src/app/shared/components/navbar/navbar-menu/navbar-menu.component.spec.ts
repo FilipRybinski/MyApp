@@ -4,9 +4,9 @@ import { NavbarMenuComponent } from './navbar-menu.component';
 import { SharedModule } from '../../../shared.module';
 import { RouterModule } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { initialStartupState } from '../../../../../store/startup/startup.reducer';
-import { selectIsLoggedUserAuthorized } from '../../../../../store/startup/startup.selectors';
+import { MockStore, provideMockStore } from '@ngrx/state/testing';
+import { initialStartupState } from '../../../../../state/startup/startup.reducer';
+import { selectIsLoggedUserAuthorized } from '../../../../../state/startup/startup.selectors';
 
 describe('NavbarMenuComponent', () => {
   let component: NavbarMenuComponent;

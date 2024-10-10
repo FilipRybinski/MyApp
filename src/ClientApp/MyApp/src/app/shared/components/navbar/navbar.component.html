@@ -1,7 +1,8 @@
-<div class="navbar-container">
-  <div class="logo-section" [routerLink]="PATH.HOME">
-    <div class="logo"></div>
-    <span class="text">MyAppZone</span>
+<div
+  class="box-border m-2 p-1 flex justify-between items-center rounded bg-white shadow-md">
+  <div class="flex items-center cursor-pointer gap-1" [routerLink]="PATH.HOME">
+    <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
+    <span class="font-semibold">MyAppZone</span>
   </div>
   <app-navbar-menu />
 </div>

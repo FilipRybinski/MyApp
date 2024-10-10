@@ -1,6 +1,6 @@
-import { createAction, props } from '@ngrx/store';
 import { User } from '../../interfaces/account/user';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
+import { createAction, props } from '@ngrx/store';
 
 enum startupActions {
   loadInitialData = '[Startup] Load initial data',

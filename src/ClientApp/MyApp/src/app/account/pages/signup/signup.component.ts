@@ -9,7 +9,6 @@ import { AlertService } from '../../../../service/alert/alert.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
 })
 export class SignupComponent implements OnInit {
   public form!: FormGroup;

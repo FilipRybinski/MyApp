@@ -1,9 +1,9 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { getHomeUrl } from '../../constants/routing/path';
-import { Store } from '@ngrx/store';
 import { tap } from 'rxjs';
-import { selectIsLoggedUserAuthorized } from '../../store/startup/startup.selectors';
+import { selectIsLoggedUserAuthorized } from '../../state/startup/startup.selectors';
+import { Store } from '@ngrx/store';
 
 export const authorizeGuard: CanActivateFn = () => {
   const router = inject(Router);

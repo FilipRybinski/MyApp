@@ -5,13 +5,12 @@ import { SignUp } from '../../../../interfaces/account/signUp';
 import { Router } from '@angular/router';
 import { getHomeUrl } from '../../../../constants/routing/path';
 import { AlertService } from '../../../../service/alert/alert.service';
+import { authorizeUser } from '../../../../state/startup/startup.action';
 import { Store } from '@ngrx/store';
-import { authorizeUser } from '../../../../store/startup/startup.action';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss',
 })
 export class SigninComponent implements OnInit {
   public form!: FormGroup;

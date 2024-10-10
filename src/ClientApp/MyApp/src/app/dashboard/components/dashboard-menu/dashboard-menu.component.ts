@@ -37,7 +37,6 @@ interface ExampleFlatNode {
 @Component({
   selector: 'app-dashboard-menu',
   templateUrl: './dashboard-menu.component.html',
-  styleUrl: './dashboard-menu.component.scss',
 })
 export class DashboardMenuComponent {
   private _transformer = (node: FoodNode, level: number) => {

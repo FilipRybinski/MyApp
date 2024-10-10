@@ -1,7 +1,13 @@
+//tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 //Import variables
 @import 'styles/variables.scss';
 @import 'styles/loading-animations';
 @import "styles/common";
+
 
 html, body {
   height: 100%;
@@ -9,6 +15,7 @@ html, body {
 
 body {
   margin: 0;
+  background-color: $background-color;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
