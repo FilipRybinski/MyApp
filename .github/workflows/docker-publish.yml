@@ -8,10 +8,12 @@ on:
 env:
   REGISTRY: ghcr.io
   FRONTEND_PATH: Dockerfiles/Dockerfile.frontend
+  FRONTEND_PROXY_PATH: Dockerfiles/Dockerfile.frontendProxy
   BACKEND_MYAPP_PATH: Dockerfiles/Dockerfile.backend
   BACKEND_INTEGRATION_PATH: Dockerfiles/Dockerfile.integration
   APP_SETTINGS_PATH: src/MyApp.Api/appsettings.json
   FRONTEND_IMAGE: myapp-frontend:latest
+  FRONTEND_PROXY_IMAGE: myapp-frontend-proxy:latest
   BACKEND_MYAPP_IMAGE: myapp-backend:latest
   BACKEND_INTEGRATION_IMAGE: integration-backend:latest
   CERTIFICATE_FILENAME: cert
@@ -36,6 +38,11 @@ jobs:
         run: |
           docker build --build-arg CERTIFICATE_CONTENT="${{ secrets.CERTIFICATE }}" --build-arg PRIVATE_KEY_CONTENT="${{ secrets.CERTIFICATE_PRIVATE_KEY }}" -f ${{ env.FRONTEND_PATH }} . --tag ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.FRONTEND_IMAGE }}
           docker push ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.FRONTEND_IMAGE }}
+
+      - name: Build and Publish Frontend Proxy
+        run: |
+          docker build -f ${{ env.FRONTEND_PROXY_PATH }} . --tag ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.FRONTEND_PROXY_IMAGE }}
+          docker push ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.FRONTEND_PROXY_IMAGE }}
 
   build-backend:
     name: Build & Publish Backend
