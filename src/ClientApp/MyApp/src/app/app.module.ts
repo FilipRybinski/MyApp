@@ -3,7 +3,10 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { InitializeService } from '../service/initialize/initialize.service';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
@@ -25,6 +28,7 @@ export function initialize(initializeService: InitializeService) {
   ],
   providers: [
     provideAnimationsAsync(),
+    provideClientHydration(),
     provideHttpClient(withInterceptors([credentialsInterceptor])),
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
     {
