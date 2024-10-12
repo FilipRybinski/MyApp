@@ -7,7 +7,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
   standalone: true,
   imports: [MatIcon],
   template:
-    '<div class="d-flex justify-content-between align-content-center"><span class="titlecase">{{data}}</span><mat-icon class="success-icon-color">done</mat-icon></div>',
+    '<div class="flex justify-between items-center"><span class="titlecase">{{data}}</span><mat-icon class="success-icon-color">done</mat-icon></div>',
 })
 export class AlertSuccessComponent {
   protected data: string = inject(MAT_SNACK_BAR_DATA);

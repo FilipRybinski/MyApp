@@ -1,3 +1,11 @@
+.titlecase {
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+}
+
 .warning-icon-color {
   color: $warning;
 }
