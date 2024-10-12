@@ -1,4 +1,4 @@
-# Stage 1: Build Angular App
+# Stage 1: Test and Build Angular App
 FROM node:lts-alpine as build
 RUN apk add chromium
 WORKDIR /app
@@ -12,9 +12,21 @@ RUN npm install -g @angular/cli@latest
 RUN ng test --watch=false
 RUN ng build --configuration=production
 
-FROM nginx:stable-alpine as production
+#Stage 2: Copy builded app and install deps to run ssr
+FROM node:lts-alpine as run-ssr-app
+WORKDIR /app
 
-COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
+COPY --from=build /app/dist /app/dist
+COPY ./src/ClientApp/MyApp/package.json ./
+
+RUN npm install --only=production
+
+EXPOSE 4000
+
+CMD ["node", "dist/server/main.js"]
+
+#Stage 3: Build Nginx as proxy server between srr app
+FROM nginx:stable-alpine as nginx
 
 ARG CERTIFICATE_CONTENT
 ARG PRIVATE_KEY_CONTENT
@@ -26,4 +38,5 @@ COPY config/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
+
 CMD ["nginx", "-g", "daemon off;"]
