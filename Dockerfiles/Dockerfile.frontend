@@ -23,7 +23,7 @@ RUN npm install --only=production
 
 EXPOSE 4000
 
-CMD ["node", "dist/server/main.js"]
+CMD ["node", "dist/my-app/server/server.mjs"]
 
 #Stage 3: Build Nginx as proxy server between srr app
 FROM nginx:stable-alpine as nginx
