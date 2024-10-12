@@ -36,10 +36,10 @@ public static class Extensions
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrl)
+        app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrls)
             .AllowAnyHeader()
             .WithMethods(CorsOptions.AllowedMethods)
-            .SetIsOriginAllowed(origin => origin.StartsWith(CorsOptions.ConnectionUrl))
+            .SetIsOriginAllowed(origins => CorsOptions.ConnectionUrls.Any(origins.StartsWith))
             .AllowCredentials());
 
         return app;
