@@ -24,9 +24,9 @@ describe('NavbarMenuComponent', () => {
     }).compileComponents();
 
     mockStore = TestBed.inject(MockStore);
+    mockStore.overrideSelector(selectIsLoggedUserAuthorized, false);
     fixture = TestBed.createComponent(NavbarMenuComponent);
     component = fixture.componentInstance;
-    mockStore.overrideSelector(selectIsLoggedUserAuthorized, false);
     fixture.detectChanges();
   });
 
