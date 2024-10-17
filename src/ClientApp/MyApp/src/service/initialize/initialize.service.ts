@@ -6,7 +6,7 @@ import { User } from '../../interfaces/account/user';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { attachInitialData } from '../../state/startup/startup.action';
 import { HttpClient } from '@angular/common/http';
-import { isPlatformServer } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -19,20 +19,22 @@ export class InitializeService {
   ) {}
 
   public async initialize(): Promise<void> {
-    if (isPlatformServer(this.platformId)) {
-      return;
-    }
-    try {
-      const user = await firstValueFrom(
-        this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
-      );
-      const featureFlags = await firstValueFrom(
-        this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
-      );
+    if (isPlatformBrowser(this.platformId)) {
+      try {
+        const user = await firstValueFrom(
+          this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
+        );
+        const featureFlags = await firstValueFrom(
+          this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
+        );
+        const isLoading = false;
 
-      this.store.dispatch(attachInitialData({ user, featureFlags }));
-    } catch (error) {
-      console.error('Failed to initialize service');
+        this.store.dispatch(
+          attachInitialData({ user, featureFlags, isLoading })
+        );
+      } catch (error) {
+        console.error('Failed to initialize service');
+      }
     }
   }
 }

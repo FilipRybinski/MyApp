@@ -13,6 +13,7 @@ import { credentialsInterceptor } from '../interceptors/credentials.interceptor'
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from '../state/app.state';
+import { LoadingPageComponent } from './shared/pages/loading-page/loading-page.component';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -21,6 +22,7 @@ export function initialize(initializeService: InitializeService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    LoadingPageComponent,
     SharedModule,
     AppRoutingModule,
     BrowserModule,

@@ -1,17 +1,13 @@
-import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { handleLoadingAnimation } from '../utils/loading-animation.util';
+import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectIsStartupLoading } from '../state/startup/startup.selectors';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'MyAppZone';
-
-  constructor(@Inject(PLATFORM_ID) private platform: object) {}
-
-  public ngAfterViewInit(): void {
-    isPlatformBrowser(this.platform) && handleLoadingAnimation();
-  }
+  private readonly store = inject(Store);
+  public readonly isLoading = this.store.selectSignal(selectIsStartupLoading);
 }
