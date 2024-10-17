@@ -17,16 +17,6 @@
           "standalone": false
         }
       },
-      "i18n": {
-        "sourceLocale": "en",
-        "locales": {
-          "fr": "src/locale/messages.fr.xlf",
-          "de": "src/locale/messages.de.xlf",
-          "es": "src/locale/messages.es.xlf",
-          "it": "src/locale/messages.it.xlf",
-          "pl": "src/locale/messages.pl.xlf"
-        }
-      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -38,8 +28,7 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -84,42 +73,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "en": {
-              "outputPath": "dist/locale-en/",
-              "localize": [
-                "en"
-              ]
-            },
-            "fr": {
-              "outputPath": "dist/locale-fr/",
-              "localize": [
-                "fr"
-              ]
-            },
-            "de": {
-              "outputPath": "dist/locale-de/",
-              "localize": [
-                "de"
-              ]
-            },
-            "es": {
-              "outputPath": "dist/locale-es/",
-              "localize": [
-                "es"
-              ]
-            },
-            "it": {
-              "outputPath": "dist/locale-it/",
-              "localize": [
-                "it"
-              ]
-            },
-            "pl": {
-              "outputPath": "dist/locale-pl/",
-              "localize": [
-                "pl"
-              ]
             }
           },
           "defaultConfiguration": "production"
@@ -132,35 +85,9 @@
             },
             "development": {
               "buildTarget": "MyApp:build:development"
-            },
-            "en": {
-              "buildTarget": "MyApp:build:en"
-            },
-            "fr": {
-              "buildTarget": "MyApp:build:fr"
-            },
-            "de": {
-              "buildTarget": "MyApp:build:de"
-            },
-            "es": {
-              "buildTarget": "MyApp:build:es"
-            },
-            "it": {
-              "buildTarget": "MyApp:build:it"
-            },
-            "pl": {
-              "buildTarget": "MyApp:build:pl"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "MyApp:build",
-            "format": "xlf",
-            "outputPath": "src/locale"
-          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
