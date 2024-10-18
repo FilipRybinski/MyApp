@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountModule } from '../../account.module';
 import { provideHttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -12,7 +13,12 @@ describe('SignupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SignupComponent],
-      imports: [BrowserAnimationsModule, ReactiveFormsModule, AccountModule],
+      imports: [
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        AccountModule,
+        TranslateModule.forRoot(),
+      ],
       providers: [provideHttpClient()],
     }).compileComponents();
 

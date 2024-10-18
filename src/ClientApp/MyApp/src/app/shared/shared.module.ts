@@ -10,6 +10,8 @@ const components = [
   Components.NavbarComponent,
   Components.FooterComponent,
   Components.NavbarMenuComponent,
+  Components.NavbarLanguagesMenuComponent,
+  Components.BottomSheetLanguagesMenuComponent,
 ];
 
 const pages = [Pages.HomeComponent, Pages.PageNotFoundComponent];

@@ -4,32 +4,58 @@
     class="col-span-1 p-4 m-2 rounded bg-white shadow-md flex flex-col gap-4 justify-evenly items-center w-80">
     <div class="flex flex-col items-center gap-1">
       <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
-      <p class="text-sm uppercase text-gray-400">join to us</p>
+      <p class="text-sm uppercase text-gray-400">
+        {{ 'JoinToUs' | translate }}
+      </p>
     </div>
     <form [formGroup]="form" class="flex flex-col w-full">
       <mat-form-field>
-        <mat-label>user name</mat-label>
-        <input formControlName="username" matInput />
+        <mat-label>{{ 'UserName' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="username"
+          formControlName="username"
+          matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>name</mat-label>
-        <input formControlName="name" matInput />
+        <mat-label>{{ 'Name' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="name"
+          formControlName="name"
+          matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>surname</mat-label>
-        <input formControlName="surname" matInput />
+        <mat-label>{{ 'Surname' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="surname"
+          formControlName="surname"
+          matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>email</mat-label>
-        <input formControlName="email" matInput />
+        <mat-label>{{ 'Email' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="email"
+          formControlName="email"
+          matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>password</mat-label>
-        <input type="password" formControlName="password" matInput />
+        <mat-label>{{ 'Password' | translate }}</mat-label>
+        <input
+          type="password"
+          autocomplete="password"
+          formControlName="password"
+          matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>confirm password</mat-label>
-        <input type="password" formControlName="confirmPassword" matInput />
+        <mat-label>{{ 'ConfirmPassword' | translate }}</mat-label>
+        <input
+          type="password"
+          autocomplete="confirmPassword"
+          formControlName="confirmPassword"
+          matInput />
       </mat-form-field>
       <button
         mat-flat-button
@@ -37,7 +63,7 @@
         [class.spinner]="isLoading"
         [disabled]="isLoading"
         (click)="submit()">
-        signup
+        {{ 'SignUp' | translate }}
       </button>
     </form>
   </div>

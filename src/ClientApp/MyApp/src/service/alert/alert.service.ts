@@ -7,8 +7,8 @@ import * as Alerts from '../../app/shared/components/alerts';
   providedIn: 'root',
 })
 export class AlertService {
-  private readonly WORK_IN_PROGRESS = 'work in progress';
-  private readonly DEFAULT_ERROR = 'unexpected error';
+  private readonly WORK_IN_PROGRESS = 'WorkInProgress';
+  private readonly DEFAULT_ERROR = 'UnexpectedError';
   private readonly REASON = 'reason';
 
   constructor(private snackBar: MatSnackBar) {}

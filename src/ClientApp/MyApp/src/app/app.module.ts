@@ -21,7 +21,7 @@ import { LoadingPageComponent } from './shared/pages/loading-page/loading-page.c
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { translationConfig } from '../constants/translation/translation';
-import { Language } from '../enums/translation';
+import { Languages } from '../enums/languages';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -49,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: Language.PL,
+      defaultLanguage: Languages.PL,
     }),
   ],
   providers: [

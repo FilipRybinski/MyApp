@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { AccountModule } from '../../account.module';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -14,7 +15,12 @@ describe('SigninComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SigninComponent],
-      imports: [AccountModule, BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [
+        AccountModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+      ],
       providers: [provideHttpClient(), provideMockStore()],
     }).compileComponents();
 

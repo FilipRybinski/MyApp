@@ -1,15 +1,21 @@
 @if (loggedInUser$()) {
-  <button matTooltip="My Profile" mat-icon-button [routerLink]="[PATH.ACCOUNT]">
+  <button
+    matTooltip="{{ 'MyProfile' | translate }}"
+    mat-icon-button
+    [routerLink]="[PATH.ACCOUNT]">
     <mat-icon>person</mat-icon>
   </button>
 }
-<button mat-icon-button [matMenuTriggerFor]="menu">
+<button
+  matTooltip="{{ 'Menu' | translate }}"
+  mat-icon-button
+  [matMenuTriggerFor]="menu">
   <mat-icon>menu</mat-icon>
 </button>
 <mat-menu class="!bg-white" #menu>
   @if (!loggedInUser$()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
-      Sign up
+      {{ 'SignUp' | translate }}
       <mat-icon>person_add</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
@@ -18,27 +24,27 @@
     </button>
   } @else {
     <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">
-      Marketplace
+      {{ 'Marketplace' | translate }}
       <mat-icon>shop</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">
-      Dashboard
+      {{ 'Dashboard' | translate }}
       <mat-icon>dashboard</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.FINANCE]">
-      Finance
+      {{ 'Finance' | translate }}
       <mat-icon>account_balance</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">
-      Management
+      {{ 'Management' | translate }}
       <mat-icon>domain</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SETTINGS]">
-      Settings
+      {{ 'Settings' | translate }}
       <mat-icon>settings</mat-icon>
     </button>
     <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">
-      Logout
+      {{ 'Logout' | translate }}
       <mat-icon>logout</mat-icon>
     </button>
   }

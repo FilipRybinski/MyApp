@@ -16,6 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 const dependencies = [
   CommonModule,
@@ -35,6 +36,7 @@ const dependencies = [
   MatTooltipModule,
   MatSidenavModule,
   MatTreeModule,
+  MatBottomSheetModule,
 ];
 
 @NgModule({
