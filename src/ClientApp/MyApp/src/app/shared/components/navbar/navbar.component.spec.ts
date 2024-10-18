@@ -7,6 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { initialStartupState } from '../../../../state/startup/startup.reducer';
 import { selectIsLoggedUserAuthorized } from '../../../../state/startup/startup.selectors';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -16,7 +17,11 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [SharedModule, RouterModule.forRoot([])],
+      imports: [
+        SharedModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         provideHttpClient(),
         provideMockStore({ initialState: initialStartupState }),

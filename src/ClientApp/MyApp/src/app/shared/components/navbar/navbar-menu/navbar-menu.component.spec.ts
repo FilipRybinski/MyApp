@@ -7,6 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { initialStartupState } from '../../../../../state/startup/startup.reducer';
 import { selectIsLoggedUserAuthorized } from '../../../../../state/startup/startup.selectors';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NavbarMenuComponent', () => {
   let component: NavbarMenuComponent;
@@ -16,7 +17,11 @@ describe('NavbarMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarMenuComponent],
-      imports: [SharedModule, RouterModule.forRoot([])],
+      imports: [
+        SharedModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         provideHttpClient(),
         provideMockStore({ initialState: initialStartupState }),
