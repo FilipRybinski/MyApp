@@ -8,15 +8,31 @@ import {
   provideClientHydration,
 } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import { LoadingPageComponent } from './shared/pages/loading-page/loading-page.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { translationConfig } from '../constants/translation/translation';
+import { Language } from '../enums/translation';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
+}
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(
+    http,
+    translationConfig.directory,
+    translationConfig.extension
+  );
 }
 
 @NgModule({
@@ -27,6 +43,14 @@ export function initialize(initializeService: InitializeService) {
     AppRoutingModule,
     BrowserModule,
     StoreModule.forRoot(AppState.reducers),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: Language.PL,
+    }),
   ],
   providers: [
     provideAnimationsAsync(),

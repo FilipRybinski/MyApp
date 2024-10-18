@@ -4,6 +4,7 @@ import * as Pages from './pages';
 import { MaterialModule } from '../../modules/material.module';
 import { RouterLink } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 const components = [
   Components.NavbarComponent,
@@ -13,7 +14,7 @@ const components = [
 
 const pages = [Pages.HomeComponent, Pages.PageNotFoundComponent];
 
-const dependencies = [MaterialModule, RouterLink];
+const dependencies = [MaterialModule, RouterLink, TranslateModule];
 
 const pipes = [TitleCasePipe];
 
