@@ -17,7 +17,6 @@ import { credentialsInterceptor } from '../interceptors/credentials.interceptor'
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
 import { AppState } from '../state/app.state';
-import { LoadingPageComponent } from './shared/pages/loading-page/loading-page.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { translationConfig } from '../constants/translation/translation';
@@ -38,7 +37,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    LoadingPageComponent,
     SharedModule,
     AppRoutingModule,
     BrowserModule,
