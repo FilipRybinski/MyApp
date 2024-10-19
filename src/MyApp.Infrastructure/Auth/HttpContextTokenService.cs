@@ -8,6 +8,8 @@ namespace MyApp.Infrastructure.Auth;
 internal sealed class HttpContextTokenService : IHttpContextTokenService
 {
     private const string TokenKey = "token";
+    private const string Domain = "myappzone.pl";
+    private const string Path = "/";
     private const int ExpireTime = 1;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -47,8 +49,8 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
             Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None,
-            Path = "/",
-            Domain = "myappzone.pl",
+            Path = Path,
+            Domain = Domain,
             
             
         };
@@ -64,8 +66,8 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
             Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None,
-            Path = "/",  
-            Domain = "myappzone.pl",
+            Path = Path,
+            Domain = Domain,
         };
         _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, jwt.AccessToken, httpOnlyCookie);
     }
