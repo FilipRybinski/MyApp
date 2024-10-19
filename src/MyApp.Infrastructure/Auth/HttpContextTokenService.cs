@@ -44,7 +44,6 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
         {
             Expires = DateTime.Now.AddDays(-ExpireTime),
             HttpOnly = true,
-            Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None
         };
@@ -57,7 +56,6 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
         {
             Expires = DateTime.Now.AddDays(ExpireTime),
             HttpOnly = true,
-            Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None
         };
