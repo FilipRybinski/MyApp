@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectIsStartupLoading } from '../state/startup/startup.selectors';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +6,4 @@ import { selectIsStartupLoading } from '../state/startup/startup.selectors';
 })
 export class AppComponent {
   title = 'MyAppZone';
-  private readonly store = inject(Store);
-  public readonly isLoading = this.store.selectSignal(selectIsStartupLoading);
 }
