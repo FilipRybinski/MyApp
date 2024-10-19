@@ -44,8 +44,13 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
         {
             Expires = DateTime.Now.AddDays(-ExpireTime),
             HttpOnly = true,
+            Secure = true,
             IsEssential = true,
-            SameSite = SameSiteMode.None
+            SameSite = SameSiteMode.None,
+            Path = "/",
+            Domain = "myappzone.pl",
+            
+            
         };
         _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, string.Empty, httpOnlyCookie);
     }
@@ -56,8 +61,11 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
         {
             Expires = DateTime.Now.AddDays(ExpireTime),
             HttpOnly = true,
+            Secure = true,
             IsEssential = true,
-            SameSite = SameSiteMode.None
+            SameSite = SameSiteMode.None,
+            Path = "/",  
+            Domain = "myappzone.pl",
         };
         _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, jwt.AccessToken, httpOnlyCookie);
     }
