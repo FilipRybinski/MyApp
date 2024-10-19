@@ -15,8 +15,3 @@ export const selectFeatureFlags = createSelector(
   selectStartup,
   selectStartup => selectStartup.featureFlags
 );
-
-export const selectIsStartupLoading = createSelector(
-  selectStartup,
-  selectStartup => selectStartup.isLoading
-);

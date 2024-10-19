@@ -23,7 +23,6 @@ export const initialLoggedInUserState: LoggedInUser = {
 export const initialStartupState: Startup = {
   loggedInUser: initialLoggedInUserState,
   featureFlags: initialFeatureFlagsState,
-  isLoading: true,
 };
 
 export const StartupReducer = createReducer(
@@ -36,7 +35,6 @@ export const StartupReducer = createReducer(
         isAuth: !!user,
       },
       featureFlags,
-      isLoading: false,
     })
   ),
   on(
