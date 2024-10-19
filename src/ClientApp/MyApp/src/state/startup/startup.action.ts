@@ -17,5 +17,5 @@ export const deauthorizeUser = createAction(startupActions.DeauthorizeUser);
 
 export const attachInitialData = createAction(
   startupActions.attachInitialData,
-  props<{ user: User | null; featureFlags: FeatureFlags }>()
+  props<{ user: User; featureFlags: FeatureFlags; isLoading: boolean }>()
 );
