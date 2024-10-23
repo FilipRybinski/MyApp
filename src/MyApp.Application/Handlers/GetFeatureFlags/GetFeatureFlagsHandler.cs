@@ -1,7 +1,5 @@
 using Microsoft.Extensions.Options;
-using MyApp.Core.Dictionary;
 using MyApp.Core.DTO;
-using MyApp.Core.Repositories;
 
 namespace MyApp.Application.Handlers.GetFeatureFlags;
 

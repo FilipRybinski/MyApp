@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using MyApp.Application.Security;
 using MyApp.Core.DTO;
 
@@ -8,15 +9,13 @@ namespace MyApp.Infrastructure.Auth;
 internal sealed class HttpContextTokenService : IHttpContextTokenService
 {
     private const string TokenKey = "token";
-    private const string Domain = "myappzone.pl";
-    private const string Path = "/";
-    private const int ExpireTime = 1;
+    private readonly CookieSettingsDto CookieSettings;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-
-    public HttpContextTokenService(IHttpContextAccessor httpContextAccessor)
+    public HttpContextTokenService(IHttpContextAccessor httpContextAccessor,IOptions<CookieSettingsDto> cookieSettings)
     {
         _httpContextAccessor = httpContextAccessor;
+        CookieSettings = cookieSettings.Value;
     }
 
     public Guid? ExtractUserIdentifier()
@@ -44,13 +43,13 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
     {
         var httpOnlyCookie = new CookieOptions
         {
-            Expires = DateTime.Now.AddDays(-ExpireTime),
+            Expires = DateTime.Now.AddDays(-CookieSettings.ExpireTime),
             HttpOnly = true,
             Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None,
-            Path = Path,
-            Domain = Domain,
+            Path = CookieSettings.Path,
+            Domain = CookieSettings.Domain,
             
             
         };
@@ -61,13 +60,13 @@ internal sealed class HttpContextTokenService : IHttpContextTokenService
     {
         var httpOnlyCookie = new CookieOptions
         {
-            Expires = DateTime.Now.AddDays(ExpireTime),
+            Expires = DateTime.Now.AddDays(CookieSettings.ExpireTime),
             HttpOnly = true,
             Secure = true,
             IsEssential = true,
             SameSite = SameSiteMode.None,
-            Path = Path,
-            Domain = Domain,
+            Path = CookieSettings.Path,
+            Domain = CookieSettings.Domain,
         };
         _httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, jwt.AccessToken, httpOnlyCookie);
     }

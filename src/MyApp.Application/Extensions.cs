@@ -23,11 +23,4 @@ public static class Extensions
         services.AddValidators();
         return services;
     }
-    private static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
-    {
-        var options = new T();
-        var section = configuration.GetSection(sectionName);
-        section.Bind(options);
-        return options;
-    }
 }
