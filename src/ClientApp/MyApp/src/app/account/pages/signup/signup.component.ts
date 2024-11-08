@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AccountService } from '../../service/account/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignUp } from '../../../../interfaces/account/signUp';
@@ -11,15 +11,13 @@ import { AlertService } from '../../../../service/alert/alert.service';
   templateUrl: './signup.component.html',
 })
 export class SignupComponent implements OnInit {
+  private readonly accountService = inject(AccountService);
+  private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  private readonly alertService = inject(AlertService);
+
   public form!: FormGroup;
   public isLoading: boolean = false;
-
-  constructor(
-    private readonly accountService: AccountService,
-    private readonly fb: FormBuilder,
-    private readonly router: Router,
-    private readonly alertService: AlertService
-  ) {}
 
   public ngOnInit(): void {
     this.initForm();

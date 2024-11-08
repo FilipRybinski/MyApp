@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { AccountModule } from '../../account.module';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('SigninComponent', () => {
@@ -21,7 +20,7 @@ describe('SigninComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
       ],
-      providers: [provideHttpClient(), provideMockStore()],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);

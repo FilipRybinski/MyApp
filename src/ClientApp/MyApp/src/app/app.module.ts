@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {
   BrowserModule,
   provideClientHydration,
+  withEventReplay,
 } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
@@ -15,8 +16,6 @@ import {
 } from '@angular/common/http';
 import { credentialsInterceptor } from '../interceptors/credentials.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { StoreModule } from '@ngrx/store';
-import { AppState } from '../state/app.state';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { translationConfig } from '../constants/translation/translation';
@@ -40,7 +39,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     AppRoutingModule,
     BrowserModule,
-    StoreModule.forRoot(AppState.reducers),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -52,7 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     provideAnimationsAsync(),
-    provideClientHydration(),
+    provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptors([credentialsInterceptor])),
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
     {

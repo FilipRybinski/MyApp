@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -8,7 +8,7 @@ import { User } from '../../../../interfaces/account/user';
 
 @Injectable()
 export class AccountService {
-  constructor(private _http: HttpClient) {}
+  private _http = inject(HttpClient);
 
   public signIn(body: SignIn): Observable<User> {
     return this._http.post<User>(environment.URL.USERS.SIGN_IN, body);

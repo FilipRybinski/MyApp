@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Alerts from '../../app/shared/components/alerts';
@@ -7,11 +7,11 @@ import * as Alerts from '../../app/shared/components/alerts';
   providedIn: 'root',
 })
 export class AlertService {
+  private snackBar = inject(MatSnackBar);
+
   private readonly WORK_IN_PROGRESS = 'WorkInProgress';
   private readonly DEFAULT_ERROR = 'UnexpectedError';
   private readonly REASON = 'reason';
-
-  constructor(private snackBar: MatSnackBar) {}
 
   public handleSuccess(message: string) {
     this.snackBar.openFromComponent(Alerts.AlertSuccessComponent, {

@@ -3,22 +3,20 @@ import { inject } from '@angular/core';
 import { getHomeUrl } from '../../constants/routing/path';
 import { AlertService } from '../../service/alert/alert.service';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
-import { selectFeatureFlags } from '../../state/startup/startup.selectors';
-import { Store } from '@ngrx/store';
+import { AppStore } from '../../store/app.store';
 
 export const featureFlagGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot
 ) => {
   const router: Router = inject(Router);
   const alertService: AlertService = inject(AlertService);
-  const store = inject(Store);
-  const featureFlags$ = store.selectSignal(selectFeatureFlags);
+  const appStore = inject(AppStore);
   const {
     data: { feature },
   } = route;
 
   if (feature) {
-    const result = isFeatureFlagEnabled(feature, featureFlags$());
+    const result = isFeatureFlagEnabled(feature, appStore.featureFlags());
     if (!result) {
       router
         .navigate(getHomeUrl())

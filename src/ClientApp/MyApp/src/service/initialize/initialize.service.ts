@@ -1,20 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../../interfaces/account/user';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
-import { attachInitialData } from '../../state/startup/startup.action';
 import { HttpClient } from '@angular/common/http';
+import { AppStore } from '../../store/app.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InitializeService {
-  constructor(
-    private readonly store: Store,
-    private readonly http: HttpClient
-  ) {}
+  private readonly appStore = inject(AppStore);
+  private readonly http = inject(HttpClient);
 
   public async initialize(): Promise<void> {
     try {
@@ -25,7 +22,7 @@ export class InitializeService {
         this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
       );
 
-      this.store.dispatch(attachInitialData({ user, featureFlags }));
+      this.appStore.attachInitialData(user, featureFlags);
     } catch (error) {
       console.error('Failed to initialize service');
     }

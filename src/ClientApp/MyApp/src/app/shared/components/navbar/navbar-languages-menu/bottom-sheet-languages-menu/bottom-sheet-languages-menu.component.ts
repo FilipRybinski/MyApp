@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { availableLanguages } from '../../../../../../constants/translation/translation';
 import { Language } from '../../../../../../interfaces/translation/translation';
 import { Languages } from '../../../../../../enums/languages';
@@ -9,9 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './bottom-sheet-languages-menu.component.html',
 })
 export class BottomSheetLanguagesMenuComponent {
-  public readonly languages: Language[] = availableLanguages;
+  private readonly translateService = inject(TranslateService);
 
-  constructor(private readonly translateService: TranslateService) {}
+  public readonly languages: Language[] = availableLanguages;
 
   public get defaultLanguage(): string {
     return (

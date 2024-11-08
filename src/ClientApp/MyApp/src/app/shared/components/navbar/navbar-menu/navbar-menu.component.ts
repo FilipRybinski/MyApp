@@ -1,31 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { getHomeUrl, PATH } from '../../../../../constants/routing/path';
 import { Router } from '@angular/router';
 import { SharedService } from '../../../../../service/shared/shared.service';
-import { selectIsLoggedUserAuthorized } from '../../../../../state/startup/startup.selectors';
-import { deauthorizeUser } from '../../../../../state/startup/startup.action';
-import { Store } from '@ngrx/store';
+import { AppStore } from '../../../../../store/app.store';
 
 @Component({
   selector: 'app-navbar-menu',
   templateUrl: './navbar-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarMenuComponent {
-  private readonly store = inject(Store);
-  protected readonly PATH = PATH;
-  public loggedInUser$ = this.store.selectSignal(selectIsLoggedUserAuthorized);
+  public readonly appStore = inject(AppStore);
+  private readonly sharedService = inject(SharedService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private readonly sharedService: SharedService,
-    private readonly router: Router
-  ) {}
+  protected readonly PATH = PATH;
 
   public logout(): void {
     this.sharedService.logout().subscribe({
       next: () =>
         this.router
           .navigate(getHomeUrl())
-          .then(() => this.store.dispatch(deauthorizeUser())),
+          .then(() => this.appStore.deauthorizeUser()),
     });
   }
 }
