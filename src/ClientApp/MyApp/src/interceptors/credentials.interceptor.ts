@@ -1,17 +1,31 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject, PLATFORM_ID } from '@angular/core';
-import { AUTHORIZATION_COOKIE } from '../constants/tokens/tokens';
 import { isPlatformServer } from '@angular/common';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
+
+const withCredentialsHeader = 'Cookie';
 
 export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   const platform = inject(PLATFORM_ID);
-  let headers = req.headers;
+  let request;
 
   if (isPlatformServer(platform)) {
-    const ssrAuthCookie = inject(AUTHORIZATION_COOKIE, { optional: true });
-    headers = ssrAuthCookie ? headers.append('Cookie', ssrAuthCookie) : headers;
+    const cookieService = inject(SsrCookieService);
+    request = req.clone({
+      headers: req.headers.append(
+        withCredentialsHeader,
+        withCredentialsSsr(cookieService.getAll())
+      ),
+    });
+  } else {
+    request = req.clone({ withCredentials: true });
   }
 
-  const request = req.clone({ headers, withCredentials: true });
   return next(request);
+};
+
+const withCredentialsSsr = (cookies: object): string => {
+  return Object.entries(cookies)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('; ');
 };

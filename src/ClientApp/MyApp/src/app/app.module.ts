@@ -20,6 +20,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { translationConfig } from '../constants/translation/translation';
 import { Languages } from '../enums/languages';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 export function initialize(initializeService: InitializeService) {
   return () => initializeService.initialize();
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
   ],
   providers: [
+    SsrCookieService,
     provideAnimationsAsync(),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptors([credentialsInterceptor])),

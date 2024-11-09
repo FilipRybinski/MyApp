@@ -1,6 +1,7 @@
 const DEFAULT_URL = 'http://localhost:5095';
 export const environment = {
   production: false,
+  ssr: false,
   URL: {
     USERS: {
       SIGN_IN: `${DEFAULT_URL}/Users/SignIn`,
