@@ -1,6 +1,8 @@
 import { Language } from '../../interfaces/translation/translation';
 import { Languages } from '../../enums/languages';
 
+export const LANG_COOKIE = 'lang';
+
 export const translationConfig = {
   directory: './assets/i18n/',
   extension: '.json',

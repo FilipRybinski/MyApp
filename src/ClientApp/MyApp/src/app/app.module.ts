@@ -19,7 +19,6 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { translationConfig } from '../constants/translation/translation';
-import { Languages } from '../enums/languages';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { GlobalErrorHandler } from '../interceptors/global-error-handler';
 import { httpErrorHandlerInterceptor } from '../interceptors/http-error-handler.interceptor';
@@ -48,7 +47,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: Languages.PL,
     }),
   ],
   providers: [
