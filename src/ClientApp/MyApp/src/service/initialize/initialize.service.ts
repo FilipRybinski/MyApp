@@ -31,7 +31,7 @@ export class InitializeService {
       );
       this.appStore.attachInitialData(user, featureFlags);
     } catch (error) {
-      console.error('Failed to initialize service');
+      return;
     }
   }
 }

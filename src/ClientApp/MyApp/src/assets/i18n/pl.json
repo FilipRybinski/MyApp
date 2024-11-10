@@ -40,6 +40,14 @@
   "Surname": "Nazwisko",
   "ConfirmPassword": "Potwierdź hasło",
   "WorkInProgress": "Prace w toku",
-  "UnexpectedError": "Nieoczekiwany błąd"
+  "UnauthorizedError": "Wymagane logowanie.",
+  "ForbiddenError": "Brak dostępu.",
+  "NotFoundError": "Zasób nie znaleziony.",
+  "InternalServerError": "Błąd serwera. Spróbuj później.",
+  "BadGatewayError": "Błędna odpowiedź serwera. Spróbuj ponownie.",
+  "ServiceUnavailableError": "Serwer niedostępny. Spróbuj później.",
+  "TimeoutError": "Przekroczono czas oczekiwania. Sprawdź połączenie.",
+  "UnexpectedError": "Nieoczekiwany błąd. Spróbuj ponownie.",
+  "UniversalError": "Wystąpił błąd."
 }
 

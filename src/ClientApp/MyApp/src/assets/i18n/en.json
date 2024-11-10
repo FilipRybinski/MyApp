@@ -40,5 +40,13 @@
   "Surname": "Surname",
   "ConfirmPassword": "Confirm password",
   "WorkInProgress": "Work in progress",
-  "UnexpectedError": "Unexpected error"
+  "UnauthorizedError": "Login required to access this resource.",
+  "ForbiddenError": "Access denied.",
+  "NotFoundError": "Resource not found on the server.",
+  "InternalServerError": "Server error. Try again later.",
+  "BadGatewayError": "Bad response from the server. Try again.",
+  "ServiceUnavailableError": "Server unavailable. Try again later.",
+  "TimeoutError": "Request timed out. Check your connection.",
+  "UnexpectedError": "Unexpected error. Try again.",
+  "UniversalError": "An error occurred."
 }

@@ -52,10 +52,7 @@ export class SignupComponent implements OnInit {
         this.alertService.handleSuccess('Sign up successfully');
         this.router.navigate([PATH.ACCOUNT, PATH.SIGN_IN]);
       },
-      error: err => {
-        this.alertService.handleSuccess(err);
-        this.isLoading = false;
-      },
+      error: () => (this.isLoading = false),
     });
   }
 }

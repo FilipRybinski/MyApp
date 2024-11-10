@@ -48,10 +48,7 @@ export class SigninComponent implements OnInit {
           .navigate(getHomeUrl())
           .then(() => this.appStore.authorizeUser(user));
       },
-      error: err => {
-        this.alertService.handleError(err);
-        this.isLoading = false;
-      },
+      error: () => (this.isLoading = false),
     });
   }
 }
