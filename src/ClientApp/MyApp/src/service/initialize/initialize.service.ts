@@ -28,7 +28,6 @@ export class InitializeService {
   }
 
   private async fetchInitializeData(): Promise<void> {
-    this.translation.use(this.cookies.get(LANG_COOKIE) ?? Languages.ENG);
     try {
       const user = await firstValueFrom(
         this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
@@ -37,6 +36,7 @@ export class InitializeService {
         this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
       );
       this.appStore.attachInitialData(user, featureFlags);
+      this.translation.use(this.cookies.get(LANG_COOKIE) ?? Languages.ENG);
     } catch (error) {
       return;
     }
