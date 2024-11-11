@@ -6,9 +6,6 @@ import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
 import { HttpClient } from '@angular/common/http';
 import { AppStore } from '../../store/app.store';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
-import { TranslateService } from '@ngx-translate/core';
-import { LANG_COOKIE } from '../../constants/translation/translation';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +14,15 @@ export class InitializeService {
   private readonly appStore = inject(AppStore);
   private readonly platform = inject(PLATFORM_ID);
   private readonly http = inject(HttpClient);
-  private readonly cookies = inject(SsrCookieService);
-  private readonly translation = inject(TranslateService);
+  // private readonly cookies = inject(SsrCookieService);
+  // private readonly translation = inject(TranslateService);
 
   public async initialize(): Promise<void> {
     environment.ssr
       ? isPlatformServer(this.platform) && (await this.fetchInitializeData())
       : isPlatformBrowser(this.platform) && (await this.fetchInitializeData());
-    this.cookies.get(LANG_COOKIE) &&
-      this.translation.setDefaultLang(this.cookies.get(LANG_COOKIE));
+    // this.cookies.get(LANG_COOKIE) &&
+    //   this.translation.setDefaultLang(this.cookies.get(LANG_COOKIE));
   }
 
   private async fetchInitializeData(): Promise<void> {
