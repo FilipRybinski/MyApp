@@ -9,7 +9,6 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { TranslateService } from '@ngx-translate/core';
 import { LANG_COOKIE } from '../../constants/translation/translation';
-import { Languages } from '../../enums/languages';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +24,8 @@ export class InitializeService {
     environment.ssr
       ? isPlatformServer(this.platform) && (await this.fetchInitializeData())
       : isPlatformBrowser(this.platform) && (await this.fetchInitializeData());
+    this.cookies.get(LANG_COOKIE) &&
+      this.translation.setDefaultLang(this.cookies.get(LANG_COOKIE));
   }
 
   private async fetchInitializeData(): Promise<void> {
@@ -36,8 +37,6 @@ export class InitializeService {
         this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
       );
       this.appStore.attachInitialData(user, featureFlags);
-      isPlatformBrowser(this.platform) &&
-        this.translation.use(this.cookies.get(LANG_COOKIE) ?? Languages.ENG);
     } catch (error) {
       return;
     }
