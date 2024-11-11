@@ -36,7 +36,8 @@ export class InitializeService {
         this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
       );
       this.appStore.attachInitialData(user, featureFlags);
-      this.translation.use(this.cookies.get(LANG_COOKIE) ?? Languages.ENG);
+      isPlatformBrowser(this.platform) &&
+        this.translation.use(this.cookies.get(LANG_COOKIE) ?? Languages.ENG);
     } catch (error) {
       return;
     }
