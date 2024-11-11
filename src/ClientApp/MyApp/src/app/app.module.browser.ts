@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
-import { TranslationExtensionModule } from '../modules/translation.extension.module';
+import { BrowserTranslationExtensionModule } from '../modules/browser.translation.extension.module';
 
 @NgModule({
-  imports: [AppModule, TranslationExtensionModule],
+  imports: [AppModule, BrowserTranslationExtensionModule],
   bootstrap: [AppComponent],
 })
 export class AppBrowserModule {}
