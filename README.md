@@ -1,4 +1,15 @@
+
 # MyApp 🚀
+
+### Sekcja w języku polskim 🇵🇱
+- Wprowadzenie 🌟
+- O projekcie 📋
+- Funkcje w fazie rozwoju 🛠️
+- Jak zacząć? 🚀
+- Kontakt 📧
+
+## Strona Główna 🌐
+Naszą stronę znajdziesz pod adresem: [www.myappzone.pl](http://www.myappzone.pl)
 
 ## Wprowadzenie 🌟
 Witaj w MyApp! Nasz projekt jest w fazie rozwoju, ale już teraz mamy kilka ekscytujących funkcji gotowych do użycia:
@@ -67,6 +78,16 @@ Jeśli masz pytania lub sugestie, skontaktuj się z nami na [email@example.com](
 
 Dziękujemy za zainteresowanie MyApp! 🎉
 
+### Section in English 🇬🇧
+- Introduction 🌟
+- About the Project 📋
+- Features in Development 🛠️
+- Getting Started 🚀
+- Contact 📧
+
+## Homepage 🌐
+You can find our website at: [www.myappzone.pl](http://www.myappzone.pl)
+
 ## Introduction 🌟
 
 Welcome to MyApp! Our project is currently under development, but we already have some exciting features ready to use:
@@ -102,18 +123,3 @@ MyApp is an innovative application that allows you to create groups of people fr
 If you have any questions or suggestions, contact us at [email@example.com](mailto:email@example.com).
 
 Thank you for your interest in MyApp! 🎉
-## Sekcje Językowe 🌐
-
-### Sekcja w języku polskim 🇵🇱
-- Wprowadzenie 🌟
-- O projekcie 📋
-- Funkcje w fazie rozwoju 🛠️
-- Jak zacząć? 🚀
-- Kontakt 📧
-
-### Section in English 🇬🇧
-- Introduction 🌟
-- About the Project 📋
-- Features in Development 🛠️
-- Getting Started 🚀
-- Contact 📧
