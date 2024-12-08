@@ -1,0 +1,12 @@
+<mat-nav-list>
+  @for (language of languages; track language.language) {
+    <mat-list-item
+      [activated]="language.language === defaultLanguage"
+      (click)="changeLanguage(language.language)">
+      <div
+        class="w-8 h-8 bg-contain bg-center bg-no-repeat {{ language.icon }}"
+        matListItemIcon></div>
+      <span matListItemTitle>{{ language.name | translate }}</span>
+    </mat-list-item>
+  }
+</mat-nav-list>

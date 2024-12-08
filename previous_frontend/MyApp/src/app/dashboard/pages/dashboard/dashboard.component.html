@@ -1,0 +1,16 @@
+<mat-drawer-container class="m-2 rounded shadow-md" hasBackdrop>
+  <mat-drawer class="m-2 p-2 !rounded !bg-white !w-72" #drawer>
+    <app-dashboard-menu />
+  </mat-drawer>
+  <mat-drawer-content class="bg-white p-2">
+    <div>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>apps</mat-icon>
+      </button>
+      <div class="grid"></div>
+    </div>
+    <div class="w-full h-96">
+      <div class="w-full flex justify-start items-center"></div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

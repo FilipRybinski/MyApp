@@ -1,0 +1,51 @@
+@if (appStore.loggedInUser.user()) {
+  <button
+    matTooltip="{{ 'MyProfile' | translate }}"
+    mat-icon-button
+    [routerLink]="[PATH.ACCOUNT]">
+    <mat-icon>person</mat-icon>
+  </button>
+}
+<button
+  matTooltip="{{ 'Menu' | translate }}"
+  mat-icon-button
+  [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu class="!bg-white" #menu>
+  @if (!appStore.loggedInUser.user()) {
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
+      {{ 'SignUp' | translate }}
+      <mat-icon>person_add</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_IN]">
+      {{ 'SignIn' | translate }}
+      <mat-icon>login</mat-icon>
+    </button>
+  } @else {
+    <button mat-menu-item [routerLink]="[PATH.MARKETPLACE]">
+      {{ 'Marketplace' | translate }}
+      <mat-icon>shop</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.DASHBOARD]">
+      {{ 'Dashboard' | translate }}
+      <mat-icon>dashboard</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.FINANCE]">
+      {{ 'Finance' | translate }}
+      <mat-icon>account_balance</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.MANAGEMENT]">
+      {{ 'Management' | translate }}
+      <mat-icon>domain</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SETTINGS]">
+      {{ 'Settings' | translate }}
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-menu-item [routerLink]="[PATH.HOME]" (click)="logout()">
+      {{ 'Logout' | translate }}
+      <mat-icon>logout</mat-icon>
+    </button>
+  }
+</mat-menu>

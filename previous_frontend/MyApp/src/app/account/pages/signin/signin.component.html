@@ -1,0 +1,37 @@
+<div
+  class="grid grid-cols-1 place-items-center py-24 bg-gradient-to-r from-white to-gray-400 p-4 m-2 rounded shadow-md">
+  <div
+    class="col-span-1 p-4 m-2 rounded bg-white shadow-md flex flex-col gap-4 justify-evenly items-center w-80">
+    <div class="flex flex-col items-center gap-1">
+      <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
+      <p class="text-sm uppercase text-gray-400">{{ 'Welcome' | translate }}</p>
+    </div>
+    <form [formGroup]="form" class="flex flex-col w-full">
+      <mat-form-field>
+        <mat-label>{{ 'Email' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="email"
+          formControlName="email"
+          matInput />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'Password' | translate }}</mat-label>
+        <input
+          type="password"
+          autocomplete="password"
+          formControlName="password"
+          matInput />
+      </mat-form-field>
+
+      <button
+        (click)="submit()"
+        mat-flat-button
+        [class.spinner]="isLoading"
+        [disabled]="isLoading"
+        color="accent">
+        {{ 'SignIn' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

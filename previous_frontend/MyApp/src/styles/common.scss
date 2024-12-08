@@ -1,0 +1,19 @@
+.titlecase {
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+}
+
+.warning-icon-color {
+  color: $warning;
+}
+
+.error-icon-color {
+  color: $error;
+}
+
+.success-icon-color {
+  color: $success;
+}

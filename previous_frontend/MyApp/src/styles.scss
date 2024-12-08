@@ -1,0 +1,20 @@
+//tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//Import variables
+@import 'styles/variables.scss';
+@import 'styles/loading-animations';
+@import "styles/common";
+
+
+body {
+  margin: 0;
+  background-color: $background-color;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  touch-action: manipulation;
+}
