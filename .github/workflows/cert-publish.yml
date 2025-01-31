@@ -1,0 +1,36 @@
+name: Generate SSL Certificate
+
+on:
+  workflow_dispatch:  # Uruchamianie ręczne
+
+jobs:
+  generate-ssl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Directory for SSL Certificates
+        run: |
+          mkdir -p ssl_certs
+          echo "SSL certs folder created"
+
+      - name: Install Certbot
+        run: |
+          sudo apt update
+          sudo apt install -y certbot
+
+      - name: Generate SSL Certificate (HTTP-01 Challenge)
+        run: |
+          sudo certbot certonly --manual --preferred-challenges dns \
+          -d myappzone.pl --email test@test.pl --non-interactive --agree-tos \
+          --config-dir ssl_certs --logs-dir ssl_certs --work-dir ssl_certs
+
+      - name: List Generated Certificates
+        run: ls -R ssl_certs
+
+      - name: Upload SSL Certificate as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssl-certificate
+          path: ssl_certs/live/myappzone.pl/
