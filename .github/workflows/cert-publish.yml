@@ -17,13 +17,13 @@ jobs:
 
       - name: Generate SSL Certificate
         run: |
-          sudo certbot certonly --nginx -d ${{ secrets.DOMAIN }} \
-          --email ${{ secrets.EMAIL }} --non-interactive --agree-tos
+          sudo certbot certonly --nginx -d myappzone.pl \
+          --email test@test.pl --non-interactive --agree-tos
 
       - name: Copy Certificates to Artifacts Directory
         run: |
           mkdir -p ssl_certs
-          sudo cp -r /etc/letsencrypt/live/${{ secrets.DOMAIN }} ssl_certs/
+          sudo cp -r /etc/letsencrypt/live/myappzone.pl ssl_certs/
 
       - name: Upload SSL Certificate as Artifact
         uses: actions/upload-artifact@v4
