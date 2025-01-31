@@ -12,4 +12,6 @@ jobs:
 
       - name: Run Certbot and Show DNS TXT Record
         run: |
-          sudo certbot certonly --manual --preferred-challenges dns -d myappzone.pl--dry-run
+          sudo certbot certonly --manual --preferred-challenges dns \
+          --email test@test.pl --agree-tos --no-eff-email --non-interactive \
+          -d myappzone.pl --dry-run
