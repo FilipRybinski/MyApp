@@ -10,27 +10,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Create Directory for SSL Certificates
-        run: |
-          mkdir -p ssl_certs
-          echo "SSL certs folder created"
-
       - name: Install Certbot
         run: |
           sudo apt update
-          sudo apt install -y certbot
+          sudo apt install -y certbot python3-certbot-nginx
 
-      - name: Generate SSL Certificate (HTTP-01 Challenge)
+      - name: Generate SSL Certificate
         run: |
-          sudo certbot certonly --manual --preferred-challenges dns \
-          -d myappzone.pl --email test@test.pl --non-interactive --agree-tos \
-          --config-dir ssl_certs --logs-dir ssl_certs --work-dir ssl_certs
+          sudo certbot certonly --nginx -d ${{ secrets.DOMAIN }} \
+          --email ${{ secrets.EMAIL }} --non-interactive --agree-tos
 
-      - name: List Generated Certificates
-        run: ls -R ssl_certs
+      - name: Copy Certificates to Artifacts Directory
+        run: |
+          mkdir -p ssl_certs
+          sudo cp -r /etc/letsencrypt/live/${{ secrets.DOMAIN }} ssl_certs/
 
       - name: Upload SSL Certificate as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ssl-certificate
-          path: ssl_certs/live/myappzone.pl/
+          path: ssl_certs/
