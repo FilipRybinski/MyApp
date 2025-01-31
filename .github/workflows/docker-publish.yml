@@ -91,8 +91,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
+      - name: Check SSH Key
+        run: cat ~/.ssh/id_rsa | head -n 5
+
       - name: Create Main Directory
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ${{ secrets.WORK_DIR }}"
+        run: ssh -vvv -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ${{ secrets.WORK_DIR }}"
 
       - name: Create Certificate Directory and Files
         run: |
