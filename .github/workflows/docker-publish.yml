@@ -88,25 +88,21 @@ jobs:
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
-      - name: Check SSH Key
-        run: cat ~/.ssh/id_rsa | head -n 5
-
       - name: Create Main Directory
-        run: ssh -vvv -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ${{ secrets.WORK_DIR }}"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p ${{ secrets.WORK_DIR }}"
 
       - name: Create Certificate Directory and Files
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
           mkdir -p ${{ secrets.CERTIFICATE_DIRECTORY }} &&
           echo '${{ secrets.CERTIFICATE }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.crt &&
           echo '${{ secrets.CERTIFICATE_PRIVATE_KEY }}' > ${{ secrets.CERTIFICATE_DIRECTORY }}/${{ env.CERTIFICATE_FILENAME }}.key"
 
       - name: Create Docker Compose file
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cat > ${{ secrets.WORK_DIR }}/${{ env.DOCKER_COMPOSE_FILE }} << 'EOL'
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cat > ${{ secrets.WORK_DIR }}/${{ env.DOCKER_COMPOSE_FILE }} << 'EOL'
           ${{ secrets.DOCKER_COMPOSE }}
           EOL"
 
@@ -134,13 +130,13 @@ jobs:
 
       - name: Create Certificate PFX File
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.CERTIFICATE_DIRECTORY }} && openssl pkcs12 -export -out ${{ env.CERTIFICATE_FILENAME }}.pfx -inkey ${{ env.CERTIFICATE_FILENAME }}.key -in ${{ env.CERTIFICATE_FILENAME }}.crt -passout pass:${{ secrets.CERTIFICATE_PASSWORD }}"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.CERTIFICATE_DIRECTORY }} && openssl pkcs12 -export -out ${{ env.CERTIFICATE_FILENAME }}.pfx -inkey ${{ env.CERTIFICATE_FILENAME }}.key -in ${{ env.CERTIFICATE_FILENAME }}.crt -passout pass:${{ secrets.CERTIFICATE_PASSWORD }}"
 
       - name: Connect and Pull
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
 
       - name: Remove Old Images
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "yes | docker image prune -a && exit"
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "yes | docker image prune -a && exit"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
