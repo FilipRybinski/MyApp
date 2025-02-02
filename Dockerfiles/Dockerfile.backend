@@ -8,30 +8,19 @@ COPY common/ common/
 COPY MyApp.Tests.Unit/ MyApp.Tests.Unit/
 
 RUN dotnet restore 
+
 RUN dotnet test MyApp.Tests.Unit/MyApp.Tests.Unit.csproj -c Release
+
 RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish src/MyApp.Api/MyApp.Api.csproj -c Release -o /app/publish
 
-# 🛠 Dodanie generowania certyfikatu do warstwy SDK
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS certs
-RUN mkdir /https
-RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p "SuperSecurePassword123"
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
-
-# 📌 Kopiowanie certyfikatu z poprzedniej warstwy
-COPY --from=certs /https/aspnetapp.pfx /https/aspnetapp.pfx
 COPY --from=publish /app/publish .
 
 EXPOSE 80
 EXPOSE 443
-
-# 🔧 Konfiguracja ASP.NET Core do użycia certyfikatu
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password=SuperSecurePassword123
-ENV ASPNETCORE_URLS="https://+:443;http://+:80"
 
 ENTRYPOINT ["dotnet", "MyApp.Api.dll"]
