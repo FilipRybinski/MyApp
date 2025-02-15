@@ -18,18 +18,10 @@ jobs:
       repo_name: ${{ steps.extract-name.outputs.REPO_NAME }} 
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
+      
       - name: Extract Repository Name
         id: extract-name
         uses: ./.github/actions/extract-repo-name
-
-      - name: Login to Docker
-        uses: ./.github/actions/login-to-docker
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
 
   publish-services:
     name: Publish Services
@@ -46,7 +38,13 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v3
+      
+      - name: Login to Docker
+        uses: ./.github/actions/login-to-docker
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
         
       - name: Build and Publish ${{ matrix.name }} Service
         uses: ./.github/actions/build-and-publish-docker
