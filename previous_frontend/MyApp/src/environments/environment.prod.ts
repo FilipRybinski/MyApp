@@ -9,6 +9,6 @@ export const environment = {
       IS_AUTHORIZED: `${DEFAULT_IDENTITY_URL}/Users/IsAuthorized`,
       LOGOUT: `${DEFAULT_IDENTITY_URL}/Users/Logout`,
     },
-    FEATURE_FLAGS: `${DEFAULT_URL}/FeatureFlags/GetFeatureFlags`,
+    FEATURE_FLAGS: `${DEFAULT_FEATURE_FLAGS_URL}/FeatureFlags/GetFeatureFlags`,
   },
 };
