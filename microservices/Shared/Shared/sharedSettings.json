@@ -1,33 +1,18 @@
 {
   "auth": {
-    "issuer": "myappzone-issuer",
-    "audience": "myappzone-audience",
-    "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
-    "expiry": "00.01:00:00"
+    "issuer": "",
+    "audience": "",
+    "signingKey": "",
+    "expiry": ""
   },
   "url": {
-    "allowedHeaders": [
-      "application/json",
-      "text/plain",
-      "Content-Type",
-      "Referer",
-      "Sec-Ch-Ua",
-      "Sec-Ch-Ua-Mobile",
-      "Sec-Ch-Ua-Platform",
-      "User-Agent"
-    ],
-    "allowedMethods": [
-      "POST",
-      "PUT",
-      "DELETE",
-      "PATCH",
-      "GET"
-    ],
-    "connectionUrls": ["http://localhost:4200","http://localhost:4000"]
+    "allowedHeaders": [],
+    "allowedMethods": [],
+    "connectionUrls": []
   },
   "cookieSettings": {
-    "Path": "/",
-    "Domain": "localhost",
-    "ExpireTime": 1
+    "Path": "",
+    "Domain": "",
+    "ExpireTime": ""
   }
 }

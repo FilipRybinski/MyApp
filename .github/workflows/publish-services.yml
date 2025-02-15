@@ -34,9 +34,14 @@ jobs:
       matrix:
         include:
           - name: "identity"
-            path: "./microservices/Identity/Identity.Api/Dockerfile"
+            dockerPath: "./microservices/Identity/Identity.Api/Dockerfile"
+            settingsPath: "./microservices/Identity/Identity.Api/appsettings.json"
+            settings_secret: "IDENTITY_SETTINGS"
+
           - name: "featureflags"
-            path: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
+            dockerPath: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
+            settingsPath: "./microservices/FeatureFlags/FeatureFlags.Api/appsettings.json"
+            settings_secret: "FEATUREFLAGS_SETTINGS"
 
     steps:
       - name: Checkout Repository
@@ -47,11 +52,23 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-        
+
+      - name: Update Shared Settings
+        uses: restackio/update-json-values-action@v1.0.0
+        with:
+          file: "./microservices/Shared/Shared/sharedSettings.json"
+          values: ${{ secrets.SHARED_SETTINGS }}
+
+      - name: Update ${{ matrix.name }} Settings
+        uses: restackio/update-json-values-action@v1.0.0
+        with:
+          file: ${{ matrix.settingsPath }}
+          values: ${{ secrets[matrix.settings_secret] }}
+
       - name: Build and Publish ${{ matrix.name }} Service
         uses: ./.github/actions/build-and-publish-docker
         with:
-          dockerfile: ${{ matrix.path }}
+          dockerfile: ${{ matrix.dockerPath }}
           image_name: ${{ matrix.name }}
           registry: ${{ env.REGISTRY }}
           namespace: ${{ needs.initialize-environment.outputs.repo_name }}

@@ -1,7 +1,7 @@
 {
   "auth": {
-    "issuer": "myappzone-issuer",
-    "audience": "myappzone-audience",
+    "issuer": "localhost",
+    "audience": "localhost",
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
     "expiry": "00.01:00:00"
   },
