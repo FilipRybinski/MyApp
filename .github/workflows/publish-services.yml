@@ -38,8 +38,11 @@ jobs:
 
     strategy:
       matrix:
-        name: ["Identity", "FeatureFlags"]
-        path: ["./microservices/Identity/Identity.Api/Dockerfile", "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"]
+        include:
+          - name: "Identity"
+            path: "./microservices/Identity/Identity.Api/Dockerfile"
+          - name: "FeatureFlags"
+            path: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
 
     steps:
       - name: Build and Publish ${{ matrix.name }} Service
