@@ -7,12 +7,20 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["microservices", "microservices"]
-COPY ["microservices-tests", "microservices-tests"]
+
+COPY ["microservices/FeatureFlags", "microservices/FeatureFlags"]
+COPY ["microservices/Shared", "microservices/Shared"]
+
+COPY ["microservices-tests/MyApp.FeatureFlags.Tests.Unit", "microservices-tests/MyApp.FeatureFlags.Tests.Unit"]
+
 RUN dotnet restore "microservices/FeatureFlags/FeatureFlags.Api/FeatureFlags.Api.csproj"
 COPY . .
 WORKDIR "/src/microservices/FeatureFlags/FeatureFlags.Api"
 RUN dotnet build "FeatureFlags.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS test
+ARG BUILD_CONFIGURATION=Release
+WORKDIR "/src/microservices-tests/MyApp.FeatureFlags.Tests.Unit"
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
