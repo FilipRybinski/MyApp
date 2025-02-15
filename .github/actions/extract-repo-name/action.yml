@@ -10,8 +10,8 @@ runs:
   using: "composite"
   steps:
     - name: Extract Repository Name
-      id: extract-repo
+      id: extract-name
       run: |
         REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
-        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_OUTPUT
+        echo "REPO_NAME=$REPO_NAME" >> "$GITHUB_OUTPUT"
       shell: bash
