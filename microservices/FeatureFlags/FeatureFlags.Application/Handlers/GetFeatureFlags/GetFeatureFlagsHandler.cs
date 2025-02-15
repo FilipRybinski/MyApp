@@ -3,14 +3,9 @@ using Microsoft.Extensions.Options;
 
 namespace FeatureFlags.Application.Handlers.GetFeatureFlags;
 
-public class GetFeatureFlagsHandler : IGetFeatureFlagsHandler
+public class GetFeatureFlagsHandler(IOptions<FeatureFlagsDto> featureFlags) : IGetFeatureFlagsHandler
 {
-    private readonly FeatureFlagsDto FeatureFlags;
-
-    public GetFeatureFlagsHandler(IOptions<FeatureFlagsDto> featureFlags)
-    {
-        FeatureFlags = featureFlags.Value;
-    }
+    private readonly FeatureFlagsDto FeatureFlags = featureFlags.Value;
 
     public FeatureFlagsDto Handle()
     {

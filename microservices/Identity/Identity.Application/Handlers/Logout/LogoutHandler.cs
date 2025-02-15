@@ -2,18 +2,11 @@ using IHttpContextTokenService = Identity.Application.Security.IHttpContextToken
 
 namespace Identity.Application.Handlers.Logout;
 
-public class LogoutHandler : ILogoutHandler
+public class LogoutHandler(IHttpContextTokenService httpContextTokenService) : ILogoutHandler
 {
-    private readonly IHttpContextTokenService _httpContextTokenService;
-    
-    public LogoutHandler(IHttpContextTokenService httpContextTokenService)
-    {
-        _httpContextTokenService = httpContextTokenService;
-    }
-
     public bool Handle()
     {
-        _httpContextTokenService.Remove();
+        httpContextTokenService.Remove();
         return true;
     }
 }

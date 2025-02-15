@@ -1,4 +1,4 @@
-namespace Shared.DAL;
+namespace Shared.Options;
 
 internal sealed class PostgresOptions
 {

@@ -3,12 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.DAL;
 
-internal sealed class IdentityDbContext : DbContext
+internal sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> dbContextOptions)
+    : DbContext(dbContextOptions)
 {
-    public IdentityDbContext(DbContextOptions<IdentityDbContext> dbContextOptions) : base(dbContextOptions)
-    {
-    }
-
     public DbSet<_Identity> Identities { get; set; }
     public DbSet<Role> Roles { get; set; }
 

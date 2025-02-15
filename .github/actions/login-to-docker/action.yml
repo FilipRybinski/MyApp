@@ -1,0 +1,17 @@
+name: "Login to Docker"
+description: "Logs in to Docker Registry using provided credentials"
+
+inputs:
+  password:
+    description: "Personal Access Token for Docker login"
+    required: true
+  username:
+    description: "Docker username (e.g., GitHub actor)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login to Docker Registry
+      run: echo "${{ inputs.password }}" | docker login ghcr.io -u "${{ inputs.username }}" --password-stdin
+      shell: bash

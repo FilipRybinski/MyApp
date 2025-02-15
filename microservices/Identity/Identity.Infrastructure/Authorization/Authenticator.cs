@@ -10,23 +10,15 @@ using Shared.Options;
 
 namespace Identity.Infrastructure.Authorization;
 
-internal sealed class Authenticator : IAuthenticator
+internal sealed class Authenticator(IOptions<AuthorizationOptions> options) : IAuthenticator
 {
-    private readonly string _audience;
-    private readonly TimeSpan _expiry;
-    private readonly string _issuer;
+    private readonly string _audience = options.Value.Audience;
+    private readonly TimeSpan _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
+    private readonly string _issuer = options.Value.Issuer;
     private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-    private readonly SigningCredentials _signingCredentials;
-
-    public Authenticator(IOptions<AuthorizationOptions> options)
-    {
-        _issuer = options.Value.Issuer;
-        _audience = options.Value.Audience;
-        _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
-        _signingCredentials = new SigningCredentials(
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SigningKey)),
-            SecurityAlgorithms.HmacSha256);
-    }
+    private readonly SigningCredentials _signingCredentials = new(
+        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SigningKey)),
+        SecurityAlgorithms.HmacSha256);
 
     public JwtDto CreateToken(Guid id, string roleName)
     {

@@ -5,15 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.DAL.Repositories;
 
-internal sealed class PostgresRoleRepository : IRoleRepository
+internal sealed class PostgresRoleRepository(IdentityDbContext dbContext) : IRoleRepository
 {
-    private readonly IdentityDbContext _dbContext;
-
-    public PostgresRoleRepository(IdentityDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
-    public async Task<Role> GetDefaultRoleAsync() => await _dbContext.Roles.FirstOrDefaultAsync(r => r.Name == UserRoleDictionary.User);
+    public async Task<Role> GetDefaultRoleAsync() => await dbContext.Roles.FirstOrDefaultAsync(r => r.Name == UserRoleDictionary.User);
     
 }

@@ -1,0 +1,29 @@
+name: "Build and Publish Docker Image"
+description: "Builds and pushes a Docker image to a registry"
+
+inputs:
+  dockerfile:
+    description: "Path to the Dockerfile"
+    required: true
+  image_name:
+    description: "Name of the Docker image"
+    required: true
+  registry:
+    description: "Docker registry (e.g., ghcr.io)"
+    required: true
+  namespace:
+    description: "Namespace for the image (e.g., GitHub repository owner)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build Docker Image
+      run: |
+        docker build -f ${{ inputs.dockerfile }} . --tag ${{ inputs.registry }}/${{ inputs.namespace }}/${{ inputs.image_name }}
+      shell: bash
+
+    - name: Push Docker Image
+      run: |
+        docker push ${{ inputs.registry }}/${{ inputs.namespace }}/${{ inputs.image_name }}
+      shell: bash

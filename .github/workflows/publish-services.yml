@@ -1,0 +1,51 @@
+name: Publish Services
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - microservices-microfrontends
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  initialize-environment:
+    name: Initialize Environment
+    runs-on: ubuntu-latest
+
+    outputs:
+      repo_name: ${{ steps.extract-repo-name.outputs.repo_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Extract Repository Name
+        id: extract-repo-name
+        uses: ./.github/actions/extract-repo-name
+
+      - name: Login to Docker
+        uses: ./.github/actions/login-to-docker
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-services:
+    name: Publish Services
+    needs: initialize-environment
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        name: ["Identity", "FeatureFlags"]
+        path: ["./microservices/Identity/Identity.Api/Dockerfile", "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"]
+
+    steps:
+      - name: Build and Publish ${{ matrix.name }} Service
+        uses: ./.github/actions/build-and-publish-docker
+        with:
+          dockerfile: ${{ matrix.path }}
+          image_name: ${{ matrix.name }}
+          registry: ${{ env.REGISTRY }}
+          namespace: ${{ needs.initialize-environment.outputs.repo_name }}

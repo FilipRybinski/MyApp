@@ -21,4 +21,15 @@
       <ProjectReference Include="..\FeatureFlags.Application\FeatureFlags.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="../Shared/sharedSettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+        <None Update="../Shared/sharedSettings.Development.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

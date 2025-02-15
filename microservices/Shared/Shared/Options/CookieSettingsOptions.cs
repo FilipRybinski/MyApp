@@ -1,6 +1,6 @@
-namespace Identity.Infrastructure.Options;
+namespace Shared.Options;
 
-internal class CookieSettingsOptions
+public class CookieSettingsOptions
 {
     public string Path { get; set; }
     public string Domain { get; set; }

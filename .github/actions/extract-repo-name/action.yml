@@ -1,0 +1,17 @@
+name: "Extract Repository Name"
+description: "Extracts repository name, converts it to lowercase, and sets it as output"
+
+outputs:
+  repo_name:
+    description: "Extracted repository name in lowercase"
+    value: ${{ steps.extract-name.outputs.REPO_NAME }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Extract Repository Name
+      id: extract-repo_name
+      run: |
+        REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_OUTPUT
+      shell: bash

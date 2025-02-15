@@ -1,4 +1,4 @@
-namespace Shared.CORS;
+namespace Shared.Options;
 
 public class CorsOptions
 {
