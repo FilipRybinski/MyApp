@@ -4,7 +4,7 @@ WORKDIR /app
 
 ENV CHROME_BIN=/usr/bin/chromium-browser
 
-COPY ./src/ClientApp/MyApp ./
+COPY ./previous_frontend/MyApp ./
 
 RUN npm install
 RUN npm install -g @angular/cli@latest
@@ -15,7 +15,7 @@ FROM node:lts-alpine as srr
 WORKDIR /app
 
 COPY --from=build /app/dist /app/dist
-COPY ./src/ClientApp/MyApp/package.json ./
+COPY ./previous_frontend/MyApp/package.json ./
 
 RUN npm install --only=production
 
