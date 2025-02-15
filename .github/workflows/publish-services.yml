@@ -45,6 +45,9 @@ jobs:
             path: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3 
+        
       - name: Build and Publish ${{ matrix.name }} Service
         uses: ./.github/actions/build-and-publish-docker
         with:
