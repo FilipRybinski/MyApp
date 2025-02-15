@@ -52,25 +52,15 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-      
 
       - name: Override settings
         uses: ./.github/actions/override-settings
         with:
           shared_settings_path: "./microservices/Shared/Shared/sharedSettings.json"
           shared_settings: ${{ secrets.SHARED_SETTINGS }}
-          service_name:
-          service_settings_path:
-          service_settings:
-
-          filename: 
-          json: 
-
-      - name: Update ${{ matrix.name }} Settings
-        uses: devops-actions/json-to-file@v1.0.0
-        with:
-          filename: ${{ matrix.settingsPath }}
-          json: ${{ secrets[matrix.settings_secret] }}
+          service_name: ${{ matrix.name }}
+          service_settings_path: ${{ matrix.settingsPath }}
+          service_settings: ${{ secrets[matrix.settings_secret] }}
 
       - name: Build and Publish ${{ matrix.name }} Service
         uses: ./.github/actions/build-and-publish-docker
