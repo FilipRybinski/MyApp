@@ -5,9 +5,9 @@ namespace Shared.Mapper;
 
 public static class Extensions
 {
-    public static IServiceCollection AddMapper(this IServiceCollection services)
+    public static IServiceCollection AddMapper(this IServiceCollection services,Assembly assembly)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(assembly);
         return services;
     }
 }
