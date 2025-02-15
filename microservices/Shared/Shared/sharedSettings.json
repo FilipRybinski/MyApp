@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "issuer": "",
+    "audience": "",
+    "signingKey": "",
+    "expiry": ""
+  },
+  "url": {
+    "allowedHeaders": [],
+    "allowedMethods": [],
+    "connectionUrls": []
+  },
+  "cookieSettings": {
+    "Path": "",
+    "Domain": "",
+    "ExpireTime": ""
+  }
+}

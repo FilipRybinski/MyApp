@@ -1,0 +1,34 @@
+name: "Override settings files"
+description: "Override settings"
+
+inputs:
+  shared_settings_path:
+    description: "Path to shared settings"
+    required: true
+  shared_settings:
+    description: "Shared settings"
+    required: true
+  service_name:
+    description: "Service name"
+    required: true
+  service_settings_path:
+    description: "Path to service settings"
+    required: true
+  service_settings:
+    description: "Service settings"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Update Shared Settings
+      uses: devops-actions/json-to-file@v1.0.0
+      with:
+        filename: ${{ inputs.shared_settings_path }}
+        json: ${{ inputs.shared_settings }}
+
+    - name: Update Service Settings
+      uses: devops-actions/json-to-file@v1.0.0
+      with:
+        filename: ${{ inputs.service_settings_path }}
+        json: ${{ inputs.service_settings }}

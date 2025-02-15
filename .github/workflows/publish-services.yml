@@ -1,0 +1,72 @@
+name: Publish Services
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - microservices-microfrontends
+      - main
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  initialize-environment:
+    name: Initialize Environment
+    runs-on: ubuntu-latest
+
+    outputs:
+      repo_name: ${{ steps.extract-name.outputs.REPO_NAME }} 
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Extract Repository Name
+        id: extract-name
+        uses: ./.github/actions/extract-repo-name
+
+  publish-services:
+    name: Publish Services
+    needs: initialize-environment
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - name: "identity"
+            dockerPath: "./microservices/Identity/Identity.Api/Dockerfile"
+            settingsPath: "./microservices/Identity/Identity.Api/appsettings.json"
+            settings_secret: "IDENTITY_SETTINGS"
+
+          - name: "featureflags"
+            dockerPath: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
+            settingsPath: "./microservices/FeatureFlags/FeatureFlags.Api/appsettings.json"
+            settings_secret: "FEATUREFLAGS_SETTINGS"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Login to Docker
+        uses: ./.github/actions/login-to-docker
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+
+      - name: Override settings
+        uses: ./.github/actions/override-settings
+        with:
+          shared_settings_path: "./microservices/Shared/Shared/sharedSettings.json"
+          shared_settings: ${{ secrets.SHARED_SETTINGS }}
+          service_name: ${{ matrix.name }}
+          service_settings_path: ${{ matrix.settingsPath }}
+          service_settings: ${{ secrets[matrix.settings_secret] }}
+
+      - name: Build and Publish ${{ matrix.name }} Service
+        uses: ./.github/actions/build-and-publish-docker
+        with:
+          dockerfile: ${{ matrix.dockerPath }}
+          image_name: ${{ matrix.name }}
+          registry: ${{ env.REGISTRY }}
+          namespace: ${{ needs.initialize-environment.outputs.repo_name }}
