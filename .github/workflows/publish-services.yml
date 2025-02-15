@@ -52,12 +52,19 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
+      
 
-      - name: Update Shared Settings
-        uses: devops-actions/json-to-file@v1.0.0
+      - name: Override settings
+        uses: ./.github/actions/override-settings
         with:
-          filename: "./microservices/Shared/Shared/sharedSettings.json"
-          json: ${{ secrets.SHARED_SETTINGS }}
+          shared_settings_path: "./microservices/Shared/Shared/sharedSettings.json"
+          shared_settings: ${{ secrets.SHARED_SETTINGS }}
+          service_name:
+          service_settings_path:
+          service_settings:
+
+          filename: 
+          json: 
 
       - name: Update ${{ matrix.name }} Settings
         uses: devops-actions/json-to-file@v1.0.0
