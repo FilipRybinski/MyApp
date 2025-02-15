@@ -29,7 +29,7 @@ jobs:
         uses: ./.github/actions/login-to-docker
         with:
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
   publish-services:
     name: Publish Services
@@ -55,4 +55,3 @@ jobs:
           image_name: ${{ matrix.name }}
           registry: ${{ env.REGISTRY }}
           namespace: ${{ needs.initialize-environment.outputs.repo_name }}
-        continue-on-error: true
