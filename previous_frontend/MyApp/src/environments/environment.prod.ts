@@ -1,5 +1,5 @@
-const DEFAULT_IDENTITY_URL = 'Identity:8080';
-const DEFAULT_FEATURE_FLAGS_URL = 'FeatureFlags:8082';
+const DEFAULT_IDENTITY_URL = 'https://identity.myappzone.pl';
+const DEFAULT_FEATURE_FLAGS_URL = 'https://featureflags.myappzone.pl'
 export const environment = {
   production: true,
   URL: {
