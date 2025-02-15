@@ -54,16 +54,16 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
 
       - name: Update Shared Settings
-        uses: restackio/update-json-values-action@v1.0.0
+        uses: devops-actions/json-to-file@v1.0.0
         with:
           file: "./microservices/Shared/Shared/sharedSettings.json"
-          values: ${{ secrets.SHARED_SETTINGS }}
+          json: ${{ secrets.SHARED_SETTINGS }}
 
       - name: Update ${{ matrix.name }} Settings
-        uses: restackio/update-json-values-action@v1.0.0
+        uses: devops-actions/json-to-file@v1.0.0
         with:
           file: ${{ matrix.settingsPath }}
-          values: ${{ secrets[matrix.settings_secret] }}
+          json: ${{ secrets[matrix.settings_secret] }}
 
       - name: Build and Publish ${{ matrix.name }} Service
         uses: ./.github/actions/build-and-publish-docker
