@@ -55,3 +55,4 @@ jobs:
           image_name: ${{ matrix.name }}
           registry: ${{ env.REGISTRY }}
           namespace: ${{ needs.initialize-environment.outputs.repo_name }}
+        continue-on-error: true
