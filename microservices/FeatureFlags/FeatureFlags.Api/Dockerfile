@@ -7,7 +7,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["microservices/FeatureFlags/FeatureFlags.Api/FeatureFlags.Api.csproj", "microservices/FeatureFlags/FeatureFlags.Api/"]
+COPY ["microservices", "microservices"]
+COPY ["microservices-tests", "microservices-tests"]
 RUN dotnet restore "microservices/FeatureFlags/FeatureFlags.Api/FeatureFlags.Api.csproj"
 COPY . .
 WORKDIR "/src/microservices/FeatureFlags/FeatureFlags.Api"

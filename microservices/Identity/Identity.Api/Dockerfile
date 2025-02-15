@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["microservices/Identity/Identity.Api/Identity.Api.csproj", "microservices/Identity/Identity.Api/"]
+COPY [".", "."]
 RUN dotnet restore "microservices/Identity/Identity.Api/Identity.Api.csproj"
 COPY . .
 WORKDIR "/src/microservices/Identity/Identity.Api"
