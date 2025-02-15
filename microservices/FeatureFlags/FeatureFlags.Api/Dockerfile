@@ -16,11 +16,11 @@ COPY ["microservices-tests/MyApp.FeatureFlags.Tests.Unit", "microservices-tests/
 RUN dotnet restore "microservices/FeatureFlags/FeatureFlags.Api/FeatureFlags.Api.csproj"
 COPY . .
 
-WORKDIR "/src/microservices/FeatureFlags/FeatureFlags.Api"
-RUN dotnet build "FeatureFlags.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
 WORKDIR "/src/microservices-tests/MyApp.FeatureFlags.Tests.Unit"
 RUN dotnet test -c $BUILD_CONFIGURATION 
+
+WORKDIR "/src/microservices/FeatureFlags/FeatureFlags.Api"
+RUN dotnet build "FeatureFlags.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

@@ -16,13 +16,11 @@ COPY ["microservices-tests/MyApp.Identity.Tests.Unit", "microservices-tests/MyAp
 RUN dotnet restore "microservices/Identity/Identity.Api/Identity.Api.csproj"
 COPY . .
 
-WORKDIR "/src/microservices/Identity/Identity.Api"
-RUN dotnet build "Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
 WORKDIR "/src/microservices-tests/MyApp.Identity.Tests.Unit"
 RUN dotnet test -c $BUILD_CONFIGURATION 
 
-
+WORKDIR "/src/microservices/Identity/Identity.Api"
+RUN dotnet build "Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
