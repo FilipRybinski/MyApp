@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - microservices-microfrontends
+      - main
 
 env:
   REGISTRY: ghcr.io
