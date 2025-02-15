@@ -56,13 +56,13 @@ jobs:
       - name: Update Shared Settings
         uses: devops-actions/json-to-file@v1.0.0
         with:
-          file: "./microservices/Shared/Shared/sharedSettings.json"
+          filename: "./microservices/Shared/Shared/sharedSettings.json"
           json: ${{ secrets.SHARED_SETTINGS }}
 
       - name: Update ${{ matrix.name }} Settings
         uses: devops-actions/json-to-file@v1.0.0
         with:
-          file: ${{ matrix.settingsPath }}
+          filename: ${{ matrix.settingsPath }}
           json: ${{ secrets[matrix.settings_secret] }}
 
       - name: Build and Publish ${{ matrix.name }} Service
