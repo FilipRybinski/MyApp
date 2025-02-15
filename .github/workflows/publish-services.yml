@@ -39,9 +39,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: "Identity"
+          - name: "identity"
             path: "./microservices/Identity/Identity.Api/Dockerfile"
-          - name: "FeatureFlags"
+          - name: "featureflags"
             path: "./microservices/FeatureFlags/FeatureFlags.Api/Dockerfile"
 
     steps:
