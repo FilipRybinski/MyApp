@@ -14,6 +14,14 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
+    "paths": {
+      "shared-services": [
+        "./dist/shared-services"
+      ],
+      "shared-ui": [
+        "./dist/shared-ui"
+      ]
+    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022"
