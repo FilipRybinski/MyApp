@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-shell-root',
-  imports: [RouterOutlet,RouterLink],
+  selector: 'app-identity-root',
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'shell';
+  title = 'identity';
 }
