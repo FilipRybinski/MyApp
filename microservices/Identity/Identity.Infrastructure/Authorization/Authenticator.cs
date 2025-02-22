@@ -5,8 +5,7 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Authorization;
-using Shared.Options;
+using Shared.Core.Options;
 
 namespace Identity.Infrastructure.Authorization;
 

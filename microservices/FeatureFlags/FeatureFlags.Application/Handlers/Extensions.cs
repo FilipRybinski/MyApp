@@ -1,6 +1,6 @@
 using FeatureFlags.Application.Handlers.GetFeatureFlags;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
+using Shared.Application;
 
 namespace FeatureFlags.Application.Handlers;
 

@@ -3,7 +3,7 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Identity.Core.Entities;
 using Identity.Core.Repositories;
-using Shared.Abstractions;
+using Shared.Core.Abstractions;
 
 namespace Identity.Application.Queries.SignUp;
 

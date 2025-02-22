@@ -2,7 +2,7 @@
 using Identity.Application.Queries.SignIn;
 using Identity.Application.Queries.SignUp;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
+using Shared.Application;
 
 
 namespace Identity.Application.Validators;

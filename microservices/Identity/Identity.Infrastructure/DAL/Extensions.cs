@@ -2,7 +2,7 @@ using Identity.Core.Repositories;
 using Identity.Infrastructure.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.DAL;
+using Shared.Infrastructure.DAL;
 
 namespace Identity.Infrastructure.DAL;
 

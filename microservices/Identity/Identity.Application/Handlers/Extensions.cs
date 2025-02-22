@@ -1,7 +1,7 @@
 using Identity.Application.Handlers.IsAuthorized;
 using Identity.Application.Handlers.Logout;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
+using Shared.Application;
 
 namespace Identity.Application.Handlers;
 

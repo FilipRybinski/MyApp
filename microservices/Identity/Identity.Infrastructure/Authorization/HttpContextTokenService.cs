@@ -3,7 +3,7 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Shared.Options;
+using Shared.Core.Options;
 
 namespace Identity.Infrastructure.Authorization;
 

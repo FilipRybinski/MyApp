@@ -2,8 +2,8 @@
 using Identity.Application.Handlers;
 using Identity.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.CQRS;
-using Shared.Mapper;
+using Shared.Application.CQRS;
+using Shared.Application.Mapper;
 
 namespace Identity.Application;
 

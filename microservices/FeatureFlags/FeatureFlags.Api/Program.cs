@@ -1,14 +1,15 @@
 using FeatureFlags.Application;
-using Shared.Configuration;
+using FeatureFlags.Infrastructure;
 using Shared.Infrastructure;
+using Shared.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddSharedConfiguration(builder.Environment);
 
 builder.Services
-    .AddApplication(builder.Configuration)
-    .AddSharedInfrastructure(builder.Configuration)
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration)
     .AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -19,10 +20,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseSharedInfrastructure();
 
 app.Run();

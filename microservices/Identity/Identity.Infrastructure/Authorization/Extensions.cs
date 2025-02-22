@@ -1,7 +1,7 @@
 using Identity.Application.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Authorization;
+using Shared.Infrastructure.Authorization;
 
 namespace Identity.Infrastructure.Authorization;
 

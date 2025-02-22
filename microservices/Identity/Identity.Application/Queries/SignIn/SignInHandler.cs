@@ -3,7 +3,7 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Identity.Core.Exceptions;
 using Identity.Core.Repositories;
-using Shared.Abstractions;
+using Shared.Core.Abstractions;
 using IAuthenticator = Identity.Application.Security.IAuthenticator;
 using IHttpContextTokenService = Identity.Application.Security.IHttpContextTokenService;
 
