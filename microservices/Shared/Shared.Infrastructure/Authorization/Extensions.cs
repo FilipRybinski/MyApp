@@ -29,7 +29,7 @@ public static class Extensions
                 a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddCookie(c => c.Cookie.Name = tokenName)
-            .AddJwtBearer(j =>
+            .AddJwtBearer(OutsideAuthSectionName,j =>
             {
                 j.SaveToken = true;
                 j.Audience = outsideAuth.Audience;
@@ -48,7 +48,7 @@ public static class Extensions
                     }
                 };
             })
-            .AddJwtBearer(j =>
+            .AddJwtBearer(OutsideAuthSectionName,j =>
             {
                 j.SaveToken = true;
                 j.Audience = internalAuth.Audience;
