@@ -5,7 +5,8 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["microservices/QueueMailer/QueueMailer.Worker/QueueMailer.Worker.csproj", "microservices/QueueMailer/QueueMailer.Worker/"]
+COPY ["microservices/QueueMailer", "microservices/QueueMailer"]
+COPY ["microservices/Shared", "microservices/Shared"]
 RUN dotnet restore "microservices/QueueMailer/QueueMailer.Worker/QueueMailer.Worker.csproj"
 COPY . .
 WORKDIR "/src/microservices/QueueMailer/QueueMailer.Worker"
