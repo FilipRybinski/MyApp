@@ -7,9 +7,12 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["microservices/QueueMailer/QueueMailer.Api/QueueMailer.Api.csproj", "microservices/QueueMailer/QueueMailer.Api/"]
+COPY ["microservices/QueueMailer", "microservices/QueueMailer"]
+COPY ["microservices/Shared", "microservices/Shared"]
+
 RUN dotnet restore "microservices/QueueMailer/QueueMailer.Api/QueueMailer.Api.csproj"
 COPY . .
+
 WORKDIR "/src/microservices/QueueMailer/QueueMailer.Api"
 RUN dotnet build "QueueMailer.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

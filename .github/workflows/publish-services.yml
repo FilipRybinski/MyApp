@@ -44,6 +44,16 @@ jobs:
             settingsPath: "./microservices/FeatureFlags/FeatureFlags.Api/appsettings.json"
             settings_secret: "FEATUREFLAGS_SETTINGS"
 
+          - name: "queuemailer"
+            dockerPath: "./microservices/QueueMailer/QueueMailer.Api/Dockerfile"
+            settingsPath: ""
+            settings_secret: ""
+
+          - name: "queuemailer-worker"
+            dockerPath: "./microservices/QueueMailer/QueueMailer.Worker/Dockerfile"
+            settingsPath: ""
+            settings_secret: ""
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
