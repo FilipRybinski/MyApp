@@ -10,4 +10,4 @@ catch (Exception e)
     Console.WriteLine(e);
 }
 
-Console.ReadLine();
+while (true) await Task.Delay(1000);
