@@ -5,12 +5,11 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Authorization;
-using Shared.Options;
+using Shared.Core.Options;
 
 namespace Identity.Infrastructure.Authorization;
 
-internal sealed class Authenticator(IOptions<AuthorizationOptions> options) : IAuthenticator
+internal sealed class Authenticator(IOptions<OutsideAuthorizationOptions> options) : IAuthenticator
 {
     private readonly string _audience = options.Value.Audience;
     private readonly TimeSpan _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);

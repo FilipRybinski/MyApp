@@ -12,11 +12,13 @@
 			},
 			"root": "projects/host",
 			"sourceRoot": "projects/host/src",
-			"prefix": "host",
+			"prefix": "app-host",
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+					"options": {
+						"ssr": true
+					},
 					"configurations": {
 						"production": {
 							"target": "host:esbuild:production"
@@ -56,7 +58,8 @@
 							}
 						],
 						"styles": [
-							"projects/host/src/styles.scss"
+							"projects/host/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
 						],
 						"scripts": []
 					}
@@ -80,9 +83,15 @@
 							}
 						],
 						"styles": [
-							"projects/host/src/styles.scss"
+							"projects/host/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
-						"scripts": []
+						"scripts": [],
+						"server": "projects/host/src/main.server.ts",
+						"prerender": false,
+						"ssr": {
+							"entry": "projects/host/src/server.ts"
+						}
 					},
 					"configurations": {
 						"production": {
@@ -124,9 +133,337 @@
 					}
 				}
 			}
+		},
+		"fee-tracker": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/fee-tracker",
+			"sourceRoot": "projects/fee-tracker/src",
+			"prefix": "app-fee-tracker",
+			"architect": {
+				"build": {
+					"builder": "@angular-architects/native-federation:build",
+					"options": {
+						"ssr": true
+					},
+					"configurations": {
+						"production": {
+							"target": "fee-tracker:esbuild:production"
+						},
+						"development": {
+							"target": "fee-tracker:esbuild:development",
+							"dev": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-architects/native-federation:build",
+					"options": {
+						"target": "fee-tracker:serve-original:development",
+						"rebuildDelay": 0,
+						"dev": true,
+						"port": 0
+					}
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n"
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/fee-tracker/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/fee-tracker/public"
+							}
+						],
+						"styles": [
+							"projects/fee-tracker/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
+						],
+						"scripts": []
+					}
+				},
+				"esbuild": {
+					"builder": "@angular-devkit/build-angular:application",
+					"options": {
+						"outputPath": "dist/fee-tracker",
+						"index": "projects/fee-tracker/src/index.html",
+						"browser": "projects/fee-tracker/src/main.ts",
+						"polyfills": [
+							"zone.js",
+							"es-module-shims"
+						],
+						"tsConfig": "projects/fee-tracker/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/fee-tracker/public"
+							}
+						],
+						"styles": [
+							"projects/fee-tracker/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
+						],
+						"scripts": [],
+						"server": "projects/fee-tracker/src/main.server.ts",
+						"prerender": false,
+						"ssr": {
+							"entry": "projects/fee-tracker/src/server.ts"
+						}
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve-original": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "fee-tracker:esbuild:production"
+						},
+						"development": {
+							"buildTarget": "fee-tracker:esbuild:development"
+						}
+					},
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4202
+					}
+				}
+			}
+		},
+		"shared-ui": {
+			"projectType": "library",
+			"root": "projects/shared-ui",
+			"sourceRoot": "projects/shared-ui/src",
+			"prefix": "lib",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:ng-packagr",
+					"options": {
+						"project": "projects/shared-ui/ng-package.json"
+					},
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/shared-ui/tsconfig.lib.prod.json"
+						},
+						"development": {
+							"tsConfig": "projects/shared-ui/tsconfig.lib.json"
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"tsConfig": "projects/shared-ui/tsconfig.spec.json",
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						]
+					}
+				}
+			}
+		},
+		"shared-services": {
+			"projectType": "library",
+			"root": "projects/shared-services",
+			"sourceRoot": "projects/shared-services/src",
+			"prefix": "lib",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:ng-packagr",
+					"options": {
+						"project": "projects/shared-services/ng-package.json"
+					},
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/shared-services/tsconfig.lib.prod.json"
+						},
+						"development": {
+							"tsConfig": "projects/shared-services/tsconfig.lib.json"
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"tsConfig": "projects/shared-services/tsconfig.spec.json",
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						]
+					}
+				}
+			}
+		},
+		"identity": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/identity",
+			"sourceRoot": "projects/identity/src",
+			"prefix": "app-identity",
+			"architect": {
+				"build": {
+					"builder": "@angular-architects/native-federation:build",
+					"options": {
+						"ssr": true
+					},
+					"configurations": {
+						"production": {
+							"target": "identity:esbuild:production"
+						},
+						"development": {
+							"target": "identity:esbuild:development",
+							"dev": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-architects/native-federation:build",
+					"options": {
+						"target": "identity:serve-original:development",
+						"rebuildDelay": 0,
+						"dev": true,
+						"port": 0
+					}
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n"
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/identity/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/identity/public"
+							}
+						],
+						"styles": [
+							"projects/identity/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
+						],
+						"scripts": []
+					}
+				},
+				"esbuild": {
+					"builder": "@angular-devkit/build-angular:application",
+					"options": {
+						"outputPath": "dist/identity",
+						"index": "projects/identity/src/index.html",
+						"browser": "projects/identity/src/main.ts",
+						"polyfills": [
+							"zone.js",
+							"es-module-shims"
+						],
+						"tsConfig": "projects/identity/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/identity/public"
+							}
+						],
+						"styles": [
+							"projects/identity/src/styles.scss",
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
+						],
+						"scripts": [],
+						"server": "projects/identity/src/main.server.ts",
+						"prerender": false,
+						"ssr": {
+							"entry": "projects/identity/src/server.ts"
+						}
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve-original": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "identity:esbuild:production"
+						},
+						"development": {
+							"buildTarget": "identity:esbuild:development"
+						}
+					},
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4201
+					}
+				}
+			}
 		}
 	},
 	"cli": {
-		"analytics": "6fa73d74-3ba2-4e9b-98be-15290aa08a99"
-	}
+		"analytics": false
+  }
 }

@@ -13,10 +13,10 @@ inputs:
     required: true
   service_settings_path:
     description: "Path to service settings"
-    required: true
+    required: false
   service_settings:
     description: "Service settings"
-    required: true
+    required: false
 
 runs:
   using: "composite"
@@ -28,6 +28,7 @@ runs:
         json: ${{ inputs.shared_settings }}
 
     - name: Update Service Settings
+      if: ${{ inputs.service_settings_path != '' && inputs.service_settings != '' }}
       uses: devops-actions/json-to-file@v1.0.0
       with:
         filename: ${{ inputs.service_settings_path }}

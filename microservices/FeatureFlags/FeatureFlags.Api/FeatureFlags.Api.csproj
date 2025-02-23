@@ -18,15 +18,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
+      <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\FeatureFlags.Application\FeatureFlags.Application.csproj" />
+      <ProjectReference Include="..\FeatureFlags.Infrastructure\FeatureFlags.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="../Shared/sharedSettings.json">
+        <None Update="../Shared.Infrastructure/sharedSettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </None>
-        <None Update="../Shared/sharedSettings.Development.json">
+        <None Update="../Shared.Infrastructure/sharedSettings.Development.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </None>

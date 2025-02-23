@@ -1,3 +1,4 @@
 {
-	"mfe1": "http://localhost:3000/remoteEntry.json"
+	"feeTracker": "http://localhost:4202/remoteEntry.json",
+	"identity": "http://localhost:4201/remoteEntry.json"
 }

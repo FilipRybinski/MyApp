@@ -5,7 +5,7 @@ using Identity.Application.Queries.SignUp;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Abstractions;
+using Shared.Core.Abstractions;
 
 namespace Identity.Api.Controllers;
 

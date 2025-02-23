@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+﻿using FeatureFlags.Core.DTO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Culture;
-using Shared.Exceptions.Middleware;
+using Shared.Infrastructure;
 
 namespace FeatureFlags.Infrastructure;
 
 public static class Extensions
 {
+    private const string SectionName = "featureFlags";
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<CorsOptions>(configuration.GetRequiredSection(SectionName));
-        services.Configure<CookieSettingsOptions>(configuration.GetRequiredSection(CookieSettingsSectionName));
+        services.Configure<FeatureFlagsDto>(configuration.GetRequiredSection(SectionName));
+        services.AddHttpContextAccessor();
+        services.AddSharedInfrastructure(configuration);
+        
         return services;
     }
-    
 }

@@ -1,8 +1,7 @@
-
 using Identity.Application;
 using Identity.Infrastructure;
-using Shared.Configuration;
 using Shared.Infrastructure;
+using Shared.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +20,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
 app.UseSharedInfrastructure();
-
 
 app.Run();
