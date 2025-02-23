@@ -48,7 +48,7 @@ public static class Extensions
                     }
                 };
             })
-            .AddJwtBearer(OutsideAuthSectionName,j =>
+            .AddJwtBearer(InternalAuthSectionName,j =>
             {
                 j.SaveToken = true;
                 j.Audience = internalAuth.Audience;
