@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -58,6 +59,16 @@ public static class Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(internalAuth.SigningKey))
                 };
             });
+        
+        services.AddAuthorization(options =>
+        {
+            var defaultPolicy =
+                new AuthorizationPolicyBuilder(OutsideAuthSectionName, InternalAuthSectionName)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            options.DefaultPolicy = defaultPolicy;
+        });
+        
         return services;
     }
 }
