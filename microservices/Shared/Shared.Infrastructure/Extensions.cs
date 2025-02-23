@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RequestClient;
 using Shared.Core.Options;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Exceptions.Middleware;
@@ -20,6 +21,7 @@ public static class Extensions
         CorsOptions = configuration.GetOptions<CorsOptions>(SectionName);
         
         services.AddExceptionMiddleware();
+        services.AddRequestClient();
 
         return services;
     }

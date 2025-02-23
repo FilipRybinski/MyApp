@@ -11,7 +11,7 @@ internal static class Extensions
     {
         services
             .AddSingleton<IAuthenticator, Authenticator>()
-            .AddSingleton<Application.Security.IHttpContextTokenService, HttpContextTokenService>()
+            .AddSingleton<IHttpContextTokenService, HttpContextTokenService>()
             .ConfigureAuthorization(configuration);
         return services;
     }

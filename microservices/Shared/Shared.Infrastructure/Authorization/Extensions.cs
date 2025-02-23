@@ -10,13 +10,16 @@ namespace Shared.Infrastructure.Authorization;
 
 public static class Extensions
 {
-    private const string AuthSectionName = "auth";
+    private const string OutsideAuthSectionName = "auth";
+    private const string InternalAuthSectionName = "internal-auth";
     private const string tokenName = "token";
 
     public static IServiceCollection ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<AuthorizationOptions>(configuration.GetRequiredSection(AuthSectionName));
-        var options = configuration.GetOptions<AuthorizationOptions>(AuthSectionName);
+        services.Configure<OutsideAuthorizationOptions>(configuration.GetRequiredSection(OutsideAuthSectionName));
+        services.Configure<InternalAuthorizationOptions>(configuration.GetRequiredSection(InternalAuthSectionName));
+        var outsideAuth = configuration.GetOptions<OutsideAuthorizationOptions>(OutsideAuthSectionName);
+        var internalAuth = configuration.GetOptions<InternalAuthorizationOptions>(InternalAuthSectionName);
 
         services
             .AddAuthentication(a =>
@@ -28,12 +31,12 @@ public static class Extensions
             .AddJwtBearer(j =>
             {
                 j.SaveToken = true;
-                j.Audience = options.Audience;
+                j.Audience = outsideAuth.Audience;
                 j.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = options.Issuer,
+                    ValidIssuer = outsideAuth.Issuer,
                     ClockSkew = TimeSpan.Zero,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SigningKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(outsideAuth.SigningKey))
                 };
                 j.Events = new JwtBearerEvents
                 {
@@ -42,6 +45,17 @@ public static class Extensions
                         context.Token = context.Request.Cookies[tokenName];
                         return Task.CompletedTask;
                     }
+                };
+            })
+            .AddJwtBearer(j =>
+            {
+                j.SaveToken = true;
+                j.Audience = internalAuth.Audience;
+                j.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = internalAuth.Issuer,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(internalAuth.SigningKey))
                 };
             });
         return services;

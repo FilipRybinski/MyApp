@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using QueueMailer.Worker.Manager;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("QueueMailer is working...");
+await QueueManager.InitializeAsync();
+Console.ReadLine();

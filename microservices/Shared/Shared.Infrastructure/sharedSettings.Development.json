@@ -5,6 +5,12 @@
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
     "expiry": "00.01:00:00"
   },
+  "internal-auth": {
+    "issuer": "localhost",
+    "audience": "localhost",
+    "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
+    "expiry": "00.00:01:00"
+  },
   "url": {
     "allowedHeaders": [
       "application/json",

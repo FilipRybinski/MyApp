@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\QueueMailer.Application\QueueMailer.Application.csproj" />
+      <ProjectReference Include="..\QueueMailer.Core\QueueMailer.Core.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -7,3 +7,7 @@ public class AuthorizationOptions
     public string SigningKey { get; set; }
     public TimeSpan? Expiry { get; set; }
 }
+
+public class OutsideAuthorizationOptions : AuthorizationOptions { }
+
+public class InternalAuthorizationOptions : AuthorizationOptions { }

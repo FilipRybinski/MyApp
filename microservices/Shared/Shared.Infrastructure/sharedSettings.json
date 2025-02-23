@@ -5,6 +5,12 @@
     "signingKey": "",
     "expiry": ""
   },
+  "internal-auth": {
+    "issuer": "",
+    "audience": "",
+    "signingKey": "",
+    "expiry": ""
+  },
   "url": {
     "allowedHeaders": [],
     "allowedMethods": [],

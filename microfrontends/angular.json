@@ -59,7 +59,6 @@
 						],
 						"styles": [
 							"projects/host/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
               "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
 						],
 						"scripts": []
@@ -85,8 +84,7 @@
 						],
 						"styles": [
 							"projects/host/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
-              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
 						"scripts": [],
 						"server": "projects/host/src/main.server.ts",
@@ -192,8 +190,7 @@
 						],
 						"styles": [
 							"projects/fee-tracker/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
-              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
 						"scripts": []
 					}
@@ -218,8 +215,7 @@
 						],
 						"styles": [
 							"projects/fee-tracker/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
-              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
 						"scripts": [],
 						"server": "projects/fee-tracker/src/main.server.ts",
@@ -391,8 +387,7 @@
 						],
 						"styles": [
 							"projects/identity/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
-              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
 						"scripts": []
 					}
@@ -417,8 +412,7 @@
 						],
 						"styles": [
 							"projects/identity/src/styles.scss",
-              "projects/shared-ui/src/styles/theme.scss",
-              "node_modules/@angular/material/prebuilt-themes/cyan-orange.css"
+              "node_modules/@angular/material/prebuilt-themes/azure-blue.css"
 						],
 						"scripts": [],
 						"server": "projects/identity/src/main.server.ts",
