@@ -9,10 +9,15 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Application\Shared.Application.csproj" />
       <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
+      <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="RabbitMQ.Client" Version="7.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Connections\" />
     </ItemGroup>
 
 </Project>

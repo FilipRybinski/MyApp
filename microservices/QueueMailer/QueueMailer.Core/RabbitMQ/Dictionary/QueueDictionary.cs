@@ -2,7 +2,7 @@ using System.Text.Json;
 using QueueMailer.Application.Commands.SendConfirmationEmail;
 using QueueMailer.Application.Dictionary;
 
-namespace QueueMailer.Infrastructure.Connections.QueueDictionary;
+namespace QueueMailer.Core.RabbitMQ.Dictionary;
 
 public static class QueueDictionary
 {

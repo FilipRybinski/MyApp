@@ -1,15 +1,15 @@
 using System.Text;
 using System.Text.Json;
-using QueueMailer.Application.Connections;
 using RabbitMQ.Client;
+using Shared.Core.RabbitMq;
 
-namespace QueueMailer.Infrastructure.Connections.QueuePublisher;
+namespace Shared.Infrastructure.RabbitMQ.RabbitMQBroadcaster;
 
 internal class RabbitMqPublisher(IRabbitMqConnector rabbitMqConnector) : IRabbitMqPublisher
 {
     public async Task PublishAsync<TRequest>(string name, TRequest body)
     {
-        var channel = await rabbitMqConnector.GetRabbitMqConnection();
+        var channel = rabbitMqConnector.GetChannel();
         var serializedBody = SerializeBody(body);
         await channel.BasicPublishAsync(exchange: string.Empty, routingKey: name, body: serializedBody);
     }

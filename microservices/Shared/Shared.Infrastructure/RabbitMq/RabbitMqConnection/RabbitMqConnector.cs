@@ -1,36 +1,53 @@
 using System.Text;
-using QueueMailer.Infrastructure.Connections.QueueDictionary;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Shared.Core.Options;
+using Shared.Core.RabbitMq;
 
-namespace QueueMailer.Worker.Manager;
+namespace Shared.Infrastructure.RabbitMQ.RabbitMQConnection;
 
-internal static class QueueManager
+internal class RabbitMqConnector(RabbitMqOptions options,Dictionary<string, Func<string, Task>> queues) : IRabbitMqConnector
 {
+    private IConnection? _connection;
+    private IChannel? _channel;
     
-    private static IConnection? _connection;
-    private static IChannel? _channel;
-
-    public static async Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         if (_connection != null) return;
-        var factory = new ConnectionFactory { HostName = QueueDictionary.Host };
+        var factory = new ConnectionFactory { HostName = options.Host};
         _connection = await factory.CreateConnectionAsync();
         _channel = await _connection.CreateChannelAsync();
         await DeclareQueuesAsync();
     }
+
+    public IChannel GetChannel() => _channel;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_channel != null)
+        {
+            await _channel.CloseAsync();
+            await _channel.DisposeAsync();
+        }
+        
+        if (_connection != null)
+        {
+            await _connection.CloseAsync();
+            await _connection.DisposeAsync();
+        }
+    }
     
-    private static async Task DeclareQueuesAsync()
+    private async Task DeclareQueuesAsync()
     {
         if (_channel == null) return;
-        foreach (var queue in QueueDictionary.Queues)
+        foreach (var queue in queues)
         {
             await _channel.QueueDeclareAsync(queue: queue.Key, durable: false, exclusive: false, autoDelete: false, arguments: null);
             await RegisterConsumersAsync(queue.Key, queue.Value);
         }
     }
     
-    private static async Task RegisterConsumersAsync(string name, Func<string, Task> handler)
+    private async Task RegisterConsumersAsync(string name, Func<string, Task> handler)
     {
         if (_channel == null) return;
         var consumer = new AsyncEventingBasicConsumer(_channel);
