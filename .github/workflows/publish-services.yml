@@ -49,11 +49,6 @@ jobs:
             settingsPath: ""
             settings_secret: ""
 
-          - name: "queuemailer-worker"
-            dockerPath: "./microservices/QueueMailer/QueueMailer.Worker/Dockerfile"
-            settingsPath: ""
-            settings_secret: ""
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
