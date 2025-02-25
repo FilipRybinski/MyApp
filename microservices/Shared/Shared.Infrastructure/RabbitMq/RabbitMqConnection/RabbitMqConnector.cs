@@ -42,7 +42,12 @@ internal class RabbitMqConnector(RabbitMqOptions options,Dictionary<string, Func
         if (_channel == null) return;
         foreach (var queue in queues)
         {
-            await _channel.QueueDeclareAsync(queue: queue.Key, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            await _channel.QueueDeclareAsync(
+                queue: queue.Key, 
+                durable: true, 
+                exclusive: false, 
+                autoDelete: false, 
+                arguments: null);
             await RegisterConsumersAsync(queue.Key, queue.Value);
         }
     }

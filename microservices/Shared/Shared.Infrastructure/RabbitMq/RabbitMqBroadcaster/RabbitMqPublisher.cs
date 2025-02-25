@@ -7,11 +7,15 @@ namespace Shared.Infrastructure.RabbitMQ.RabbitMQBroadcaster;
 
 internal class RabbitMqPublisher(IRabbitMqConnector rabbitMqConnector) : IRabbitMqPublisher
 {
-    public async Task PublishAsync<TRequest>(string name, TRequest body)
+    public async Task PublishAsync<TRequest>(string exchange,string routingKey, TRequest body)
     {
         var channel = rabbitMqConnector.GetChannel();
         var serializedBody = SerializeBody(body);
-        await channel.BasicPublishAsync(exchange: string.Empty, routingKey: name, body: serializedBody);
+        var props = new BasicProperties
+        {
+            DeliveryMode = DeliveryModes.Persistent
+        };
+        await channel.BasicPublishAsync(exchange: exchange, routingKey: routingKey,mandatory: true, basicProperties: props, body: serializedBody);
     }
 
     private static byte[] SerializeBody<TRequest>(TRequest body)

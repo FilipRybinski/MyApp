@@ -49,6 +49,11 @@ jobs:
             settingsPath: "./microservices/QueueMailer/QueueMailer.Api/appsettings.json"
             settings_secret: "QUEUEMAILER_SETTINGS"
 
+          - name: "notification"
+            dockerPath: "./microservices/Notification/Notification.Api/Dockerfile"
+            settingsPath: ""
+            settings_secret: ""
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3

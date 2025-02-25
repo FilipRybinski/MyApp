@@ -8,6 +8,6 @@ public class ConfirmationEmailHandler(IRabbitMqPublisher publisher) : ICommandHa
 {
     public async Task HandleAsync(ConfirmationEmail command)
     {
-        await publisher.PublishAsync<ConfirmationEmail>(ChannelDictionary.SignUpQueueMailer, command);
+        await publisher.PublishAsync<ConfirmationEmail>(string.Empty,ChannelDictionary.SignUpQueueMailer, command);
     }
 }
