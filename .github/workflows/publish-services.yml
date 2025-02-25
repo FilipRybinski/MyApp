@@ -46,8 +46,8 @@ jobs:
 
           - name: "queuemailer"
             dockerPath: "./microservices/QueueMailer/QueueMailer.Api/Dockerfile"
-            settingsPath: ""
-            settings_secret: ""
+            settingsPath: "./microservices/QueueMailer/QueueMailer.Api/appsettings.json"
+            settings_secret: "QUEUEMAILER_SETTINGS"
 
     steps:
       - name: Checkout Repository
