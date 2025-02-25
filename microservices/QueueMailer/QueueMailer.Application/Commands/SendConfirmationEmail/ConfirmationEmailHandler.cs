@@ -1,3 +1,4 @@
+using QueueMailer.Application.Dictionary;
 using Shared.Core.Abstractions;
 using Shared.Core.RabbitMq;
 
@@ -7,6 +8,6 @@ public class ConfirmationEmailHandler(IRabbitMqPublisher publisher) : ICommandHa
 {
     public async Task HandleAsync(ConfirmationEmail command)
     {
-        await publisher.PublishAsync<ConfirmationEmail>("SignUpQueueMailer",command);
+        await publisher.PublishAsync<ConfirmationEmail>(ChannelDictionary.SignUpQueueMailer, command);
     }
 }
