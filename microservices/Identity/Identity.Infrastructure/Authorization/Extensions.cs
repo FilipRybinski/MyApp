@@ -7,12 +7,11 @@ namespace Identity.Infrastructure.Authorization;
 
 internal static class Extensions
 {
-    public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAuth(this IServiceCollection services)
     {
         services
             .AddSingleton<IAuthenticator, Authenticator>()
-            .AddSingleton<IHttpContextTokenService, HttpContextTokenService>()
-            .ConfigureAuthorization(configuration);
+            .AddSingleton<IHttpContextTokenService, HttpContextTokenService>();
         return services;
     }
 }
