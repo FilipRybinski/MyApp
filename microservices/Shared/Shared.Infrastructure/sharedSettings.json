@@ -20,5 +20,8 @@
     "Path": "",
     "Domain": "",
     "ExpireTime": ""
+  },
+  "rabbitMq": {
+    "Host": ""
   }
 }

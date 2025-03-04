@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using RequestClient.Exceptions;
 using Shared.Core.Options;
 
 namespace RequestClient.Handler;
@@ -21,26 +22,43 @@ internal class RequestHandler(IOptions<OutsideAuthorizationOptions> options,Http
         SecurityAlgorithms.HmacSha256);
     
     
-    public async Task<TResponse> SendRequestAsync<TResponse>(string url, HttpMethod method)
+    public async Task<TResponse?> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, TRequest? body = default) where TRequest : class
     {
-        using var request = new HttpRequestMessage(method, url);
-        request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(AuthBearer, CreateToken());
 
-        using var response = await httpClient.SendAsync(request);
-        return await DeserializeResponseAsync<TResponse>(response);
-    }
+        try
+        {
+            using var request = new HttpRequestMessage(method, url);
 
-    public async Task<TResponse> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, TRequest body)
-    {
-        var jsonContent = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+            if (body is not null)
+            {
+                var jsonContent = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+                request.Content = jsonContent;
+            }
 
-        using var request = new HttpRequestMessage(method, url);
-        request.Content = jsonContent;
-        request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(AuthBearer, CreateToken());
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(AuthBearer, CreateToken());
 
-        using var response = await httpClient.SendAsync(request);
-        return await DeserializeResponseAsync<TResponse>(response);
-    }
+            using var response = await httpClient.SendAsync(request);
+
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (responseContent != string.Empty)
+            {
+                return DeserializeResponseAsync<TResponse>(responseContent);
+            }
+
+            return default;
+        }
+        catch (Exception e)
+        {
+            throw new RequestClientException();
+        }
+
+       
+    } 
+
     
     private string CreateToken()
     {
@@ -60,11 +78,7 @@ internal class RequestHandler(IOptions<OutsideAuthorizationOptions> options,Http
         return accessToken;
     }
     
-    private static async Task<TResponse> DeserializeResponseAsync<TResponse>(HttpResponseMessage response)
-    {
-        response.EnsureSuccessStatusCode();
-        var responseContent = await response.Content.ReadAsStringAsync();
+    private static  TResponse DeserializeResponseAsync<TResponse>(string responseContent) => 
+        JsonSerializer.Deserialize<TResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
     
-        return JsonSerializer.Deserialize<TResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-    }
 }

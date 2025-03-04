@@ -1,5 +1,5 @@
 {
-  "auth": {
+  "external-auth": {
     "issuer": "localhost",
     "audience": "localhost",
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
@@ -35,5 +35,8 @@
     "Path": "/",
     "Domain": "localhost",
     "ExpireTime": 1
+  },
+  "rabbitMq": {
+    "Host": "192.168.1.221"
   }
 }

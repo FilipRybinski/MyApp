@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RequestClient;
 using Shared.Core.Options;
+using Shared.Infrastructure.Authorization;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Exceptions.Middleware;
 
@@ -20,6 +21,7 @@ public static class Extensions
         services.Configure<CookieSettingsOptions>(configuration.GetRequiredSection(CookieSettingsSectionName));
         CorsOptions = configuration.GetOptions<CorsOptions>(SectionName);
         
+        services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
         services.AddRequestClient();
 

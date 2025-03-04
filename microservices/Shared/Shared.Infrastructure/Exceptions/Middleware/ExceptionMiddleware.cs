@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Shared.Core.Exceptions;
 
 namespace Shared.Infrastructure.Exceptions.Middleware;
 
