@@ -1,4 +1,4 @@
-namespace Shared.Infrastructure.Exceptions;
+namespace Shared.Core.Exceptions;
 
 public abstract class CustomException : Exception
 {

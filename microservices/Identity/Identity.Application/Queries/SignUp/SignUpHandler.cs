@@ -31,7 +31,7 @@ public sealed class SignUpHandler(
             defaultUserRole.Id);
 
         var result = await userIdentityRepository.AddUserIdentityAsync(user);
-        await requestHandler.SendRequestAsync<ConfirmationEmail, IActionResult>(
+        await requestHandler.SendRequestAsync<ConfirmationEmail, dynamic>(
             "http://localhost:5169/QueueMailer/SendConfirmationEmail",
             HttpMethod.Post,
             new ConfirmationEmail( user.Id, user.Email)
