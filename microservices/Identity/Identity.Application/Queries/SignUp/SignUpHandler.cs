@@ -32,7 +32,7 @@ public sealed class SignUpHandler(
 
         var result = await userIdentityRepository.AddUserIdentityAsync(user);
         await requestHandler.SendRequestAsync<ConfirmationEmail, dynamic>(
-            "http://Queuemailer:5169/QueueMailer/SendConfirmationEmail",
+            "http://Queuemailer:8084/QueueMailer/SendConfirmationEmail",
             HttpMethod.Post,
             new ConfirmationEmail( user.Id, user.Email)
         );
