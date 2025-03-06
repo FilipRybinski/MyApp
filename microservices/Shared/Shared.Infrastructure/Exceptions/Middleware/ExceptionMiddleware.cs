@@ -13,6 +13,7 @@ public sealed class ExceptionMiddleware : IMiddleware
         }
         catch (Exception e)
         {
+            Console.WriteLine(e.Message,e.StackTrace);
             await HandleExceptionAsync(e, context);
         }
     }
