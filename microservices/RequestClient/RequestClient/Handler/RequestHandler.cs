@@ -53,6 +53,9 @@ internal class RequestHandler(IOptions<OutsideAuthorizationOptions> options,Http
         }
         catch (Exception e)
         {
+            Console.WriteLine($"Exception: {e.GetType().Name}");
+            Console.WriteLine($"Message: {e.Message}");
+            Console.WriteLine($"StackTrace: {e.StackTrace}");
             throw new RequestClientException();
         }
 
