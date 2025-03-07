@@ -1,9 +1,18 @@
+using Gateway.Api.CORS;
+using Shared.Infrastructure.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+builder.Configuration.AddSharedConfiguration(builder.Environment);
+
+builder.Services
+    .AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+builder.Services.AddCorsPolicy(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+app.UseCorsPolicy();
 
 app.Run();
