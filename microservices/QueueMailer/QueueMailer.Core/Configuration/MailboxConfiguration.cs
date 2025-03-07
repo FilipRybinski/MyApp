@@ -1,6 +1,6 @@
-namespace QueueMailer.Core.Options;
+namespace QueueMailer.Core.Configuration;
 
-public class MailboxOptions
+public class MailboxConfiguration
 {
     public string Host { get; set; }
     public int Port { get; set; }

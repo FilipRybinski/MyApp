@@ -3,9 +3,9 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Identity.Core.Entities;
 using Identity.Core.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using QueueMailer.Application.Commands.SendConfirmationEmail;
 using RequestClient.Handler;
+using Shared.Application.Routes;
 using Shared.Core.Abstractions;
 
 namespace Identity.Application.Queries.SignUp;
@@ -15,7 +15,8 @@ public sealed class SignUpHandler(
     IRoleRepository userRoleRepository,
     IPasswordManager passwordManager,
     IMapper mapper,
-    IRequestHandler requestHandler)
+    IRequestHandler requestHandler,
+    IRoutes routes)
     : IQueryHandler<SignUp, IdentityDto>
 {
     public async Task<IdentityDto> HandleAsync(SignUp query)
@@ -31,8 +32,8 @@ public sealed class SignUpHandler(
             defaultUserRole.Id);
 
         var result = await userIdentityRepository.AddUserIdentityAsync(user);
-        await requestHandler.SendRequestAsync<ConfirmationEmail, dynamic>(
-            "http://Queuemailer:8080/QueueMailer/SendConfirmationEmail",
+        await requestHandler.SendRequestAsync<ConfirmationEmail, object>(
+            routes.RoutesConfiguration.QueueMailerRoutes.SendConfirmationEmail,
             HttpMethod.Post,
             new ConfirmationEmail( user.Id, user.Email)
         );

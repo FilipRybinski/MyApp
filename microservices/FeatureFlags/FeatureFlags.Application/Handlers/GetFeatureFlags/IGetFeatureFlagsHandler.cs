@@ -1,8 +1,8 @@
-using FeatureFlags.Core.DTO;
+using FeatureFlags.Core.Configuration;
 
 namespace FeatureFlags.Application.Handlers.GetFeatureFlags;
 
 public interface IGetFeatureFlagsHandler
 {
-    FeatureFlagsDto Handle();
+    FeatureFlagsConfiguration Handle();
 }

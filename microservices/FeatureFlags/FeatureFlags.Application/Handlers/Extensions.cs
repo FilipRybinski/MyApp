@@ -8,7 +8,7 @@ internal static class Extensions
 {
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
-        services.AddScopedHandler<IGetFeatureFlagsHandler, GetFeatureFlagsHandler>();
+        services.AddScoped<IGetFeatureFlagsHandler, GetFeatureFlagsHandler>();
         return services;
     }
 }

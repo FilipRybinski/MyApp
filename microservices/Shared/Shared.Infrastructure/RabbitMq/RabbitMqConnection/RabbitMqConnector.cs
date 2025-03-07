@@ -1,12 +1,12 @@
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Shared.Core.Options;
-using Shared.Core.RabbitMq;
+using Shared.Application.RabbitMq;
+using Shared.Core.Configuration;
 
 namespace Shared.Infrastructure.RabbitMQ.RabbitMQConnection;
 
-internal class RabbitMqConnector(RabbitMqOptions options,Dictionary<string, Func<string, Task>> queues) : IRabbitMqConnector
+internal class RabbitMqConnector(RabbitMqConfiguration configuration,Dictionary<string, Func<string, Task>> queues) : IRabbitMqConnector
 {
     private IConnection? _connection;
     private IChannel? _channel;
@@ -14,7 +14,7 @@ internal class RabbitMqConnector(RabbitMqOptions options,Dictionary<string, Func
     public async Task InitializeAsync()
     {
         if (_connection != null) return;
-        var factory = new ConnectionFactory { HostName = options.Host};
+        var factory = new ConnectionFactory { HostName = configuration.Host};
         _connection = await factory.CreateConnectionAsync();
         _channel = await _connection.CreateChannelAsync();
         await DeclareQueuesAsync();

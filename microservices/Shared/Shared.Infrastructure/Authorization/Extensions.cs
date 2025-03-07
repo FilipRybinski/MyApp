@@ -4,27 +4,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Shared.Core.Options;
+using Shared.Core.Configuration;
 using Shared.Core.Policies;
 
 namespace Shared.Infrastructure.Authorization;
 
-public static class Extensions
+internal static class Extensions
 {
-    private const string ExternalAuthSectionName = "external-auth";
-    private const string InternalAuthSectionName = "internal-auth";
-    private const string tokenName = "token";
 
     public static IServiceCollection ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<OutsideAuthorizationOptions>(configuration.GetRequiredSection(ExternalAuthSectionName));
-        services.Configure<InternalAuthorizationOptions>(configuration.GetRequiredSection(InternalAuthSectionName));
-        var externalAuth = configuration.GetOptions<OutsideAuthorizationOptions>(ExternalAuthSectionName);
-        var internalAuth = configuration.GetOptions<InternalAuthorizationOptions>(InternalAuthSectionName);
+        services.Configure<ExternalAuthorizationConfiguration>(configuration.GetRequiredSection(nameof(ExternalAuthorizationConfiguration)));
+        services.Configure<InternalAuthorizationConfiguration>(configuration.GetRequiredSection(nameof(InternalAuthorizationConfiguration)));
+        var externalAuth = configuration.GetOptions<ExternalAuthorizationConfiguration>(nameof(ExternalAuthorizationConfiguration));
+        var internalAuth = configuration.GetOptions<InternalAuthorizationConfiguration>(nameof(InternalAuthorizationConfiguration));
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddCookie(c => c.Cookie.Name = tokenName)
+            .AddCookie(c => c.Cookie.Name = "token")
             .AddJwtBearer(AuthPolicies.External,j =>
             {
                 j.SaveToken = true;
@@ -39,7 +36,7 @@ public static class Extensions
                 {
                     OnMessageReceived = context =>
                     {
-                        context.Token = context.Request.Cookies[tokenName];
+                        context.Token = context.Request.Cookies["token"];
                         return Task.CompletedTask;
                     }
                 };

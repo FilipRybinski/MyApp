@@ -1,6 +1,6 @@
-namespace Shared.Core.Options;
+namespace Shared.Core.Configuration;
 
-public class CookieSettingsOptions
+public sealed class CookieSettingsConfiguration
 {
     public string Path { get; set; }
     public string Domain { get; set; }

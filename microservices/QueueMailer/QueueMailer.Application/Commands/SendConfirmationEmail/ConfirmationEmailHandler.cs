@@ -1,6 +1,6 @@
 using QueueMailer.Application.Dictionary;
+using Shared.Application.RabbitMq;
 using Shared.Core.Abstractions;
-using Shared.Core.RabbitMq;
 
 namespace QueueMailer.Application.Commands.SendConfirmationEmail;
 

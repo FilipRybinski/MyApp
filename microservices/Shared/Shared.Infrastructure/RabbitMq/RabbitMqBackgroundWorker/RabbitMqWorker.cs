@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Hosting;
-using Shared.Core.RabbitMq;
+using Shared.Application.RabbitMq;
 
 namespace Shared.Infrastructure.RabbitMQ.RabbitMQBackgroundWorker;
 

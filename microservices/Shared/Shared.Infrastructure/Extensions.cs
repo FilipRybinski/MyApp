@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RequestClient;
-using Shared.Core.Options;
+using Shared.Application.Routes;
+using Shared.Core.Configuration;
 using Shared.Infrastructure.Authorization;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Exceptions.Middleware;
@@ -11,19 +12,18 @@ namespace Shared.Infrastructure;
 
 public static class Extensions
 {
-    private const string SectionName = "url";
-    private const string CookieSettingsSectionName = "cookieSettings";
-    private static CorsOptions CorsOptions;
-
+    private static CorsConfiguration corsConfiguration;
     public static IServiceCollection AddSharedInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<CorsOptions>(configuration.GetRequiredSection(SectionName));
-        services.Configure<CookieSettingsOptions>(configuration.GetRequiredSection(CookieSettingsSectionName));
-        CorsOptions = configuration.GetOptions<CorsOptions>(SectionName);
+        services.Configure<CorsConfiguration>(configuration.GetRequiredSection(nameof(CorsConfiguration)));
+        services.Configure<CookieSettingsConfiguration>(configuration.GetRequiredSection(nameof(CookieSettingsConfiguration)));
+        services.Configure<RoutesConfiguration>(configuration.GetRequiredSection(nameof(RoutesConfiguration)));
+        corsConfiguration = configuration.GetOptions<CorsConfiguration>(nameof(CorsConfiguration));
         
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
         services.AddRequestClient();
+        services.AddSingleton<IRoutes, Routes.Routes>();
 
         return services;
     }
@@ -36,10 +36,10 @@ public static class Extensions
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseCors(x => x.WithOrigins(CorsOptions.ConnectionUrls)
+        app.UseCors(x => x.WithOrigins(corsConfiguration.ConnectionUrls)
             .AllowAnyHeader()
-            .WithMethods(CorsOptions.AllowedMethods)
-            .SetIsOriginAllowed(origins => CorsOptions.ConnectionUrls.Any(origins.StartsWith))
+            .WithMethods(corsConfiguration.AllowedMethods)
+            .SetIsOriginAllowed(origins => corsConfiguration.ConnectionUrls.Any(origins.StartsWith))
             .AllowCredentials());
 
         return app;

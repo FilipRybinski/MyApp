@@ -6,13 +6,12 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RequestClient.Exceptions;
-using Shared.Core.Options;
+using Shared.Core.Configuration;
 
 namespace RequestClient.Handler;
 
-internal class RequestHandler(IOptions<OutsideAuthorizationOptions> options,HttpClient httpClient) : IRequestHandler
+internal class RequestHandler(IOptions<ExternalAuthorizationConfiguration> options,HttpClient httpClient) : IRequestHandler
 {
-    private const string AuthBearer = "Bearer";
     private readonly string _audience = options.Value.Audience;
     private readonly TimeSpan _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
     private readonly string _issuer = options.Value.Issuer;
@@ -36,7 +35,7 @@ internal class RequestHandler(IOptions<OutsideAuthorizationOptions> options,Http
             }
 
             request.Headers.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue(AuthBearer, CreateToken());
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
             using var response = await httpClient.SendAsync(request);
 

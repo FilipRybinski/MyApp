@@ -1,17 +1,17 @@
 {
-  "external-auth": {
+  "ExternalAuthorizationConfiguration": {
     "issuer": "localhost",
     "audience": "localhost",
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
     "expiry": "00.01:00:00"
   },
-  "internal-auth": {
+  "InternalAuthorizationConfiguration": {
     "issuer": "localhost",
     "audience": "localhost",
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
     "expiry": "00.00:01:00"
   },
-  "url": {
+  "CorsConfiguration": {
     "allowedHeaders": [
       "application/json",
       "text/plain",
@@ -31,12 +31,21 @@
     ],
     "connectionUrls": ["http://localhost:4200","http://localhost:4000"]
   },
-  "cookieSettings": {
+  "CookieSettingsConfiguration": {
     "Path": "/",
     "Domain": "localhost",
     "ExpireTime": 1
   },
-  "rabbitMq": {
+  "RabbitMqConfiguration": {
     "Host": "192.168.1.221"
+  },
+  "RoutesConfiguration": {
+    "QueueMailerRoutes": {
+      "SendConfirmationEmail": "http://http://localhost:5169/QueueMailer/SendConfirmationEmail",
+      "SendResetPasswordEmail": "http://http://localhost:5169/QueueMailer/SendResetPasswordEmail"
+    },
+    "NotificationRoutes": {
+      
+    }
   }
 }

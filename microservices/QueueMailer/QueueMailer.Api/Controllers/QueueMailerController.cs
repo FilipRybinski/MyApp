@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using QueueMailer.Application.Commands.SendConfirmationEmail;
 using QueueMailer.Application.Commands.SendResetPasswordEmail;
 using Shared.Core.Abstractions;
+using Shared.Core.Policies;
 
 namespace QueueMailer.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-[Authorize]
+[Authorize(Policy = AuthPolicies.Internal)]
 public class QueueMailerController(
     ILogger<QueueMailerController> logger,
     ICommandHandler<ConfirmationEmail> confirmationEmailHandler,

@@ -1,13 +1,13 @@
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
-using QueueMailer.Core.Options;
+using QueueMailer.Core.Configuration;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 
-internal class MailboxConnector(IOptions<MailboxOptions> options) : IMailboxConnector
+internal class MailboxConnector(IOptions<MailboxConfiguration> options) : IMailboxConnector
 {
     private SmtpClient? _smtpClient;
-    private MailboxOptions mailboxOptions = options.Value;
+    private MailboxConfiguration mailboxConfiguration = options.Value;
 
 
     public async Task<SmtpClient> GetSmtpClient()
@@ -34,12 +34,12 @@ internal class MailboxConnector(IOptions<MailboxOptions> options) : IMailboxConn
         _smtpClient = new SmtpClient();
         try
         {
-            await _smtpClient.ConnectAsync(mailboxOptions.Host, mailboxOptions.Port);
-            await _smtpClient.AuthenticateAsync(mailboxOptions.Login, mailboxOptions.Password);
+            await _smtpClient.ConnectAsync(mailboxConfiguration.Host, mailboxConfiguration.Port);
+            await _smtpClient.AuthenticateAsync(mailboxConfiguration.Login, mailboxConfiguration.Password);
         }
         catch
         {
-            throw new Exception($"Could not connect to {mailboxOptions.Host}:{mailboxOptions.Port}");
+            throw new Exception($"Could not connect to {mailboxConfiguration.Host}:{mailboxConfiguration.Port}");
         }
     }
 }

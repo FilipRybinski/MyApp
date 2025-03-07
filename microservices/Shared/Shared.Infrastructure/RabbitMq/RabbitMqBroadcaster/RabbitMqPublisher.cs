@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
-using Shared.Core.RabbitMq;
+using Shared.Application.RabbitMq;
 
 namespace Shared.Infrastructure.RabbitMQ.RabbitMQBroadcaster;
 

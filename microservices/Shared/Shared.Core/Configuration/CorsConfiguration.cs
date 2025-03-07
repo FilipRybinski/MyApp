@@ -1,6 +1,6 @@
-namespace Shared.Core.Options;
+namespace Shared.Core.Configuration;
 
-public class CorsOptions
+public sealed class CorsConfiguration
 {
     public string[] ConnectionUrls { get; set; }
     public string[] AllowedMethods { get; set; }

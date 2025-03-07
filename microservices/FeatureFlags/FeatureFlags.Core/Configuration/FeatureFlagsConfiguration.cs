@@ -1,6 +1,6 @@
-namespace FeatureFlags.Core.DTO;
+namespace FeatureFlags.Core.Configuration;
 
-public class FeatureFlagsDto
+public class FeatureFlagsConfiguration
 {
     public bool Dashboard { get; init; }
     public bool Finance { get; init; }
