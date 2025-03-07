@@ -17,12 +17,12 @@ public static class Extensions
     public static WebApplication UseCorsPolicy(this WebApplication app)
     {
         app.UseHttpsRedirection();
-        app.MapReverseProxy();
         app.UseCors(x => x.WithOrigins(corsConfiguration.ConnectionUrls)
             .AllowAnyHeader()
             .WithMethods(corsConfiguration.AllowedMethods)
             .SetIsOriginAllowed(origins => corsConfiguration.ConnectionUrls.Any(origins.StartsWith))
             .AllowCredentials());
+        app.MapReverseProxy();
 
         return app;
     }
