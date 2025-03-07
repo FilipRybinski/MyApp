@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RequestClient.Exceptions;
@@ -10,7 +11,10 @@ using Shared.Core.Configuration;
 
 namespace RequestClient.Handler;
 
-internal class RequestHandler(IOptions<InternalAuthorizationConfiguration> options,HttpClient httpClient) : IRequestHandler
+internal class RequestHandler(
+    IOptions<InternalAuthorizationConfiguration> options,
+    HttpClient httpClient,
+    ILogger<RequestHandler> logger) : IRequestHandler
 {
     private readonly string _audience = options.Value.Audience;
     private readonly TimeSpan _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
@@ -38,20 +42,22 @@ internal class RequestHandler(IOptions<InternalAuthorizationConfiguration> optio
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
             using var response = await httpClient.SendAsync(request);
-
+            logger.LogInformation("Internal request sent to {Url}", url);
             response.EnsureSuccessStatusCode();
-
+            
             var responseContent = await response.Content.ReadAsStringAsync();
 
             if (responseContent != string.Empty)
             {
                 return DeserializeResponseAsync<TResponse>(responseContent);
             }
-
+            
+            logger.LogInformation("Internal request received no content");
             return default;
         }
         catch (Exception e)
         {
+            logger.LogWarning("Internal request failed: {ErrorMessage}", e.Message);
             throw new RequestClientException();
         }
 
