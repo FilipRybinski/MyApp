@@ -10,7 +10,7 @@ using Shared.Core.Configuration;
 
 namespace RequestClient.Handler;
 
-internal class RequestHandler(IOptions<ExternalAuthorizationConfiguration> options,HttpClient httpClient) : IRequestHandler
+internal class RequestHandler(IOptions<InternalAuthorizationConfiguration> options,HttpClient httpClient) : IRequestHandler
 {
     private readonly string _audience = options.Value.Audience;
     private readonly TimeSpan _expiry = options.Value.Expiry ?? TimeSpan.FromHours(1);
@@ -52,9 +52,6 @@ internal class RequestHandler(IOptions<ExternalAuthorizationConfiguration> optio
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Exception: {e.GetType().Name}");
-            Console.WriteLine($"Message: {e.Message}");
-            Console.WriteLine($"StackTrace: {e.StackTrace}");
             throw new RequestClientException();
         }
 
