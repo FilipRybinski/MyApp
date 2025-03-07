@@ -22,8 +22,6 @@ public static class Extensions
             .WithMethods(corsConfiguration.AllowedMethods)
             .SetIsOriginAllowed(origins => corsConfiguration.ConnectionUrls.Any(origins.StartsWith))
             .AllowCredentials());
-        app.MapReverseProxy();
-
         return app;
     }
 }

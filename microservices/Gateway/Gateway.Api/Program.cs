@@ -14,5 +14,6 @@ builder.Services.AddCorsPolicy(builder.Configuration);
 var app = builder.Build();
 
 app.UseCorsPolicy();
+app.MapReverseProxy();
 
 app.Run();
