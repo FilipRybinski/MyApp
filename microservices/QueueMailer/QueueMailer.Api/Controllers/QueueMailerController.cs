@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QueueMailer.Application.Commands.SendConfirmationEmail;
 using QueueMailer.Application.Commands.SendResetPasswordEmail;
@@ -7,6 +8,7 @@ namespace QueueMailer.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
+[Authorize]
 public class QueueMailerController(
     ILogger<QueueMailerController> logger,
     ICommandHandler<ConfirmationEmail> confirmationEmailHandler,
