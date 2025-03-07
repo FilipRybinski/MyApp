@@ -34,6 +34,11 @@ jobs:
     strategy:
       matrix:
         include:
+          - name: "gateway"
+            dockerPath: "./microservices/Gateway/Gateway.Api/Dockerfile"
+            settingsPath: "./microservices/Gateway/Gateway.Api/appsettings.json"
+            settings_secret: "GATEWAY_SETTINGS"
+
           - name: "identity"
             dockerPath: "./microservices/Identity/Identity.Api/Dockerfile"
             settingsPath: "./microservices/Identity/Identity.Api/appsettings.json"
