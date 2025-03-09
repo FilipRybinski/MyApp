@@ -18,7 +18,7 @@ public sealed class SignUpHandler(
     IMapper mapper,
     IRequestHandler requestHandler,
     IRoutes routes,
-    Logger<SignUpHandler> logger
+    ILogger<SignUpHandler> logger
     )
     : IQueryHandler<SignUp, IdentityDto>
 {

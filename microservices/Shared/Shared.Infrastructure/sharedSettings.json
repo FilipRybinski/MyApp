@@ -11,11 +11,6 @@
     "signingKey": "",
     "expiry": ""
   },
-  "CorsConfiguration": {
-    "allowedHeaders": [],
-    "allowedMethods": [],
-    "connectionUrls": []
-  },
   "CookieSettingsConfiguration": {
     "Path": "",
     "Domain": "",

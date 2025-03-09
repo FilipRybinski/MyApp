@@ -8,32 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Content Include="..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
-      <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
+      <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="../Shared.Infrastructure/sharedSettings.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </None>
-        <None Update="../Shared.Infrastructure/sharedSettings.Development.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </None>
+      <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
+      <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     </ItemGroup>
-    
 
 </Project>

@@ -12,13 +12,10 @@ namespace Shared.Infrastructure;
 
 public static class Extensions
 {
-    private static CorsConfiguration corsConfiguration;
     public static IServiceCollection AddSharedInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<CorsConfiguration>(configuration.GetRequiredSection(nameof(CorsConfiguration)));
         services.Configure<CookieSettingsConfiguration>(configuration.GetRequiredSection(nameof(CookieSettingsConfiguration)));
         services.Configure<RoutesConfiguration>(configuration.GetRequiredSection(nameof(RoutesConfiguration)));
-        corsConfiguration = configuration.GetOptions<CorsConfiguration>(nameof(CorsConfiguration));
         
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
@@ -36,11 +33,6 @@ public static class Extensions
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.UseCors(x => x.WithOrigins(corsConfiguration.ConnectionUrls)
-            .AllowAnyHeader()
-            .WithMethods(corsConfiguration.AllowedMethods)
-            .SetIsOriginAllowed(origins => corsConfiguration.ConnectionUrls.Any(origins.StartsWith))
-            .AllowCredentials());
 
         return app;
     }

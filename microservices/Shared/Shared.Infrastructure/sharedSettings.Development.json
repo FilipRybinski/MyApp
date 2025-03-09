@@ -11,26 +11,6 @@
     "signingKey": "ReiNhoRTYPoSAlcHeRMAmscinasEOlAcLACkRaTOPOrmIdYMER",
     "expiry": "00.00:01:00"
   },
-  "CorsConfiguration": {
-    "allowedHeaders": [
-      "application/json",
-      "text/plain",
-      "Content-Type",
-      "Referer",
-      "Sec-Ch-Ua",
-      "Sec-Ch-Ua-Mobile",
-      "Sec-Ch-Ua-Platform",
-      "User-Agent"
-    ],
-    "allowedMethods": [
-      "POST",
-      "PUT",
-      "DELETE",
-      "PATCH",
-      "GET"
-    ],
-    "connectionUrls": ["http://localhost:4200","http://localhost:4000"]
-  },
   "CookieSettingsConfiguration": {
     "Path": "/",
     "Domain": "localhost",
