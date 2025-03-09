@@ -13,7 +13,7 @@ public static class Extensions
     {
         services.AddPostgres(configuration);
         services.AddSecurity();
-        services.AddAuth(configuration);
+        services.AddAuth();
         services.AddHttpContextAccessor();
         services.AddSharedInfrastructure(configuration);
         

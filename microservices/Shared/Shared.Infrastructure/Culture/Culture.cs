@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Shared.Infrastructure.Culture;
 
-public static class Culture
+internal static class Culture
 {
     public static void ConfigureCulture(string language)
     {

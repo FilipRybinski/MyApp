@@ -3,7 +3,7 @@ using Shared.Infrastructure.Exceptions.Middleware;
 
 namespace Shared.Infrastructure.Exceptions;
 
-public static class Extensions
+internal static class Extensions
 {
     public static IServiceCollection AddExceptionMiddleware(this IServiceCollection services)
     {

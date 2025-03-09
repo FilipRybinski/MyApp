@@ -6,6 +6,7 @@ using Identity.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Abstractions;
+using Shared.Core.Policies;
 
 namespace Identity.Api.Controllers;
 
@@ -31,7 +32,7 @@ public class IdentityController(
         return Ok(await signInHandler.HandleAsync(command));
     }
 
-    [Authorize]
+    [Authorize(Policy = AuthPolicies.External)]
     [HttpGet]
     public ActionResult<bool> Logout()
     {

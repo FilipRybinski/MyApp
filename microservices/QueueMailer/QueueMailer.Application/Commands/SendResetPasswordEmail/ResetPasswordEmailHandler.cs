@@ -1,4 +1,4 @@
-using QueueMailer.Application.Connections;
+using Shared.Application.RabbitMq;
 using Shared.Core.Abstractions;
 
 namespace QueueMailer.Application.Commands.SendResetPasswordEmail;

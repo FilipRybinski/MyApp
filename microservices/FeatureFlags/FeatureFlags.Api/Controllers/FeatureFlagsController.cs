@@ -1,5 +1,5 @@
 using FeatureFlags.Application.Handlers.GetFeatureFlags;
-using FeatureFlags.Core.DTO;
+using FeatureFlags.Core.Configuration;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FeatureFlags.Api.Controllers;
@@ -9,7 +9,7 @@ namespace FeatureFlags.Api.Controllers;
 public class FeatureFlagsController(IGetFeatureFlagsHandler featureFlagsHandler) : ControllerBase
 {
     [HttpGet]
-    public ActionResult<FeatureFlagsDto> GetFeatureFlags()
+    public ActionResult<FeatureFlagsConfiguration> GetFeatureFlags()
     {
         return featureFlagsHandler.Handle();
     }

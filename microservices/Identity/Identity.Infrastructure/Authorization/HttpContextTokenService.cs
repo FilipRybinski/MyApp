@@ -3,17 +3,16 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Shared.Core.Options;
+using Shared.Core.Configuration;
 
 namespace Identity.Infrastructure.Authorization;
 
 internal sealed class HttpContextTokenService(
     IHttpContextAccessor httpContextAccessor,
-    IOptions<CookieSettingsOptions> cookieSettings)
+    IOptions<CookieSettingsConfiguration> cookieSettings)
     : IHttpContextTokenService
 {
-    private const string TokenKey = "token";
-    private readonly CookieSettingsOptions CookieSettings = cookieSettings.Value;
+    private readonly CookieSettingsConfiguration CookieSettings = cookieSettings.Value;
 
     public Guid? ExtractUserIdentityIdentifier()
     {
@@ -50,7 +49,7 @@ internal sealed class HttpContextTokenService(
             
             
         };
-        httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, string.Empty, httpOnlyCookie);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("token", string.Empty, httpOnlyCookie);
     }
 
     private void HttpContextResponseInjectToken(JwtDto jwt)
@@ -65,6 +64,6 @@ internal sealed class HttpContextTokenService(
             Path = CookieSettings.Path,
             Domain = CookieSettings.Domain,
         };
-        httpContextAccessor.HttpContext.Response.Cookies.Append(TokenKey, jwt.AccessToken, httpOnlyCookie);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("token", jwt.AccessToken, httpOnlyCookie);
     }
 }

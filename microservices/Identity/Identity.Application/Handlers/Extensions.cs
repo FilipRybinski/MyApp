@@ -9,8 +9,8 @@ internal static class Extensions
 {
     public static IServiceCollection AddHandlers(this IServiceCollection services)
     {
-        services.AddScopedHandler<IAuthorizedHandler, AuthorizedHandler>();
-        services.AddScopedHandler<ILogoutHandler, LogoutHandler>();
+        services.AddScoped<IAuthorizedHandler, AuthorizedHandler>();
+        services.AddScoped<ILogoutHandler, LogoutHandler>();
         return services;
     }
 }
