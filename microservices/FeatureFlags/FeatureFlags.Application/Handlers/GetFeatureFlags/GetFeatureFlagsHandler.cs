@@ -1,13 +1,13 @@
-using FeatureFlags.Core.DTO;
+using FeatureFlags.Core.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace FeatureFlags.Application.Handlers.GetFeatureFlags;
 
-public class GetFeatureFlagsHandler(IOptions<FeatureFlagsDto> featureFlags) : IGetFeatureFlagsHandler
+public sealed class GetFeatureFlagsHandler(IOptions<FeatureFlagsConfiguration> featureFlags) : IGetFeatureFlagsHandler
 {
-    private readonly FeatureFlagsDto FeatureFlags = featureFlags.Value;
+    private readonly FeatureFlagsConfiguration FeatureFlags = featureFlags.Value;
 
-    public FeatureFlagsDto Handle()
+    public FeatureFlagsConfiguration Handle()
     {
         return FeatureFlags;
     }

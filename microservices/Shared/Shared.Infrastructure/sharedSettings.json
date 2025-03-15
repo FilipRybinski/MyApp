@@ -1,24 +1,31 @@
 {
-  "auth": {
+  "ExternalAuthorizationConfiguration": {
     "issuer": "",
     "audience": "",
     "signingKey": "",
     "expiry": ""
   },
-  "internal-auth": {
+  "InternalAuthorizationConfiguration": {
     "issuer": "",
     "audience": "",
     "signingKey": "",
     "expiry": ""
   },
-  "url": {
-    "allowedHeaders": [],
-    "allowedMethods": [],
-    "connectionUrls": []
-  },
-  "cookieSettings": {
+  "CookieSettingsConfiguration": {
     "Path": "",
     "Domain": "",
     "ExpireTime": ""
+  },
+  "RabbitMqConfiguration": {
+    "Host": ""
+  },
+  "RoutesConfiguration": {
+    "QueueMailerRoutes": {
+      "SendConfirmationEmail": "",
+      "SendResetPasswordEmail": ""
+    },
+    "NotificationRoutes": {
+
+    }
   }
 }

@@ -1,7 +1,14 @@
+using RequestClient.DTO;
+
 namespace RequestClient.Handler;
 
 public interface IRequestHandler
 {
-    Task<TResponse> SendRequestAsync<TResponse>(string url, HttpMethod method);
-    Task<TResponse> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, TRequest body);
+    Task<RequestClientResponse<TResponse>> SendRequestAsync<TRequest, TResponse>(
+        string url, 
+        HttpMethod method,
+        CancellationToken cancellationToken,
+        TRequest? body = default) 
+        where TRequest : class
+        where TResponse : class;
 }

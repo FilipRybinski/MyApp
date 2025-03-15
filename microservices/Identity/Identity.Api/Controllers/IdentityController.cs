@@ -6,12 +6,13 @@ using Identity.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Core.Abstractions;
+using Shared.Core.Policies;
 
 namespace Identity.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class IdentityController(
+public sealed class IdentityController(
     IQueryHandler<SignUp, IdentityDto> signUpHandler,
     IQueryHandler<SignIn, IdentityDto> signInHandler,
     IAuthorizedHandler authorizedHandler,
@@ -19,19 +20,19 @@ public class IdentityController(
     : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<IdentityDto>> SignUp(SignUp command)
+    public async Task<ActionResult<IdentityDto>> SignUp(SignUp command, CancellationToken cancellationToken)
     {
-        return Ok(await signUpHandler.HandleAsync(command));
+        return Ok(await signUpHandler.HandleAsync(command, cancellationToken));
 
     }
 
     [HttpPost]
-    public async Task<ActionResult<IdentityDto>> SignIn(SignIn command)
+    public async Task<ActionResult<IdentityDto>> SignIn(SignIn command, CancellationToken cancellationToken)
     {
-        return Ok(await signInHandler.HandleAsync(command));
+        return Ok(await signInHandler.HandleAsync(command, cancellationToken));
     }
 
-    [Authorize]
+    [Authorize(Policy = AuthPolicies.External)]
     [HttpGet]
     public ActionResult<bool> Logout()
     {

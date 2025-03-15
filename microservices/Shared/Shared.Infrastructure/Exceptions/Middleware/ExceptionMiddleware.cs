@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Http;
+using Shared.Core.Exceptions;
 
 namespace Shared.Infrastructure.Exceptions.Middleware;
 
-public sealed class ExceptionMiddleware : IMiddleware
+internal sealed class ExceptionMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

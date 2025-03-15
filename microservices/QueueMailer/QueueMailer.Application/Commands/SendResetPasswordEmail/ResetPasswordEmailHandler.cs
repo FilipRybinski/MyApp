@@ -1,12 +1,9 @@
-using QueueMailer.Application.Connections;
+using QueueMailer.Core.Repositories;
 using Shared.Core.Abstractions;
 
 namespace QueueMailer.Application.Commands.SendResetPasswordEmail;
 
-public class ResetPasswordEmailHandler(IRabbitMqPublisher publisher) : ICommandHandler<ResetPasswordEmail>
+public sealed class ResetPasswordEmailHandler(IQueueMailerOutBoxRepository queueMailerOutBoxRepository) : ICommandHandler<ResetPasswordEmail>
 {
-    public Task HandleAsync(ResetPasswordEmail command)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task HandleAsync(ResetPasswordEmail command, CancellationToken cancellationToken) => await queueMailerOutBoxRepository.HandlePublishAsync<ResetPasswordEmail>(command, cancellationToken);
 }

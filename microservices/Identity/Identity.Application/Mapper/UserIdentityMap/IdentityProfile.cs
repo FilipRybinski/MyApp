@@ -4,7 +4,7 @@ using Identity.Core.Entities;
 
 namespace Identity.Application.Mapper.UserIdentityMap;
 
-internal class IdentityProfile : Profile
+internal sealed class IdentityProfile : Profile
 {
 public IdentityProfile()
 {

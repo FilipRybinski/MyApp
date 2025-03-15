@@ -34,6 +34,11 @@ jobs:
     strategy:
       matrix:
         include:
+          - name: "gateway"
+            dockerPath: "./microservices/Gateway/Gateway.Api/Dockerfile"
+            settingsPath: "./microservices/Gateway/Gateway.Api/appsettings.json"
+            settings_secret: "GATEWAY_SETTINGS"
+
           - name: "identity"
             dockerPath: "./microservices/Identity/Identity.Api/Dockerfile"
             settingsPath: "./microservices/Identity/Identity.Api/appsettings.json"
@@ -46,11 +51,16 @@ jobs:
 
           - name: "queuemailer"
             dockerPath: "./microservices/QueueMailer/QueueMailer.Api/Dockerfile"
+            settingsPath: "./microservices/QueueMailer/QueueMailer.Api/appsettings.json"
+            settings_secret: "QUEUEMAILER_SETTINGS"
+
+          - name: "notification"
+            dockerPath: "./microservices/Notification/Notification.Api/Dockerfile"
             settingsPath: ""
             settings_secret: ""
 
-          - name: "queuemailer-worker"
-            dockerPath: "./microservices/QueueMailer/QueueMailer.Worker/Dockerfile"
+          - name: "tokenregistry"
+            dockerPath: "./microservices/TokenRegistry/TokenRegistry.Api/Dockerfile"
             settingsPath: ""
             settings_secret: ""
 

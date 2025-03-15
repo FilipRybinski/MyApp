@@ -1,6 +1,6 @@
 namespace Identity.Core.DTO;
 
-public class IdentityDto
+public sealed class IdentityDto
 {
     public Guid Id { get; private set; }
     public string Email { get; private set; }

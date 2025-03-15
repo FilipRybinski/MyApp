@@ -8,18 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddSharedConfiguration(builder.Environment);
 
 builder.Services
-    .AddApplication()
-    .AddInfrastructure(builder.Configuration)
+    .AddQueueMailerApplication()
+    .AddQueueMailerInfrastructure(builder.Configuration)
     .AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
 
 app.UseSharedInfrastructure();
 
