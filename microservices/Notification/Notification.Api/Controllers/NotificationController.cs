@@ -7,7 +7,7 @@ namespace Notification.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize(Policy = AuthPolicies.Internal)]
-public class NotificationController : ControllerBase
+public sealed class NotificationController : ControllerBase
 {
     private readonly ILogger<NotificationController> _logger;
 

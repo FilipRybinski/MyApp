@@ -5,12 +5,10 @@ using QueueMailer.Infrastructure.Mailbox.MailboxMessage;
 
 namespace QueueMailer.Infrastructure.Mailbox.Handlers.ResetPasswordEmailHandler;
 
-internal class ResetPasswordEmailMailboxHandler(
+internal sealed class ResetPasswordEmailMailboxHandler(
     IMailboxMessageCreator mailboxMessageCreator,
     IMailboxPublisher mailboxPublisher) : IMailboxHandler<ResetPasswordEmail>
 {
-    public async Task HandleAsync(ResetPasswordEmail command)
-    {
+    public async Task HandleAsync(ResetPasswordEmail command, CancellationToken cancellationToken) =>
         await mailboxPublisher.PublishAsync(mailboxMessageCreator.Create(command.Email));
-    }
 }

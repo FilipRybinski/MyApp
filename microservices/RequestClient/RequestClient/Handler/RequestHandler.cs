@@ -6,12 +6,13 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using RequestClient.DTO;
 using RequestClient.Exceptions;
 using Shared.Core.Configuration;
 
 namespace RequestClient.Handler;
 
-internal class RequestHandler(
+internal sealed class RequestHandler(
     IOptions<InternalAuthorizationConfiguration> options,
     HttpClient httpClient,
     ILogger<RequestHandler> logger) : IRequestHandler
@@ -25,9 +26,9 @@ internal class RequestHandler(
         SecurityAlgorithms.HmacSha256);
     
     
-    public async Task<TResponse?> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, TRequest? body = default) where TRequest : class
+    public async Task<RequestClientResponse<TResponse>> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, CancellationToken cancellationToken, TRequest? body = default) where TRequest : class where TResponse : class
     {
-
+        
         try
         {
             using var request = new HttpRequestMessage(method, url);
@@ -41,29 +42,28 @@ internal class RequestHandler(
             request.Headers.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
-            using var response = await httpClient.SendAsync(request);
-            logger.LogInformation("Internal request sent to {Url}", url);
-            response.EnsureSuccessStatusCode();
+            using var response = await httpClient.SendAsync(request,cancellationToken);
             
-            var responseContent = await response.Content.ReadAsStringAsync();
+            var requestClientResponse = 
+                new RequestClientResponse<TResponse>()
+                {
+                    HttpResponse = response,
+                };
+            
+            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (responseContent != string.Empty)
-            {
-                return DeserializeResponseAsync<TResponse>(responseContent);
-            }
+            if (responseContent == string.Empty) return requestClientResponse;
             
-            logger.LogInformation("Internal request received no content");
-            return default;
+            requestClientResponse.DeserializedResponseBody = DeserializeResponseAsync<TResponse>(responseContent);
+            return requestClientResponse;
+
         }
         catch (Exception e)
         {
             logger.LogWarning("Internal request failed: {ErrorMessage}", e.Message);
             throw new RequestClientException();
         }
-
-       
-    } 
-
+    }
     
     private string CreateToken()
     {
@@ -85,5 +85,5 @@ internal class RequestHandler(
     
     private static  TResponse DeserializeResponseAsync<TResponse>(string responseContent) => 
         JsonSerializer.Deserialize<TResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-    
+
 }

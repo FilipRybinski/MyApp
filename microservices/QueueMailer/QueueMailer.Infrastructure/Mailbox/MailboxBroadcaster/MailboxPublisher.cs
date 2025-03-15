@@ -3,7 +3,7 @@ using QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxBroadcaster;
 
-internal class MailboxPublisher(IMailboxConnector mailboxConnector) : IMailboxPublisher
+internal sealed class MailboxPublisher(IMailboxConnector mailboxConnector) : IMailboxPublisher
 {
     public async Task PublishAsync(MimeMessage message)
     {

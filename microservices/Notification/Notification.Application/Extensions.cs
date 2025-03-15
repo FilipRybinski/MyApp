@@ -6,7 +6,7 @@ namespace Notification.Application;
 
 public static class Extensions
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddNotificationApplication(this IServiceCollection services)
     {
 
         services.AddCQRS(Assembly.GetExecutingAssembly());

@@ -6,7 +6,7 @@ namespace FeatureFlags.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-public class FeatureFlagsController(IGetFeatureFlagsHandler featureFlagsHandler) : ControllerBase
+public sealed class FeatureFlagsController(IGetFeatureFlagsHandler featureFlagsHandler) : ControllerBase
 {
     [HttpGet]
     public ActionResult<FeatureFlagsConfiguration> GetFeatureFlags()

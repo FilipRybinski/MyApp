@@ -21,8 +21,8 @@
   },
   "RoutesConfiguration": {
     "QueueMailerRoutes": {
-      "SendConfirmationEmail": "http://http://localhost:5169/QueueMailer/SendConfirmationEmail",
-      "SendResetPasswordEmail": "http://http://localhost:5169/QueueMailer/SendResetPasswordEmail"
+      "SendConfirmationEmail": "http://localhost:5169/QueueMailer/SendConfirmationEmail",
+      "SendResetPasswordEmail": "http://localhost:5169/QueueMailer/SendResetPasswordEmail"
     },
     "NotificationRoutes": {
       

@@ -59,6 +59,11 @@ jobs:
             settingsPath: ""
             settings_secret: ""
 
+          - name: "tokenregistry"
+            dockerPath: "./microservices/TokenRegistry/TokenRegistry.Api/Dockerfile"
+            settingsPath: ""
+            settings_secret: ""
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3

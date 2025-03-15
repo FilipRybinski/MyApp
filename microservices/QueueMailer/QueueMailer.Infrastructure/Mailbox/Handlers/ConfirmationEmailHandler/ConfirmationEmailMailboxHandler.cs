@@ -5,12 +5,10 @@ using QueueMailer.Infrastructure.Mailbox.MailboxMessage;
 
 namespace QueueMailer.Infrastructure.Mailbox.Handlers.ConfirmationEmailHandler;
 
-internal class ConfirmationEmailMailboxHandler(
+internal sealed class ConfirmationEmailMailboxHandler(
     IMailboxMessageCreator mailboxMessageCreator,
     IMailboxPublisher mailboxPublisher) : IMailboxHandler<ConfirmationEmail>
 {
-    public async Task HandleAsync(ConfirmationEmail command)
-    {
+    public async Task HandleAsync(ConfirmationEmail command, CancellationToken cancellationToken) =>
         await mailboxPublisher.PublishAsync(mailboxMessageCreator.Create(command.Email));
-    }
 }

@@ -13,8 +13,4 @@
         <ProjectReference Include="..\QueueMailer.Core\QueueMailer.Core.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="RabbitMQ.Client" Version="7.1.0" />
-    </ItemGroup>
-
 </Project>

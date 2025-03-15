@@ -5,6 +5,7 @@ using RequestClient;
 using Shared.Application.Routes;
 using Shared.Core.Configuration;
 using Shared.Infrastructure.Authorization;
+using Shared.Infrastructure.Documentation;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Exceptions.Middleware;
 
@@ -16,6 +17,7 @@ public static class Extensions
     {
         services.Configure<CookieSettingsConfiguration>(configuration.GetRequiredSection(nameof(CookieSettingsConfiguration)));
         services.Configure<RoutesConfiguration>(configuration.GetRequiredSection(nameof(RoutesConfiguration)));
+        services.AddDocumentation();
         
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
@@ -28,6 +30,8 @@ public static class Extensions
     public static WebApplication UseSharedInfrastructure(this WebApplication app)
     {
         Culture.Culture.ConfigureCulture("en");
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseMiddleware<ExceptionMiddleware>();
         app.UseHttpsRedirection();
         app.UseAuthentication();

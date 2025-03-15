@@ -1,10 +1,11 @@
 using Identity.Core.Dictionary;
 using Identity.Core.Entities;
+using Identity.Infrastructure.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Identity.Infrastructure.DAL;
+namespace Identity.Infrastructure.DAL.Initializer;
 
 internal sealed class DatabaseInitializer(IServiceProvider serviceProvider) : IHostedService
 {

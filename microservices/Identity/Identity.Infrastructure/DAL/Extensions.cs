@@ -1,4 +1,6 @@
 using Identity.Core.Repositories;
+using Identity.Infrastructure.DAL.Context;
+using Identity.Infrastructure.DAL.Initializer;
 using Identity.Infrastructure.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

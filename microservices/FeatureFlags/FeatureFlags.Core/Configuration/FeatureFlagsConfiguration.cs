@@ -1,6 +1,6 @@
 namespace FeatureFlags.Core.Configuration;
 
-public class FeatureFlagsConfiguration
+public sealed class FeatureFlagsConfiguration
 {
     public bool Dashboard { get; init; }
     public bool Finance { get; init; }

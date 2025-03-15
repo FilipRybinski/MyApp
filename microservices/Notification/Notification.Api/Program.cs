@@ -8,17 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddSharedConfiguration(builder.Environment);
 
 builder.Services
-    .AddApplication()
-    .AddInfrastructure(builder.Configuration)
+    .AddNotificationApplication()
+    .AddNotificationInfrastructure(builder.Configuration)
     .AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseSharedInfrastructure();
 

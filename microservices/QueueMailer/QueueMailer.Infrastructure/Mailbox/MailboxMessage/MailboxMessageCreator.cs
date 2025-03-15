@@ -4,7 +4,7 @@ using QueueMailer.Core.Configuration;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxMessage;
 
-internal class MailboxMessageCreator(IOptions<MailboxConfiguration> options) : IMailboxMessageCreator
+internal sealed class MailboxMessageCreator(IOptions<MailboxConfiguration> options) : IMailboxMessageCreator
 {
     private MailboxConfiguration mailboxConfiguration = options.Value;
 

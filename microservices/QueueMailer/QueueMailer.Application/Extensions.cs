@@ -6,7 +6,7 @@ namespace QueueMailer.Application;
 
 public static class Extensions
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddQueueMailerApplication(this IServiceCollection services)
     {
 
         services.AddCQRS(Assembly.GetExecutingAssembly());

@@ -7,7 +7,7 @@ using Shared.Core.Abstractions;
 
 namespace Identity.Application.Queries.SignIn;
 
-public class SignInHandler(
+public sealed class SignInHandler(
     IAuthenticator authenticator,
     IHttpContextTokenService httpContextTokenService,
     IPasswordManager passwordManager,
@@ -16,7 +16,7 @@ public class SignInHandler(
     : IQueryHandler<SignIn, IdentityDto>
 
 {
-    public async Task<IdentityDto> HandleAsync(SignIn query)
+    public async Task<IdentityDto> HandleAsync(SignIn query, CancellationToken cancellationToken)
     {
         var result = await userIdentityRepository.GetUserIdentityByEmailAsync(query.Email);
 

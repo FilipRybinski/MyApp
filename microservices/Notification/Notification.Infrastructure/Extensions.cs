@@ -6,11 +6,8 @@ namespace Notification.Infrastructure;
 
 public static class Extensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddNotificationInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        /*services.AddQueuesDefinition();
-        services.AddRabbitMqWorker(configuration,
-            services.BuildServiceProvider().GetRequiredService<IQueuesDefinition>().Definition);*/
         services.AddSharedInfrastructure(configuration);
         return services;
     }

@@ -1,7 +1,7 @@
 using Identity.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.Infrastructure.DAL;
+namespace Identity.Infrastructure.DAL.Context;
 
 internal sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> dbContextOptions)
     : DbContext(dbContextOptions)

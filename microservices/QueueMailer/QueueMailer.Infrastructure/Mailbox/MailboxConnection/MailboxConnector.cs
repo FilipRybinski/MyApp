@@ -4,7 +4,7 @@ using QueueMailer.Core.Configuration;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 
-internal class MailboxConnector(IOptions<MailboxConfiguration> options) : IMailboxConnector
+internal sealed class MailboxConnector(IOptions<MailboxConfiguration> options) : IMailboxConnector
 {
     private SmtpClient? _smtpClient;
     private MailboxConfiguration mailboxConfiguration = options.Value;

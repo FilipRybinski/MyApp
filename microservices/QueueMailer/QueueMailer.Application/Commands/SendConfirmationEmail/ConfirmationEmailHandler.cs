@@ -1,13 +1,9 @@
-using QueueMailer.Application.Dictionary;
-using Shared.Application.RabbitMq;
+using QueueMailer.Core.Repositories;
 using Shared.Core.Abstractions;
 
 namespace QueueMailer.Application.Commands.SendConfirmationEmail;
 
-public class ConfirmationEmailHandler(IRabbitMqPublisher publisher) : ICommandHandler<ConfirmationEmail>
+public sealed class ConfirmationEmailHandler(IQueueMailerOutBoxRepository queueMailerOutBoxRepository) : ICommandHandler<ConfirmationEmail>
 {
-    public async Task HandleAsync(ConfirmationEmail command)
-    {
-        await publisher.PublishAsync<ConfirmationEmail>(string.Empty,ChannelDictionary.SignUpQueueMailer, command);
-    }
+    public async Task HandleAsync(ConfirmationEmail command, CancellationToken cancellationToken) =>  await queueMailerOutBoxRepository.HandlePublishAsync<ConfirmationEmail>(command, cancellationToken);
 }
