@@ -12,9 +12,9 @@ namespace TokenRegistry.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-[Authorize(Policy = AuthPolicies.Internal)]
+
 public sealed class TokenRegistryController(
-    IQueryHandler<LimitedTimeToken, TokenDto> limitedTimeTokenHandler,
+    IQueryHandler<LimitedTimeQueryToken, TokenDto> limitedTimeTokenHandler,
     IQueryHandler<MultiTimeToken, TokenDto> multiTimeTokenHandler,
     IQueryHandler<OneTimeToken, TokenDto> oneTimeTokenHandler,
     IQueryHandler<ValidateToken, bool> validateTokenHandler,
@@ -23,6 +23,7 @@ public sealed class TokenRegistryController(
 {
 
     [HttpPost]
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
     public async Task<ActionResult<TokenDto>> RequestOneTimeToken(OneTimeToken query, CancellationToken cancellationToken)
     {
         var result = await oneTimeTokenHandler.HandleAsync(query, cancellationToken);
@@ -30,6 +31,7 @@ public sealed class TokenRegistryController(
     }
     
     [HttpPost]
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
     public async Task<ActionResult<TokenDto>> RequestMultiTimeToken(MultiTimeToken query, CancellationToken cancellationToken)
     {
         var result = await multiTimeTokenHandler.HandleAsync(query, cancellationToken);
@@ -37,13 +39,15 @@ public sealed class TokenRegistryController(
     }
     
     [HttpPost]
-    public async Task<ActionResult<TokenDto>> RequestLimitedTimeToken(LimitedTimeToken query, CancellationToken cancellationToken)
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
+    public async Task<ActionResult<TokenDto>> RequestLimitedTimeToken(LimitedTimeQueryToken query, CancellationToken cancellationToken)
     {
         var result = await limitedTimeTokenHandler.HandleAsync(query, cancellationToken);
         return Ok(result);
     }
     
     [HttpPost]
+    /*[Authorize]*/
     public async Task<ActionResult<bool>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
     {
         var result = await validateTokenHandler.HandleAsync(query, cancellationToken);
