@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Identity.Application.Security;
 using Identity.Core.DTO;
@@ -22,7 +23,7 @@ internal sealed class HttpContextTokenService(
             return identifier;
         }
 
-        return null;
+        return ExtractUserIdentityIdentifierFromCookies();
     }
 
     public void Set(JwtDto jwt)
@@ -65,5 +66,21 @@ internal sealed class HttpContextTokenService(
             Domain = CookieSettings.Domain,
         };
         httpContextAccessor.HttpContext.Response.Cookies.Append("token", jwt.AccessToken, httpOnlyCookie);
+    }
+
+    private Guid? ExtractUserIdentityIdentifierFromCookies()
+    {
+        var token = httpContextAccessor.HttpContext?.Request.Cookies["token"];
+        
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        
+        if (Guid.TryParse(jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value,
+                out var identifier))
+        {
+            return identifier;
+        }
+
+        return null;
     }
 }

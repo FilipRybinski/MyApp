@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - microservices-microfrontends
+      - microservices
       - main
 
 env:
@@ -61,8 +61,8 @@ jobs:
 
           - name: "tokenregistry"
             dockerPath: "./microservices/TokenRegistry/TokenRegistry.Api/Dockerfile"
-            settingsPath: ""
-            settings_secret: ""
+            settingsPath: "./microservices/TokenRegistry/TokenRegistry.Api/appsettings.json"
+            settings_secret: "TOKENREGISTRY_SETTINGS"
 
     steps:
       - name: Checkout Repository

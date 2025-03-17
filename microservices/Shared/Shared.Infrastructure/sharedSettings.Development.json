@@ -26,6 +26,12 @@
     },
     "NotificationRoutes": {
       
+    },
+    "TokenRegistryRoutes": {
+      "RequestOneTimeToken" :"http://localhost:5228/TokenRegistry/RequestOneTimeToken",
+      "RequestMultiTimeToken" : "http://localhost:5228/TokenRegistry/RequestMultiTimeToken",
+      "RequestLimitedTimeToken" : "http://localhost:5228/TokenRegistry/RequestLimitedTimeToken",
+      "ValidateToken": "http://localhost:5228/TokenRegistry/ValidateToken"
     }
   }
 }
