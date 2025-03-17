@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\QueueMailer\QueueMailer.Application\QueueMailer.Application.csproj" />
+      <ProjectReference Include="..\..\TokenRegistry\TokenRegistry.Application\TokenRegistry.Application.csproj" />
       <ProjectReference Include="..\Identity.Core\Identity.Core.csproj" />
     </ItemGroup>
 

@@ -4,5 +4,5 @@ namespace Identity.Application.Handlers.IsAuthorized;
 
 public interface IAuthorizedHandler
 {
-    Task<IdentityDto?> HandleAsync();
+    Task<IdentityDto?> HandleAsync(CancellationToken cancellationToken);
 }

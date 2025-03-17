@@ -5,6 +5,8 @@ namespace Identity.Application.Security;
 public interface IHttpContextTokenService
 {
     Guid? ExtractUserIdentityIdentifier();
-    void Set(JwtDto jwt);
+
+    string RetrieveRefreshToken();
+    Task Set(JwtDto jwt, Guid identityId);
     void Remove();
 }

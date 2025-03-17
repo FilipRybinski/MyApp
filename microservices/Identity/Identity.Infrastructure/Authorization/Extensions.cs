@@ -10,8 +10,8 @@ internal static class Extensions
     public static IServiceCollection AddAuth(this IServiceCollection services)
     {
         services
-            .AddSingleton<IAuthenticator, Authenticator>()
-            .AddSingleton<IHttpContextTokenService, HttpContextTokenService>();
+            .AddScoped<IAuthenticator, Authenticator>()
+            .AddScoped<IHttpContextTokenService, HttpContextTokenService>();
         return services;
     }
 }

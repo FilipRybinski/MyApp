@@ -3,12 +3,19 @@ using Identity.Application.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using RequestClient.Handler;
+using Shared.Application.Routes;
 using Shared.Core.Configuration;
+using TokenRegistry.Application.Queries.LimitedTimeToken;
+using TokenRegistry.Core.DTO;
+using TokenRegistry.Core.Enums;
 
 namespace Identity.Infrastructure.Authorization;
 
 internal sealed class HttpContextTokenService(
     IHttpContextAccessor httpContextAccessor,
+    IRequestHandler requestHandler,
+    IRoutes routes,
     IOptions<CookieSettingsConfiguration> cookieSettings)
     : IHttpContextTokenService
 {
@@ -25,9 +32,12 @@ internal sealed class HttpContextTokenService(
         return null;
     }
 
-    public void Set(JwtDto jwt)
+    public string RetrieveRefreshToken() => httpContextAccessor.HttpContext.Request.Cookies["refreshToken"];
+
+    public async Task Set(JwtDto jwt,Guid identityId)
     {
-        HttpContextResponseInjectToken(jwt);
+        var refreshToken = await RetrieveRefreshToken(identityId);
+        HttpContextResponseInjectToken(jwt, refreshToken);
     }
 
     public void Remove()
@@ -51,12 +61,11 @@ internal sealed class HttpContextTokenService(
         };
         httpContextAccessor.HttpContext.Response.Cookies.Append("token", string.Empty, httpOnlyCookie);
     }
-
-    private void HttpContextResponseInjectToken(JwtDto jwt)
+    
+    private void HttpContextResponseInjectToken(JwtDto jwt,string refreshToken)
     {
-        var httpOnlyCookie = new CookieOptions
+        var accessTokenHttpOnlyCookie = new CookieOptions
         {
-            Expires = DateTime.Now.AddDays(CookieSettings.ExpireTime),
             HttpOnly = true,
             Secure = true,
             IsEssential = true,
@@ -64,6 +73,35 @@ internal sealed class HttpContextTokenService(
             Path = CookieSettings.Path,
             Domain = CookieSettings.Domain,
         };
-        httpContextAccessor.HttpContext.Response.Cookies.Append("token", jwt.AccessToken, httpOnlyCookie);
+        
+        var refreshTokenHttpOnlyCookie = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.None,
+            Path = CookieSettings.Path,
+            Domain = CookieSettings.Domain,
+        };
+        
+        httpContextAccessor.HttpContext.Response.Cookies.Append("token", jwt.AccessToken, accessTokenHttpOnlyCookie);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", refreshToken, refreshTokenHttpOnlyCookie);
+    }
+    
+    private async Task<string> RetrieveRefreshToken(Guid identityId)
+    {       
+        var refreshToken = await requestHandler.SendRequestAsync<LimitedTimeQueryToken, TokenDto>(
+            routes.RoutesConfiguration.TokenRegistryRoutes.RequestLimitedTimeToken,
+            HttpMethod.Post,
+            default,
+            new LimitedTimeQueryToken()
+            {
+                IdentityId = identityId,
+                ResourceType = ResourceType.RefreshToken,
+            });
+
+        refreshToken.HttpResponse.EnsureSuccessStatusCode();
+        
+        return refreshToken.DeserializedResponseBody.Token;
     }
 }

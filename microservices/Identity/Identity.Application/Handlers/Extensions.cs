@@ -1,5 +1,6 @@
 using Identity.Application.Handlers.IsAuthorized;
 using Identity.Application.Handlers.Logout;
+using Identity.Application.Handlers.Token;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Application;
 
@@ -11,6 +12,7 @@ internal static class Extensions
     {
         services.AddScoped<IAuthorizedHandler, AuthorizedHandler>();
         services.AddScoped<ILogoutHandler, LogoutHandler>();
+        services.AddScoped<IRefreshTokenHandler, RefreshTokenHandler>();
         return services;
     }
 }
