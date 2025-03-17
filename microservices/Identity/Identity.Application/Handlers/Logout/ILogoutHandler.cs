@@ -2,5 +2,5 @@ namespace Identity.Application.Handlers.Logout;
 
 public interface ILogoutHandler
 {
-    bool Handle(CancellationToken cancellationToken);
+    bool Handle();
 }

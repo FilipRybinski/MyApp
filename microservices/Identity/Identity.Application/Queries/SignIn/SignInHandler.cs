@@ -31,7 +31,7 @@ public sealed class SignInHandler(
         }
 
         var token = authenticator.CreateToken(result.Id, result.Role.Name);
-        await httpContextTokenService.Set(token,result.Id);
+        httpContextTokenService.Set(token);
         return mapper.Map<IdentityDto>(result);
     }
 }

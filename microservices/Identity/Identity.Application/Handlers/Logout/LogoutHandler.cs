@@ -2,9 +2,9 @@ using IHttpContextTokenService = Identity.Application.Security.IHttpContextToken
 
 namespace Identity.Application.Handlers.Logout;
 
-internal sealed class LogoutHandler(IHttpContextTokenService httpContextTokenService) : ILogoutHandler
+public sealed class LogoutHandler(IHttpContextTokenService httpContextTokenService) : ILogoutHandler
 {
-    public bool Handle(CancellationToken cancellationToken)
+    public bool Handle()
     {
         httpContextTokenService.Remove();
         return true;

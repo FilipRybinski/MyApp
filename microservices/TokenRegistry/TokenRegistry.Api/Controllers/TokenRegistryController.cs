@@ -17,7 +17,7 @@ public sealed class TokenRegistryController(
     IQueryHandler<LimitedTimeQueryToken, TokenDto> limitedTimeTokenHandler,
     IQueryHandler<MultiTimeToken, TokenDto> multiTimeTokenHandler,
     IQueryHandler<OneTimeToken, TokenDto> oneTimeTokenHandler,
-    IQueryHandler<ValidateToken, ValidateTokenDto> validateTokenHandler,
+    IQueryHandler<ValidateToken, bool> validateTokenHandler,
     ILogger<TokenRegistryController> logger
     ) : ControllerBase
 {
@@ -48,7 +48,7 @@ public sealed class TokenRegistryController(
     
     [HttpPost]
     /*[Authorize]*/
-    public async Task<ActionResult<ValidateTokenDto>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<bool>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
     {
         var result = await validateTokenHandler.HandleAsync(query, cancellationToken);
         return Ok(result);
