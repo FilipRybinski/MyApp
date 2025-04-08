@@ -1,6 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

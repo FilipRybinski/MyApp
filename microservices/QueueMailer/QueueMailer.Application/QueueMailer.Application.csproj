@@ -13,4 +13,8 @@
         <ProjectReference Include="..\QueueMailer.Core\QueueMailer.Core.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MailKit" Version="4.11.0" />
+    </ItemGroup>
+
 </Project>

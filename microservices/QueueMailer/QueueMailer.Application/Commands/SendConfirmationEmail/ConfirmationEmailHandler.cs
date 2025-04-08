@@ -1,9 +1,15 @@
+using MediatR;
 using QueueMailer.Core.Repositories;
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions.CQRS;
+using Shared.Core.Objects;
 
 namespace QueueMailer.Application.Commands.SendConfirmationEmail;
 
-public sealed class ConfirmationEmailHandler(IQueueMailerOutBoxRepository queueMailerOutBoxRepository) : ICommandHandler<ConfirmationEmail>
+public sealed class ConfirmationEmailHandler(IQueueMailerOutBoxRepository queueMailerOutBoxRepository) : ICommandHandler<ConfirmationEmail,Unit>
 {
-    public async Task HandleAsync(ConfirmationEmail command, CancellationToken cancellationToken) =>  await queueMailerOutBoxRepository.HandlePublishAsync<ConfirmationEmail>(command, cancellationToken);
+    public async Task<Result<Unit>> Handle(ConfirmationEmail request, CancellationToken cancellationToken)
+    {
+        await queueMailerOutBoxRepository.HandlePublishAsync<ConfirmationEmail>(request, cancellationToken);
+        return Unit.Value;
+    }
 }

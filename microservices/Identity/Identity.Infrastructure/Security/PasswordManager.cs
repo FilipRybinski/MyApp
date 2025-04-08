@@ -1,4 +1,4 @@
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 

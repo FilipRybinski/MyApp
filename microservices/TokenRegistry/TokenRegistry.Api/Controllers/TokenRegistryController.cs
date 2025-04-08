@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Core.Abstractions;
-using Shared.Core.Policies;
 using TokenRegistry.Application.Queries.LimitedTimeToken;
 using TokenRegistry.Application.Queries.MultiTimeToken;
 using TokenRegistry.Application.Queries.OneTimeToken;
@@ -14,10 +12,7 @@ namespace TokenRegistry.Api.Controllers;
 [Route("[controller]/[action]")]
 
 public sealed class TokenRegistryController(
-    IQueryHandler<LimitedTimeQueryToken, TokenDto> limitedTimeTokenHandler,
-    IQueryHandler<MultiTimeToken, TokenDto> multiTimeTokenHandler,
-    IQueryHandler<OneTimeToken, TokenDto> oneTimeTokenHandler,
-    IQueryHandler<ValidateToken, bool> validateTokenHandler,
+    ISender sender,
     ILogger<TokenRegistryController> logger
     ) : ControllerBase
 {
@@ -26,7 +21,7 @@ public sealed class TokenRegistryController(
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
     public async Task<ActionResult<TokenDto>> RequestOneTimeToken(OneTimeToken query, CancellationToken cancellationToken)
     {
-        var result = await oneTimeTokenHandler.HandleAsync(query, cancellationToken);
+        var result = await sender.Send(query, cancellationToken);
         return Ok(result);
     }
     
@@ -34,7 +29,7 @@ public sealed class TokenRegistryController(
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
     public async Task<ActionResult<TokenDto>> RequestMultiTimeToken(MultiTimeToken query, CancellationToken cancellationToken)
     {
-        var result = await multiTimeTokenHandler.HandleAsync(query, cancellationToken);
+        var result = await sender.Send(query, cancellationToken);
         return Ok(result);
     }
     
@@ -42,7 +37,7 @@ public sealed class TokenRegistryController(
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
     public async Task<ActionResult<TokenDto>> RequestLimitedTimeToken(LimitedTimeQueryToken query, CancellationToken cancellationToken)
     {
-        var result = await limitedTimeTokenHandler.HandleAsync(query, cancellationToken);
+        var result = await sender.Send(query, cancellationToken);
         return Ok(result);
     }
     
@@ -50,7 +45,7 @@ public sealed class TokenRegistryController(
     /*[Authorize]*/
     public async Task<ActionResult<bool>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
     {
-        var result = await validateTokenHandler.HandleAsync(query, cancellationToken);
+        var result = await sender.Send(query, cancellationToken);
         return Ok(result);
     }
     

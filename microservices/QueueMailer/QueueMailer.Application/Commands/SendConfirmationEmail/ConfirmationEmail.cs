@@ -1,6 +1,7 @@
-using QueueMailer.Core.Abstractions;
-using Shared.Core.Abstractions;
+using MediatR;
+using Shared.Application.Abstractions.CQRS;
+
 
 namespace QueueMailer.Application.Commands.SendConfirmationEmail;
 
-public sealed record ConfirmationEmail(Guid Id, string Email) : ICommand, IMailbox;
+public sealed record ConfirmationEmail(Guid Id, string Email) : ICommand<Unit>;

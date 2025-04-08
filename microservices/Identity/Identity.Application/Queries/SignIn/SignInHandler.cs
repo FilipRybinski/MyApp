@@ -1,9 +1,10 @@
 using AutoMapper;
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
 using Identity.Core.Exceptions;
 using Identity.Core.Repositories;
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions.CQRS;
+using Shared.Core.Objects;
 
 namespace Identity.Application.Queries.SignIn;
 
@@ -16,16 +17,16 @@ public sealed class SignInHandler(
     : IQueryHandler<SignIn, IdentityDto>
 
 {
-    public async Task<IdentityDto> HandleAsync(SignIn query, CancellationToken cancellationToken)
+    public async Task<Result<IdentityDto>> Handle(SignIn request, CancellationToken cancellationToken)
     {
-        var result = await userIdentityRepository.GetUserIdentityByEmailAsync(query.Email);
+        var result = await userIdentityRepository.GetUserIdentityByEmailAsync(request.Email);
 
         if (result is null)
         {
             throw new InvalidCredentialsException();
         }
 
-        if (!passwordManager.Validate(query.Password, result.Password))
+        if (!passwordManager.Validate(request.Password, result.Password))
         {
             throw new InvalidCredentialsException();
         }

@@ -1,5 +1,6 @@
-﻿using FeatureFlags.Application.Handlers;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Application.CQRS;
 
 
 namespace FeatureFlags.Application;
@@ -8,7 +9,7 @@ public static class Extensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddHandlers();
+        services.AddCQRS(Assembly.GetExecutingAssembly());
         return services;
     }
 }

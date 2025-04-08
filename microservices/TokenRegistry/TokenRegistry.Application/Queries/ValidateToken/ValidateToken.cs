@@ -1,6 +1,5 @@
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions.CQRS;
 using TokenRegistry.Core.Abstractions;
-using TokenRegistry.Core.DTO;
 using TokenRegistry.Core.Enums;
 
 namespace TokenRegistry.Application.Queries.ValidateToken;

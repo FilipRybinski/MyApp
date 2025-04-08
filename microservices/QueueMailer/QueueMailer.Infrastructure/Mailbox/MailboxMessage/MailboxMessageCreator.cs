@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using MimeKit;
+using QueueMailer.Application.Abstractions;
 using QueueMailer.Core.Configuration;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxMessage;

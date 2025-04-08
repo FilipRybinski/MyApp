@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QueueMailer.Application.Abstractions;
 using QueueMailer.Core.Configuration;
-using QueueMailer.Infrastructure.Mailbox.Handlers;
 using QueueMailer.Infrastructure.Mailbox.MailboxBroadcaster;
 using QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 using QueueMailer.Infrastructure.Mailbox.MailboxMessage;
@@ -17,7 +17,6 @@ internal static class Extensions
         services.AddSingleton<IMailboxConnector, MailboxConnector>();
         services.AddScoped<IMailboxPublisher, MailboxPublisher>();
         services.AddScoped<IMailboxMessageCreator, MailboxMessageCreator>();
-        services.AddMailboxHandler();
         return services;
     }
 }
