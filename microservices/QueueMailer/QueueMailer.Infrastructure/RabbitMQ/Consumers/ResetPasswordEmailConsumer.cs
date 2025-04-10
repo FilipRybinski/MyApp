@@ -1,6 +1,7 @@
 using MassTransit;
 using MediatR;
 using QueueMailer.Application.Commands.SendResetPasswordEmail;
+using Shared.Application.Commands.SendResetPasswordEmail;
 
 namespace QueueMailer.Infrastructure.RabbitMQ.Consumers;
 

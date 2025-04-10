@@ -1,6 +1,7 @@
 using Identity.Application.Abstractions.Security;
-using Identity.Core.Entities;
 using Identity.Core.Repositories;
+using Identity.Domain.Identity;
+using Identity.Domain.Role;
 using Identity.Infrastructure.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,10 @@ internal sealed class PostgresUserIdentityRepository(
     IHttpContextTokenService contextTokenService)
     : IUserIdentityRepository
 {
-    public async Task<_Identity?> GetSessionUserIdentityAsync() =>
-        await dbContext.Identities.FirstOrDefaultAsync<_Identity>(u => u.Id == contextTokenService.ExtractUserIdentityIdentifier());
+    public async Task<UserIdentity?> GetSessionUserIdentityAsync() =>
+        await dbContext.Identities.FirstOrDefaultAsync<UserIdentity>(u => u.Id == contextTokenService.ExtractUserIdentityIdentifier());
 
-    public async Task<_Identity> AddUserIdentityAsync(_Identity user)
+    public async Task<UserIdentity> AddUserIdentityAsync(UserIdentity user)
     {
         dbContext.Identities.Add(user);
         await dbContext.SaveChangesAsync();
@@ -22,10 +23,10 @@ internal sealed class PostgresUserIdentityRepository(
         return user;
     }
 
-    public async Task<_Identity?> GetUserIdentityByEmailAsync(string email) =>
-        await dbContext.Identities.Include<_Identity, Role>(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
+    public async Task<UserIdentity?> GetUserIdentityByEmailAsync(string email) =>
+        await dbContext.Identities.Include<UserIdentity, Role>(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
 
-    public bool IsEmailAlreadyExists(string email) => dbContext.Identities.Any<_Identity>(u => u.Email == email);
+    public bool IsEmailAlreadyExists(string email) => dbContext.Identities.Any<UserIdentity>(u => u.Email == email);
 
-    public bool IsUserNameAlreadyExists(string username) => dbContext.Identities.Any<_Identity>(u => u.Username == username);
+    public bool IsUserNameAlreadyExists(string username) => dbContext.Identities.Any<UserIdentity>(u => u.Username == username);
 }

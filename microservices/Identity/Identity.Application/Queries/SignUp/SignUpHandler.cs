@@ -1,14 +1,10 @@
 using AutoMapper;
 using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
-using Identity.Core.Entities;
 using Identity.Core.Repositories;
+using Identity.Domain.Identity;
 using Microsoft.Extensions.Logging;
-using QueueMailer.Application.Commands.SendConfirmationEmail;
-using RequestClient.DTO;
-using RequestClient.Handler;
 using Shared.Application.Abstractions.CQRS;
-using Shared.Application.Routes;
 using Shared.Core.Objects;
 
 namespace Identity.Application.Queries.SignUp;
@@ -18,8 +14,6 @@ public sealed class SignUpHandler(
     IRoleRepository userRoleRepository,
     IPasswordManager passwordManager,
     IMapper mapper,
-    IRequestHandler requestHandler,
-    IRoutes routes,
     ILogger<SignUpHandler> logger
     )
     : IQueryHandler<SignUp, IdentityDto>
@@ -28,7 +22,7 @@ public sealed class SignUpHandler(
     {
         var securedPassword = passwordManager.Secure(request.Password);
         var defaultUserRole = await userRoleRepository.GetDefaultRoleAsync();
-        var user = new _Identity(
+        var user = new UserIdentity(
             request.Email,
             request.Username,
             securedPassword,
@@ -36,16 +30,8 @@ public sealed class SignUpHandler(
             request.Surname,
             defaultUserRole.Id);
         
-        var response =  await requestHandler.SendRequestAsync<ConfirmationEmail, RequestClientResponseNoContent>(
-            routes.RoutesConfiguration.QueueMailerRoutes.SendConfirmationEmail,
-            HttpMethod.Post,
-            cancellationToken,
-            new ConfirmationEmail(user.Id, user.Email)
-        );
-
-        response.HttpResponse.EnsureSuccessStatusCode();
-        
         var result = await userIdentityRepository.AddUserIdentityAsync(user);
+        user.Raise(new UserIdentitySignUpDomainEvent(user.Id, user.Email));
         return mapper.Map<IdentityDto>(result);
     }
 }

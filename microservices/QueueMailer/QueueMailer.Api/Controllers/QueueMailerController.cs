@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QueueMailer.Application.Commands.SendConfirmationEmail;
-using QueueMailer.Application.Commands.SendResetPasswordEmail;
+using Shared.Application.Commands.SendConfirmationEmail;
+using Shared.Application.Commands.SendResetPasswordEmail;
 using Shared.Core.Policies;
 
 namespace QueueMailer.Api.Controllers;

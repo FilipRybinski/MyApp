@@ -1,6 +1,6 @@
 using MassTransit;
 using MediatR;
-using QueueMailer.Application.Commands.SendConfirmationEmail;
+using Shared.Application.Commands.SendConfirmationEmail;
 
 namespace QueueMailer.Infrastructure.RabbitMQ.Consumers;
 

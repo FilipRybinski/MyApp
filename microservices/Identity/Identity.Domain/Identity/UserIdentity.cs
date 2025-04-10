@@ -1,8 +1,10 @@
-namespace Identity.Core.Entities;
+using Shared.Domain.Abstractions;
 
-public class _Identity
+namespace Identity.Domain.Identity;
+
+public class UserIdentity : Entity
 {
-    public _Identity(string email, string username, string password, string name, string surname, Guid roleId)
+    public UserIdentity(string email, string username, string password, string name, string surname, Guid roleId)
     {
         Id = new Guid();
         Email = email;
@@ -23,5 +25,5 @@ public class _Identity
     public Guid RoleId { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
-    public virtual Role Role { get; private set; }
+    public virtual Role.Role Role { get; private set; }
 }

@@ -4,11 +4,11 @@ using IHttpContextTokenService = Identity.Application.Abstractions.Security.IHtt
 
 namespace Identity.Application.Commands.Logout;
 
-public sealed class LogoutActionHandler(IHttpContextTokenService httpContextTokenService) : ICommandHandler<LogoutAction,bool>
+public sealed class LogoutActionHandler(IHttpContextTokenService httpContextTokenService) : ICommandHandler<LogoutAction>
 {
-    public async Task<Result<bool>> Handle(LogoutAction request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(LogoutAction request, CancellationToken cancellationToken)
     {
         httpContextTokenService.Remove();
-        return Result.Success(true);
+        return Result.Success();
     }
 }

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RequestClient;
 using Shared.Application.Routes;
 using Shared.Core.Configuration;
 using Shared.Infrastructure.Authorization;
@@ -21,7 +20,6 @@ public static class Extensions
         
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
-        services.AddRequestClient();
         services.AddSingleton<IRoutes, Routes.Routes>();
 
         return services;

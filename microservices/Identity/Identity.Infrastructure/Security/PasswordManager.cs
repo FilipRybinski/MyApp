@@ -1,12 +1,12 @@
 using Identity.Application.Abstractions.Security;
-using Identity.Core.Entities;
+using Identity.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Infrastructure.Security;
 
 internal sealed class PasswordManager(
     IPasswordHasher<
-        _Identity> passwordHasher) : IPasswordManager
+        UserIdentity> passwordHasher) : IPasswordManager
 {
     public string Secure(string password) => passwordHasher.HashPassword(default, password);
 
