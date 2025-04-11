@@ -3,13 +3,15 @@ using Identity.Core.Repositories;
 using Identity.Domain.Identity;
 using Identity.Domain.Role;
 using Identity.Infrastructure.DAL.Context;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.DAL.Repositories;
 
 internal sealed class PostgresUserIdentityRepository(
     IdentityDbContext dbContext,
-    IHttpContextTokenService contextTokenService)
+    IHttpContextTokenService contextTokenService,
+    IMediator mediator)
     : IUserIdentityRepository
 {
     public async Task<UserIdentity?> GetSessionUserIdentityAsync() =>
@@ -18,6 +20,7 @@ internal sealed class PostgresUserIdentityRepository(
     public async Task<UserIdentity> AddUserIdentityAsync(UserIdentity user)
     {
         dbContext.Identities.Add(user);
+        await mediator.Publish(user.DomainEvents.LastOrDefault());
         await dbContext.SaveChangesAsync();
         await dbContext.Entry(user).ReloadAsync();
         return user;

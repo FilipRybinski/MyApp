@@ -1,13 +1,15 @@
 using MassTransit;
-using MediatR;
+using QueueMailer.Application.Abstractions;
 using Shared.Application.Commands.SendConfirmationEmail;
 
 namespace QueueMailer.Infrastructure.RabbitMQ.Consumers;
 
-internal sealed class ConfirmationEmailConsumer(ISender sender) : IConsumer<ConfirmationEmail>
+internal sealed class ConfirmationEmailConsumer(
+    IMailboxMessageCreator mailboxMessageCreator,
+    IMailboxPublisher mailboxPublisher) : IConsumer<ConfirmationEmail>
 {
     public async Task Consume(ConsumeContext<ConfirmationEmail> context)
     {
-        await sender.Send(context.Message, context.CancellationToken);
+        await mailboxPublisher.PublishAsync(mailboxMessageCreator.Create(context.Message.Email));
     }
 }

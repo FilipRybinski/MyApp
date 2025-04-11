@@ -30,8 +30,9 @@ public sealed class SignUpHandler(
             request.Surname,
             defaultUserRole.Id);
         
-        var result = await userIdentityRepository.AddUserIdentityAsync(user);
         user.Raise(new UserIdentitySignUpDomainEvent(user.Id, user.Email));
+        var result = await userIdentityRepository.AddUserIdentityAsync(user);
+
         return mapper.Map<IdentityDto>(result);
     }
 }

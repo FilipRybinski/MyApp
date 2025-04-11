@@ -6,7 +6,6 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RequestClient.DTO;
 using RequestClient.Exceptions;
 using Shared.Core.Configuration;
 using Shared.Core.Objects;
@@ -26,7 +25,7 @@ internal sealed class RequestHandler(
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SigningKey)),
         SecurityAlgorithms.HmacSha256);
     
-    public async Task<RequestClientResponse<Result>> SendRequestAsync<TRequest>(
+    public async Task<Result> SendRequestAsync<TRequest>(
         string url, 
         HttpMethod method, 
         CancellationToken cancellationToken,
@@ -35,7 +34,7 @@ internal sealed class RequestHandler(
         return await ProcessRequestAsync<Result, TRequest>(url, method, cancellationToken, body);
     }
 
-    public async Task<RequestClientResponse<Result<TResponse>>> SendRequestAsync<TRequest, TResponse>(
+    public async Task<Result<TResponse>> SendRequestAsync<TRequest, TResponse>(
         string url, 
         HttpMethod method, 
         CancellationToken cancellationToken,
@@ -46,7 +45,7 @@ internal sealed class RequestHandler(
         return await ProcessRequestAsync<Result<TResponse>, TRequest>(url, method, cancellationToken, body);
     }
 
-    private async Task<RequestClientResponse<TResponse>> ProcessRequestAsync<TResponse, TRequest>(
+    private async Task<TResponse> ProcessRequestAsync<TResponse, TRequest>(
         string url,
         HttpMethod method,
         CancellationToken cancellationToken,
@@ -68,20 +67,10 @@ internal sealed class RequestHandler(
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
             using var response = await httpClient.SendAsync(request, cancellationToken);
-
-            var requestClientResponse = new RequestClientResponse<TResponse>
-            {
-                HttpResponse = response
-            };
-
+            
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (!string.IsNullOrWhiteSpace(responseContent))
-            {
-                requestClientResponse.DeserializedResponseBody = DeserializeResponseAsync<TResponse>(responseContent);
-            }
-
-            return requestClientResponse;
+            return DeserializeResponseAsync<TResponse>(responseContent);
         }
         catch (Exception e)
         {

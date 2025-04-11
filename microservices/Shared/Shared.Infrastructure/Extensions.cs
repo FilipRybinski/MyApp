@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Application.Routes;
 using Shared.Core.Configuration;
+using Shared.Infrastructure.AppCulture;
+using Shared.Infrastructure.AppRoutes;
 using Shared.Infrastructure.Authorization;
 using Shared.Infrastructure.Documentation;
 using Shared.Infrastructure.Exceptions;
@@ -20,14 +22,14 @@ public static class Extensions
         
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
-        services.AddSingleton<IRoutes, Routes.Routes>();
+        services.AddSingleton<IRoutes, Routes>();
 
         return services;
     }
 
     public static WebApplication UseSharedInfrastructure(this WebApplication app)
     {
-        Culture.Culture.ConfigureCulture("en");
+        Culture.ConfigureCulture("en");
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseMiddleware<ExceptionMiddleware>();

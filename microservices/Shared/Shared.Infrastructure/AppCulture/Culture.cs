@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Shared.Infrastructure.Culture;
+namespace Shared.Infrastructure.AppCulture;
 
 internal static class Culture
 {

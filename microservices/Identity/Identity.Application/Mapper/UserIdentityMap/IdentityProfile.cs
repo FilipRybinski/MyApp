@@ -6,8 +6,8 @@ namespace Identity.Application.Mapper.UserIdentityMap;
 
 internal sealed class IdentityProfile : Profile
 {
-public IdentityProfile()
-{
-    CreateMap<UserIdentity, IdentityDto>();
-}
+    public IdentityProfile()
+    {
+        CreateMap<UserIdentity, IdentityDto>();
+    }
 }
