@@ -1,4 +1,4 @@
-@if (appStore.loggedInUser.user()) {
+@if (appStore.loggedInUser.isAuth()) {
   <button
     matTooltip="{{ 'MyProfile' | translate }}"
     mat-icon-button
@@ -13,7 +13,7 @@
   <mat-icon>menu</mat-icon>
 </button>
 <mat-menu class="!bg-white" #menu>
-  @if (!appStore.loggedInUser.user()) {
+  @if (!appStore.loggedInUser.isAuth()) {
     <button mat-menu-item [routerLink]="[PATH.ACCOUNT, PATH.SIGN_UP]">
       {{ 'SignUp' | translate }}
       <mat-icon>person_add</mat-icon>
