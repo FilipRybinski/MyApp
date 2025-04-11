@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Core.Objects;
 using TokenRegistry.Application.Queries.LimitedTimeToken;
 using TokenRegistry.Application.Queries.MultiTimeToken;
 using TokenRegistry.Application.Queries.OneTimeToken;
@@ -19,34 +20,30 @@ public sealed class TokenRegistryController(
 
     [HttpPost]
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
-    public async Task<ActionResult<TokenDto>> RequestOneTimeToken(OneTimeToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<TokenDto>>> RequestOneTimeToken(OneTimeToken query, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(query, cancellationToken);
-        return Ok(result);
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }
     
     [HttpPost]
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
-    public async Task<ActionResult<TokenDto>> RequestMultiTimeToken(MultiTimeToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<TokenDto>>> RequestMultiTimeToken(MultiTimeToken query, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(query, cancellationToken);
-        return Ok(result);
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }
     
     [HttpPost]
     /*[Authorize(Policy = AuthPolicies.Internal)]*/
-    public async Task<ActionResult<TokenDto>> RequestLimitedTimeToken(LimitedTimeQueryToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<TokenDto>>> RequestLimitedTimeToken(LimitedTimeQueryToken query, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(query, cancellationToken);
-        return Ok(result);
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }
     
     [HttpPost]
     /*[Authorize]*/
-    public async Task<ActionResult<bool>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<bool>>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(query, cancellationToken);
-        return Ok(result);
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }
     
 }

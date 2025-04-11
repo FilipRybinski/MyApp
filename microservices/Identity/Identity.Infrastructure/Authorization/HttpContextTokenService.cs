@@ -4,6 +4,7 @@ using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Shared.Core.Configuration;
 
 namespace Identity.Infrastructure.Authorization;
@@ -71,7 +72,10 @@ internal sealed class HttpContextTokenService(
     private Guid? ExtractUserIdentityIdentifierFromCookies()
     {
         var token = httpContextAccessor.HttpContext?.Request.Cookies["token"];
-        
+        if (token.IsNullOrEmpty())
+        {
+            return null;
+        }
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadJwtToken(token);
         

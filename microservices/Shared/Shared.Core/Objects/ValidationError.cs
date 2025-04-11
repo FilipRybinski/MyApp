@@ -1,20 +1,15 @@
-using Shared.Core.Shared;
+using System.Net;
+using FluentValidation.Results;
+using Shared.Core.Enums;
 
 namespace Shared.Core.Objects;
 
-public sealed record ValidationError : Error
+public sealed record ValidationError(ValidationFailure[] ValidationFailures) : Error(HttpStatusCode.BadRequest,
+    "One or more validation errors occurred",
+    ErrorType.Validation,
+    MapValidationFailuresToErrorDetails(ValidationFailures)
+    )
 {
-    public ValidationError(Error[] errors)
-        : base(
-            "Validation.General",
-            "One or more validation errors occurred",
-            ErrorType.Validation)
-    {
-        Errors = errors;
-    }
-
-    public Error[] Errors { get; }
-
-    public static ValidationError FromResults(IEnumerable<Result> results) =>
-        new(results.Where(r => r.IsFailure).Select(r => r.Error).ToArray());
+    private static ErrorDetails[] MapValidationFailuresToErrorDetails(ValidationFailure[] validationFailures) =>
+        validationFailures.Select(vf=>new ErrorDetails(vf.PropertyName, vf.ErrorMessage)).ToArray();
 }

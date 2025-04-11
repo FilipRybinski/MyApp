@@ -1,10 +1,13 @@
-namespace Shared.Core.Shared;
+namespace Shared.Core.Enums;
 
 public enum ErrorType
 {
-    Failure = 0,
-    Validation = 1,
-    Problem = 2,
-    NotFound = 3,
-    Conflict = 4
+    BadRequest = 1,
+    Unauthorized = 2,
+    Forbidden = 3,
+    NotFound = 4,
+    Conflict = 5,
+    InternalServerError = 6,
+    Timeout = 7,
+    Validation = 8
 }

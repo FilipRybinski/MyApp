@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../../interfaces/account/user';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
@@ -8,6 +8,7 @@ import { AppStore } from '../../store/app.store';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { TranslateService } from '@ngx-translate/core';
 import { LANG_COOKIE } from '../../constants/translation/translation';
+import { Response } from '../../interfaces/response/Response';
 
 @Injectable({
   providedIn: 'root',
@@ -27,10 +28,14 @@ export class InitializeService {
   private async fetchInitializeData(): Promise<void> {
     try {
       const user = await firstValueFrom(
-        this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
+        this.http
+          .get<Response<User>>(environment.URL.USERS.IS_AUTHORIZED)
+          .pipe(map(response => response.data))
       );
       const featureFlags = await firstValueFrom(
-        this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
+        this.http
+          .get<Response<FeatureFlags>>(environment.URL.FEATURE_FLAGS)
+          .pipe(map(response => response.data))
       );
       this.appStore.attachInitialData(user, featureFlags);
       console.log('initialize data fetched', user, featureFlags);

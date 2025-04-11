@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Application.Commands.SendConfirmationEmail;
 using Shared.Application.Commands.SendResetPasswordEmail;
+using Shared.Core.Objects;
 using Shared.Core.Policies;
 
 namespace QueueMailer.Api.Controllers;
@@ -16,16 +17,14 @@ public sealed class QueueMailerController(
 ) : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult> SendConfirmationEmail(ConfirmationEmail command, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result>> SendConfirmationEmail(ConfirmationEmail command, CancellationToken cancellationToken)
     {
-        await sender.Send(command, cancellationToken);
-        return Ok();
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
     }
 
     [HttpPost]
-    public async Task<ActionResult> SendResetPasswordEmail(ResetPasswordEmail command, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result>> SendResetPasswordEmail(ResetPasswordEmail command, CancellationToken cancellationToken)
     {
-        await sender.Send(command, cancellationToken);
-        return Ok();
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
     }
 }

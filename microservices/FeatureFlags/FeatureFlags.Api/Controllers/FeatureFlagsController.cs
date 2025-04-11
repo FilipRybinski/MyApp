@@ -1,6 +1,7 @@
 using FeatureFlags.Core.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Core.Objects;
 
 namespace FeatureFlags.Api.Controllers;
 
@@ -9,8 +10,9 @@ namespace FeatureFlags.Api.Controllers;
 public sealed class FeatureFlagsController(ISender sender) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<FeatureFlagsConfiguration>> GetFeatureFlags()
+    public async Task<ActionResult<Result<FeatureFlagsConfiguration>>> GetFeatureFlags()
     {
-        return Ok(await sender.Send(new Application.Commands.Flags.FeatureFlags()));
+        return Result.MatchResponse(await sender.Send(new Application.Commands.Flags.FeatureFlags()));
+
     }
 }

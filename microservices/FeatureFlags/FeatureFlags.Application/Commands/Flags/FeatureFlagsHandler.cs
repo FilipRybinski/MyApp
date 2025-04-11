@@ -9,8 +9,8 @@ public sealed class FeatureFlagsHandler(IOptions<FeatureFlagsConfiguration> feat
 {
     private readonly FeatureFlagsConfiguration FeatureFlags = featureFlags.Value;
 
-    public Task<Result<FeatureFlagsConfiguration>> Handle(FeatureFlags request, CancellationToken cancellationToken)
+    public async Task<Result<FeatureFlagsConfiguration>> Handle(FeatureFlags request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(Result.Success(FeatureFlags));
+        return FeatureFlags;
     }
 }

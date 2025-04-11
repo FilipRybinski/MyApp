@@ -18,7 +18,8 @@ export class NavbarMenuComponent {
 
   public logout(): void {
     this.sharedService.logout().subscribe({
-      next: () =>
+      next: ({ isSuccess }) =>
+        isSuccess &&
         this.router
           .navigate(getHomeUrl())
           .then(() => this.appStore.deauthorizeUser()),

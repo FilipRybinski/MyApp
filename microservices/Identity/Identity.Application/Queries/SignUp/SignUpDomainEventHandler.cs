@@ -5,6 +5,7 @@ using RequestClient.DTO;
 using RequestClient.Handler;
 using Shared.Application.Commands.SendConfirmationEmail;
 using Shared.Application.Routes;
+using Shared.Core.Objects;
 
 namespace Identity.Application.Queries.SignUp;
 
@@ -12,7 +13,7 @@ public class SignUpDomainEventHandler(IRequestHandler requestHandler, IRoutes ro
 {
     public async Task Handle(UserIdentitySignUpDomainEvent notification, CancellationToken cancellationToken)
     {
-        var response =  await requestHandler.SendRequestAsync<ConfirmationEmail, RequestClientResponseNoContent>(
+        var response =  await requestHandler.SendRequestAsync<ConfirmationEmail, Result>(
             routes.RoutesConfiguration.QueueMailerRoutes.SendConfirmationEmail,
             HttpMethod.Post,
             cancellationToken,

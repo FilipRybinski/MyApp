@@ -12,6 +12,6 @@ public sealed class IsAuthorizedHandler(IUserIdentityRepository userIdentityRepo
 {
     public async Task<Result<IdentityDto?>> Handle(IsAuthorized request, CancellationToken cancellationToken)
     {
-        return mapper.Map<IdentityDto>(await userIdentityRepository.GetSessionUserIdentityAsync());
+        return Result<IdentityDto?>.Success(mapper.Map<IdentityDto>(await userIdentityRepository.GetSessionUserIdentityAsync()));
     }
 }

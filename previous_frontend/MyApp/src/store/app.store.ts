@@ -25,19 +25,22 @@ export const AppStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods(store => ({
-    attachInitialData(user: User, featureFlags: FeatureFlags): void {
+    attachInitialData(
+      user: User | null,
+      featureFlags: FeatureFlags | null
+    ): void {
       patchState(store, {
-        featureFlags,
+        featureFlags: featureFlags ?? initialState.featureFlags,
         loggedInUser: {
-          user: user ?? null,
+          user: user,
           isAuth: !!user,
         },
       });
     },
-    authorizeUser(user: User): void {
+    authorizeUser(user: User | null): void {
       patchState(store, {
         loggedInUser: {
-          user: user ?? null,
+          user: user,
           isAuth: !!user,
         },
       });

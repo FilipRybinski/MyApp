@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using RequestClient.DTO;
 using RequestClient.Exceptions;
 using Shared.Core.Configuration;
+using Shared.Core.Objects;
 
 namespace RequestClient.Handler;
 
@@ -25,10 +26,34 @@ internal sealed class RequestHandler(
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SigningKey)),
         SecurityAlgorithms.HmacSha256);
     
-    
-    public async Task<RequestClientResponse<TResponse>> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, CancellationToken cancellationToken, TRequest? body = default) where TRequest : class where TResponse : class
+    public async Task<RequestClientResponse<Result>> SendRequestAsync<TRequest>(
+        string url, 
+        HttpMethod method, 
+        CancellationToken cancellationToken,
+        TRequest? body = default) where TRequest : class
     {
-        
+        return await ProcessRequestAsync<Result, TRequest>(url, method, cancellationToken, body);
+    }
+
+    public async Task<RequestClientResponse<Result<TResponse>>> SendRequestAsync<TRequest, TResponse>(
+        string url, 
+        HttpMethod method, 
+        CancellationToken cancellationToken,
+        TRequest? body = default)
+        where TRequest : class 
+        where TResponse : class
+    {
+        return await ProcessRequestAsync<Result<TResponse>, TRequest>(url, method, cancellationToken, body);
+    }
+
+    private async Task<RequestClientResponse<TResponse>> ProcessRequestAsync<TResponse, TRequest>(
+        string url,
+        HttpMethod method,
+        CancellationToken cancellationToken,
+        TRequest? body = default)
+        where TRequest : class
+        where TResponse : class
+    {
         try
         {
             using var request = new HttpRequestMessage(method, url);
@@ -42,21 +67,21 @@ internal sealed class RequestHandler(
             request.Headers.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
-            using var response = await httpClient.SendAsync(request,cancellationToken);
-            
-            var requestClientResponse = 
-                new RequestClientResponse<TResponse>()
-                {
-                    HttpResponse = response,
-                };
-            
+            using var response = await httpClient.SendAsync(request, cancellationToken);
+
+            var requestClientResponse = new RequestClientResponse<TResponse>
+            {
+                HttpResponse = response
+            };
+
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (responseContent == string.Empty) return requestClientResponse;
-            
-            requestClientResponse.DeserializedResponseBody = DeserializeResponseAsync<TResponse>(responseContent);
-            return requestClientResponse;
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                requestClientResponse.DeserializedResponseBody = DeserializeResponseAsync<TResponse>(responseContent);
+            }
 
+            return requestClientResponse;
         }
         catch (Exception e)
         {
@@ -64,7 +89,6 @@ internal sealed class RequestHandler(
             throw new RequestClientException();
         }
     }
-    
     private string CreateToken()
     {
         var now = DateTime.Now;
@@ -85,5 +109,6 @@ internal sealed class RequestHandler(
     
     private static  TResponse DeserializeResponseAsync<TResponse>(string responseContent) => 
         JsonSerializer.Deserialize<TResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+
 
 }
