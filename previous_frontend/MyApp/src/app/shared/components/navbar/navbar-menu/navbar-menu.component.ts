@@ -17,6 +17,7 @@ export class NavbarMenuComponent {
   protected readonly PATH = PATH;
 
   public logout(): void {
+    console.log(this.appStore.loggedInUser());
     this.sharedService.logout().subscribe({
       next: ({ isSuccess }) =>
         isSuccess &&

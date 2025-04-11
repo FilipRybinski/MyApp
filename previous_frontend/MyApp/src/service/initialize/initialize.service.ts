@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../../interfaces/account/user';
 import { FeatureFlags } from '../../interfaces/featureFlags/featureFlags';
@@ -28,16 +28,12 @@ export class InitializeService {
   private async fetchInitializeData(): Promise<void> {
     try {
       const user = await firstValueFrom(
-        this.http
-          .get<Response<User>>(environment.URL.USERS.IS_AUTHORIZED)
-          .pipe(map(response => response.data))
+        this.http.get<Response<User>>(environment.URL.USERS.IS_AUTHORIZED)
       );
       const featureFlags = await firstValueFrom(
-        this.http
-          .get<Response<FeatureFlags>>(environment.URL.FEATURE_FLAGS)
-          .pipe(map(response => response.data))
+        this.http.get<Response<FeatureFlags>>(environment.URL.FEATURE_FLAGS)
       );
-      this.appStore.attachInitialData(user, featureFlags);
+      this.appStore.attachInitialData(user.data, featureFlags.data);
       console.log('initialize data fetched', user, featureFlags);
     } catch (error) {
       return;
