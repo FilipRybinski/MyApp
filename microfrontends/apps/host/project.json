@@ -80,7 +80,9 @@
           }
         ],
         "styles": [
-          "apps/host/src/styles.scss"
+          "apps/host/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "libs/shared-ui/src/styles/index.scss"
         ],
         "scripts": [],
         "server": "apps/host/src/main.server.ts",

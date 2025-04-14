@@ -78,7 +78,9 @@
           }
         ],
         "styles": [
-          "apps/identity/src/styles.scss"
+          "apps/identity/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "libs/shared-ui/src/styles/index.scss"
         ],
         "scripts": []
       },

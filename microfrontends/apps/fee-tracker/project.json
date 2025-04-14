@@ -78,7 +78,9 @@
           }
         ],
         "styles": [
-          "apps/fee-tracker/src/styles.scss"
+          "apps/fee-tracker/src/styles.scss",
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "libs/shared-ui/src/styles/index.scss"
         ],
         "scripts": []
       },
