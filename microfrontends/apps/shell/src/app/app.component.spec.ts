@@ -15,13 +15,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome fee-tracker'
+      'Welcome shell'
     );
   });
 
-  it(`should have as title 'fee-tracker'`, () => {
+  it(`should have as title 'shell'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('fee-tracker');
+    expect(app.title).toEqual('shell');
   });
 });

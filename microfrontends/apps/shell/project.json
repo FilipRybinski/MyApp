@@ -1,9 +1,9 @@
 {
-  "name": "fee-tracker",
+  "name": "shell",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/fee-tracker/src",
+  "sourceRoot": "apps/shell/src",
   "tags": [],
   "targets": {
     "build": {
@@ -11,10 +11,10 @@
       "options": {},
       "configurations": {
         "production": {
-          "target": "fee-tracker:esbuild:production"
+          "target": "shell:esbuild:production"
         },
         "development": {
-          "target": "fee-tracker:esbuild:development",
+          "target": "shell:esbuild:development",
           "dev": true
         }
       },
@@ -23,7 +23,7 @@
     "serve": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "fee-tracker:serve-original:development",
+        "target": "shell:serve-original:development",
         "rebuildDelay": 0,
         "dev": true,
         "port": 0
@@ -32,7 +32,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "fee-tracker:build"
+        "buildTarget": "shell:build"
       }
     },
     "lint": {
@@ -44,15 +44,15 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "apps/fee-tracker/jest.config.ts"
+        "jestConfig": "apps/shell/jest.config.ts"
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "fee-tracker:build",
+        "buildTarget": "shell:build",
         "port": 4200,
-        "staticFilePath": "dist/apps/fee-tracker/browser",
+        "staticFilePath": "dist/apps/shell/browser",
         "spa": true
       }
     },
@@ -62,24 +62,24 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/fee-tracker",
-        "index": "apps/fee-tracker/src/index.html",
-        "browser": "apps/fee-tracker/src/main.ts",
+        "outputPath": "dist/apps/shell",
+        "index": "apps/shell/src/index.html",
+        "browser": "apps/shell/src/main.ts",
         "polyfills": [
           "zone.js",
           "es-module-shims"
         ],
-        "tsConfig": "apps/fee-tracker/tsconfig.app.json",
+        "tsConfig": "apps/shell/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/fee-tracker/public"
+            "input": "apps/shell/public"
           }
         ],
         "styles": [
           "@angular/material/prebuilt-themes/azure-blue.css",
-          "apps/fee-tracker/src/styles.scss",
+          "apps/shell/src/styles.scss",
           "libs/shared/ui/src/styles/index.scss"
         ],
         "scripts": []
@@ -112,15 +112,15 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "fee-tracker:esbuild:production"
+          "buildTarget": "shell:esbuild:production"
         },
         "development": {
-          "buildTarget": "fee-tracker:esbuild:development"
+          "buildTarget": "shell:esbuild:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4202
+        "port": 4200
       }
     }
   }

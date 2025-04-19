@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microfrontends/shared-services": ["libs/shared-services/src/index.ts"],
-      "@microfrontends/shared-ui": ["libs/shared-ui/src/index.ts"]
+      "@microfrontends/services": ["libs/shared/services/src/index.ts"],
+      "@microfrontends/ui": ["libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
