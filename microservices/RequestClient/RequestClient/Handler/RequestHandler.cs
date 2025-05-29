@@ -67,6 +67,7 @@ internal sealed class RequestHandler(
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
             using var response = await httpClient.SendAsync(request, cancellationToken);
+            logger.LogWarning("INFO-path: {ErrorMessage}", url);
             logger.LogWarning("INFO: {ErrorMessage}", response.Headers.ToString());
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
