@@ -16,7 +16,7 @@ namespace QueueMailer.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-[Authorize(Policy = AuthPolicies.Internal)]
+/*[Authorize(Policy = AuthPolicies.Internal)]*/
 public sealed class QueueMailerController(
     ILogger<QueueMailerController> logger,
     ISender sender,
