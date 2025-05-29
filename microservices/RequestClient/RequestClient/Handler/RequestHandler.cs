@@ -68,14 +68,13 @@ internal sealed class RequestHandler(
 
             using var response = await httpClient.SendAsync(request, cancellationToken);
             logger.LogWarning("INFO-path: {ErrorMessage}", url);
-            logger.LogWarning("INFO: {ErrorMessage}", response.Headers.ToString());
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
             return DeserializeResponseAsync<TResponse>(responseContent);
         }
         catch (Exception e)
         {
-            logger.LogWarning("Internal request failed: {ErrorMessage}", e.Message);
+            logger.LogWarning("Internal request failed: {Exception}", e.ToString());
             throw new RequestClientException();
         }
     }
