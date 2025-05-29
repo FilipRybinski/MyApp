@@ -1,6 +1,7 @@
 using AutoMapper;
 using Identity.Core.DTO;
 using Identity.Domain.Identity;
+using Shared.Core.DTO;
 
 namespace Identity.Application.Mapper.UserIdentityMap;
 

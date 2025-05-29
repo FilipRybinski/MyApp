@@ -43,13 +43,14 @@ public class Result
 
 }
 
-public class Result<TValue>(TValue? value, bool isSuccess, Error? error = default) : Result(isSuccess, error)
+[method: JsonConstructor]
+public class Result<TValue>(TValue? data, bool isSuccess, Error? error = default) : Result(isSuccess, error)
 {
-    public TValue? Data { get; } = value;
-    
+    public TValue? Data { get; } = data;
+
     public static implicit operator Result<TValue>(TValue? value) =>
         value is not null ? Success(value) : Failure<TValue>(Error.BadRequest("Value cannot be null"));
-    
+
     public static Result<TValue> ValidationFailure(Error error) =>
         new(default, false, error);
 }

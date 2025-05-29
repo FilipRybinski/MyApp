@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using QueueMailer.Application.Abstractions;
 using QueueMailer.Core.Configuration;
+using QueueMailer.Infrastructure.DAL.Abstractions;
 using QueueMailer.Infrastructure.Mailbox.MailboxBroadcaster;
 using QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 using QueueMailer.Infrastructure.Mailbox.MailboxMessage;

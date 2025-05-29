@@ -1,8 +1,8 @@
 using AutoMapper;
 using Identity.Core.DTO;
 using Identity.Core.Repositories;
-using MediatR;
 using Shared.Application.Abstractions.CQRS;
+using Shared.Core.DTO;
 using Shared.Core.Objects;
 
 namespace Identity.Application.Commands.Authorized;

@@ -64,6 +64,11 @@ jobs:
             settingsPath: "./microservices/TokenRegistry/TokenRegistry.Api/appsettings.json"
             settings_secret: "TOKENREGISTRY_SETTINGS"
 
+          - name: "feetracker"
+            dockerPath: "./microservices/FeeTracker/FeeTracker.Api/Dockerfile"
+            settingsPath: "./microservices/FeeTracker/FeeTracker.Api/appsettings.json"
+            settings_secret: "FEE_TRACKER_SETTINGS"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3

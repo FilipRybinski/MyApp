@@ -1,4 +1,4 @@
-using Identity.Domain.Role;
+using Identity.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

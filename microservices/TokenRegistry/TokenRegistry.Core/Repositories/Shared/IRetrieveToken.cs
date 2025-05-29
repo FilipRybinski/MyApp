@@ -1,6 +1,5 @@
-using TokenRegistry.Core.Abstractions;
-using TokenRegistry.Core.DTO;
-using TokenRegistry.Core.Enums;
+using Shared.Application.Commands.Token;
+using Shared.Core.DTO;
 
 namespace TokenRegistry.Core.Repositories.Shared;
 

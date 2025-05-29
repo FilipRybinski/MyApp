@@ -1,16 +1,16 @@
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Application.Commands.Token;
+using Shared.Core.DTO;
+using Shared.Core.Enums;
 using StackExchange.Redis;
-using TokenRegistry.Core.Abstractions;
-using TokenRegistry.Core.DTO;
-using TokenRegistry.Core.Enums;
 using TokenRegistry.Infrastructure.Exceptions;
 
 namespace TokenRegistry.Infrastructure.DAL.Abstractions;
 
 internal abstract class TokenRepository(IDatabase dbContext) 
 {
-    protected async Task<TokenDto> GetTokenAsync(TokenQuery query, TokenType tokenType,CancellationToken cancellationToken, TimeSpan expiry = default)
+    protected async Task<TokenDto> GetTokenAsync(TokenQuery query, TokenType tokenType,CancellationToken cancellationToken, TimeSpan? expiry = null)
     {
 
         

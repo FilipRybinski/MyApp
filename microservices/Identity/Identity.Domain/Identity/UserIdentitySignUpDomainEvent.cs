@@ -1,5 +1,6 @@
+using Shared.Core.DTO;
 using Shared.Domain.Abstractions;
 
 namespace Identity.Domain.Identity;
 
-public record UserIdentitySignUpDomainEvent(Guid Id, string Email) : IDomainEvent;
+public record UserIdentitySignUpDomainEvent(IdentityDto Identity) : IDomainEvent;

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Activate Your Account</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .header h1 {
+            color: #4a90e2;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 12px 0;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 28px;
+            background-color: #4a90e2;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #357ab8;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>👋 Welcome to MyAppZone!</h1>
+    </div>
+    <div class="content">
+        <p>Thank you for signing up. You’re one step away from getting started.</p>
+        <p>Click the button below to activate your account:</p>
+        <a href="{{Link}}" class="button">Activate My Account</a>
+        <p style="margin-top: 30px;">If you didn’t create this account, just ignore this email.</p>
+    </div>
+    <div class="footer">
+        &copy; 2025 MyAppZone. All rights reserved.
+    </div>
+</div>
+</body>
+</html>

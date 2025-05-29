@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Application.Commands.Token;
+using Shared.Core.DTO;
 using Shared.Core.Objects;
 using TokenRegistry.Application.Queries.LimitedTimeToken;
 using TokenRegistry.Application.Queries.MultiTimeToken;
 using TokenRegistry.Application.Queries.OneTimeToken;
-using TokenRegistry.Application.Queries.ValidateToken;
-using TokenRegistry.Core.DTO;
 
 namespace TokenRegistry.Api.Controllers;
 
@@ -41,7 +41,7 @@ public sealed class TokenRegistryController(
     
     [HttpPost]
     /*[Authorize]*/
-    public async Task<ActionResult<Result<bool>>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<TokenValidationDto>>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
     {
         return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }

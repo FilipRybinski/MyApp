@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Identity.Application.Queries.SignIn;
 
-internal sealed class SignInValidator : AbstractValidator<Queries.SignIn.SignIn>
+internal sealed class SignInValidator : AbstractValidator<SignIn>
 {
     public SignInValidator()
     {

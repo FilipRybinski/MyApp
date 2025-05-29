@@ -1,5 +1,5 @@
 using Identity.Core.Dictionary;
-using Identity.Domain.Role;
+using Identity.Domain.Roles;
 using Identity.Infrastructure.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

@@ -9,6 +9,7 @@ using Shared.Infrastructure.Authorization;
 using Shared.Infrastructure.Documentation;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Exceptions.Middleware;
+using Shared.Infrastructure.Providers;
 
 namespace Shared.Infrastructure;
 
@@ -23,6 +24,7 @@ public static class Extensions
         services.ConfigureAuthorization(configuration);
         services.AddExceptionMiddleware();
         services.AddSingleton<IRoutes, Routes>();
+        services.AddProviders();
 
         return services;
     }

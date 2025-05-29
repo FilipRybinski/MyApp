@@ -3,7 +3,7 @@ using Identity.Core.Repositories;
 
 namespace Identity.Application.Queries.SignUp;
 
-internal sealed class SignUpValidator : AbstractValidator<Queries.SignUp.SignUp>
+internal sealed class SignUpValidator : AbstractValidator<SignUp>
 {
     private readonly IUserIdentityRepository _userIdentityRepository;
     private const int MinLength = 3;

@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using QueueMailer.Core.Repositories;
+using QueueMailer.Application.Repositories;
 using QueueMailer.Infrastructure.DAL.Context;
 using QueueMailer.Infrastructure.DAL.Initializer;
 using QueueMailer.Infrastructure.DAL.Repositories;

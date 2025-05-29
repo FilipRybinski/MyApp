@@ -1,6 +1,6 @@
 using Shared.Application.Abstractions.CQRS;
+using Shared.Core.DTO;
 using Shared.Core.Objects;
-using TokenRegistry.Core.DTO;
 using TokenRegistry.Core.Repositories;
 
 namespace TokenRegistry.Application.Queries.MultiTimeToken;

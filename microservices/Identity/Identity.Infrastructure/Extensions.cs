@@ -15,7 +15,6 @@ public static class Extensions
         services.AddPostgres(configuration);
         services.AddSecurity();
         services.AddAuth();
-        services.AddHttpContextAccessor();
         services.AddRequestClient();
         services.AddSharedInfrastructure(configuration);
         

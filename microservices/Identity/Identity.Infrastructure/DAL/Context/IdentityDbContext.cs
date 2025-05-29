@@ -1,5 +1,5 @@
 using Identity.Domain.Identity;
-using Identity.Domain.Role;
+using Identity.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.DAL.Context;

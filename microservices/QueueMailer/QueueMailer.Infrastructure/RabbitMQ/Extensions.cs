@@ -17,8 +17,10 @@ internal static class Extensions
         
         services.AddMassTransit(config =>
         {
-            config.AddConsumer<ConfirmationEmailConsumer>();
-            config.AddConsumer<ResetPasswordEmailConsumer>();
+            config.AddConsumer<ConfirmationEmailEventConsumer>();
+            config.AddConsumer<ResetPasswordEmailEventConsumer>();
+            config.AddConsumer<ActivationEmailEventConsumer>();
+            config.AddConsumer<PasswordSubmissionEmailEventConsumer>();
 
             config.UsingRabbitMq((context, cfg) =>
             {

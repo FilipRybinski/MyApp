@@ -4,6 +4,7 @@ using Identity.Core.DTO;
 using Identity.Core.Exceptions;
 using Identity.Core.Repositories;
 using Shared.Application.Abstractions.CQRS;
+using Shared.Core.DTO;
 using Shared.Core.Objects;
 
 namespace Identity.Application.Queries.SignIn;

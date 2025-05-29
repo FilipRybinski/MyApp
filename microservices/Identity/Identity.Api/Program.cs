@@ -1,7 +1,5 @@
 using Identity.Application;
 using Identity.Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Shared.Infrastructure;
 using Shared.Infrastructure.Configuration;
 
