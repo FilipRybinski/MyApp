@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Shared.Core.Exceptions;
 
 namespace Shared.Infrastructure.Exceptions.Middleware;
 
-internal sealed class ExceptionMiddleware : IMiddleware
+internal sealed class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -19,6 +20,7 @@ internal sealed class ExceptionMiddleware : IMiddleware
 
     private async Task HandleExceptionAsync(Exception exception, HttpContext context)
     {
+        logger.LogError(exception, "Exception thrown while processing request at {Path}", context.Request?.Path);
         var (statusCode, error) = exception switch
         {
             CustomException => (StatusCodes.Status400BadRequest, new Error(exception
