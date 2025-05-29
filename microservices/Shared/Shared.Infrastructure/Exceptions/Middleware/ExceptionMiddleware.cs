@@ -21,7 +21,6 @@ internal sealed class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) :
 
     private async Task HandleExceptionAsync(Exception exception, HttpContext context)
     {
-        logger.LogError(exception, "Exception thrown while processing request at {Path}", context.Request?.Path);
         var (statusCode, error) = exception switch
         {
             CustomException => (StatusCodes.Status400BadRequest, Result.Failure(Error.BadRequest($"{exception
