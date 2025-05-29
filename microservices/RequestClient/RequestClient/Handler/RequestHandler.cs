@@ -71,10 +71,6 @@ internal sealed class RequestHandler(
             
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
             
-            var errorMessage = $"{(int)response.StatusCode} {response.ReasonPhrase}: {responseContent}";
-            logger.LogWarning("HTTP error response: {Error}", errorMessage);
-            
-
             return DeserializeResponseAsync<TResponse>(responseContent);
         }
         catch (Exception e)
