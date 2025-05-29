@@ -53,8 +53,6 @@ internal sealed class RequestHandler(
         where TRequest : class
         where TResponse : class
     {
-        try
-        {
             using var request = new HttpRequestMessage(method, url);
 
             if (body is not null)
@@ -67,17 +65,22 @@ internal sealed class RequestHandler(
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
             using var response = await httpClient.SendAsync(request, cancellationToken);
-            logger.LogWarning("INFO-path: {ErrorMessage}", url);
-            
+            logger.LogInformation("INFO-path: {Url}", url);
+
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-            
+
+            if (!response.IsSuccessStatusCode)
+            {
+                logger.LogError("Request to {Url} failed. Status: {StatusCode} {ReasonPhrase}. Body: {Body}",
+                    url,
+                    (int)response.StatusCode,
+                    response.ReasonPhrase,
+                    responseContent);
+
+                throw new RequestClientException($"Request to {url} failed with status code {(int)response.StatusCode}.");
+            }
+
             return DeserializeResponseAsync<TResponse>(responseContent);
-        }
-        catch (Exception e)
-        {
-            logger.LogWarning("Internal request failed: {Exception}", e.ToString());
-            throw new RequestClientException();
-        }
     }
     private string CreateToken()
     {
