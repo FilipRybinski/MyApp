@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { IdentitySignInAction } from '../../../../common/interfaces/httpActions/identitySignInAction';
 import { IdentitySignUpAction } from '../../../../common/interfaces/httpActions/identitySignUpAction';
 import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
+import { IdentityActivationAction } from '../../../../common/interfaces/httpActions/identityActivationAction';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class IdentityService {
     body: IdentitySignInAction
   ): Observable<HttpResponse<Identity>> {
     return this.http.post<HttpResponse<Identity>>(
-      environment.URL.USERS.SIGN_IN,
+      environment.URL.IDENTITY.SIGN_IN,
       body
     );
   }
@@ -30,7 +31,7 @@ export class IdentityService {
     body: IdentitySignUpAction
   ): Observable<HttpResponse<Identity>> {
     return this.http.post<HttpResponse<Identity>>(
-      environment.URL.USERS.SIGN_UP,
+      environment.URL.IDENTITY.SIGN_UP,
       body
     );
   }
@@ -39,7 +40,14 @@ export class IdentityService {
     body: IdentityResetPasswordRequestAction
   ): Observable<BasicHttpResponse> {
     return this.http.post<BasicHttpResponse>(
-      environment.URL.USERS.RESET_PASSWORD_REQUEST,
+      environment.URL.IDENTITY.RESET_PASSWORD_REQUEST,
+      body
+    );
+  }
+
+  public identityActivation(body: IdentityActivationAction) {
+    return this.http.post<BasicHttpResponse>(
+      environment.URL.IDENTITY.Activation,
       body
     );
   }

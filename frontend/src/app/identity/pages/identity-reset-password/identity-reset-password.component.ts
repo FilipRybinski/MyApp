@@ -11,6 +11,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import { IdentityService } from '../../services/identity/identity.service';
+import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
 
 @Component({
   selector: 'app-identity-reset-password',
@@ -69,6 +71,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class IdentityResetPasswordComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
+  private readonly identityService = inject(IdentityService);
 
   private id: string | null = null;
   private token: string | null = null;
@@ -91,6 +94,10 @@ export class IdentityResetPasswordComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    const body: IdentityResetPasswordRequestAction = {
+      ...this.form.value,
+    };
+    this.identityService.identityResetPasswordRequest(body).subscribe();
   }
 
   private initForm(): void {
