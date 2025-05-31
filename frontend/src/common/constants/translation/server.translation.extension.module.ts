@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
 import { LANG_KEY } from './translation';
 import { Languages } from '../../enums/languages';
+import fs from 'fs';
 
 const TRANSLATION_PATH = './dist/frontend/browser/i18n';
 const EXTENSION_FILE = 'json';
@@ -20,14 +21,14 @@ function HttpLoaderFactory() {
   return {
     getTranslation: (lang: string) => {
       const key: StateKey<object> = makeStateKey<object>(`${LANG_KEY}-${lang}`);
-      const fs = require('fs');
-      const data = JSON.parse(
-        fs.readFileSync(
-          `${TRANSLATION_PATH}/${lang}.${EXTENSION_FILE}`,
-          BUFFER_ENCODING
-        )
-      );
-      transferState.set(key, data);
+      const filePath = `${TRANSLATION_PATH}/${lang}.${EXTENSION_FILE}`;
+      let data!: object;
+
+      if (fs.existsSync(filePath)) {
+        data = JSON.parse(fs.readFileSync(filePath, BUFFER_ENCODING));
+        transferState.set(key, data);
+      }
+
       return new Observable((observer: Observer<unknown>) => {
         observer.next(data);
         observer.complete();
