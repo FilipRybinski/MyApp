@@ -37,6 +37,9 @@ jobs:
           - name: "default-frontend"
             dockerPath: "./previous_frontend/MyApp/Dockerfile"
 
+          - name: "frontend"
+            dockerPath: "./frontend/Dockerfile"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
