@@ -14,7 +14,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { InitializeService } from '../common/services/initialize/initialize.service';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { credentialsInterceptor } from '../common/interceptors/credentials.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
