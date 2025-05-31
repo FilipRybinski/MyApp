@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/pages';
-import { NavbarComponent } from './components/layout/navbar/navbar.component';
-import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @Component({
-  imports: [
-    RouterModule,
-    DashboardComponent,
-    NavbarComponent,
-    SidebarComponent,
-  ],
+  imports: [RouterModule, LayoutComponent],
   selector: 'app-root',
-  template: ` <app-navbar />
-    <app-sidebar />`,
+  template: ` <app-layout />`,
 })
 export class AppComponent {
   title = 'frontend';

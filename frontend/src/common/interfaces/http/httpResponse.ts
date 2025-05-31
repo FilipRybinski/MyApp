@@ -4,3 +4,9 @@ export interface HttpResponse<T> {
   isFailure: boolean;
   error: Error | null;
 }
+
+export interface BasicHttpResponse {
+  isSuccess: boolean;
+  isFailure: boolean;
+  error: Error | null;
+}

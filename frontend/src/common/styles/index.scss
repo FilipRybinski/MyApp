@@ -1,2 +1,5 @@
-@use './tailwind/index.scss';
-@use './theme/index.scss';
+@use 'tailwind/tailwind';
+@use 'theme/theme';
+@use 'overrides/material-overrides';
+@use 'scroll/scroll.scss';
+@use './animations/index.scss';
