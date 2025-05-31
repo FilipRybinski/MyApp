@@ -21,4 +21,4 @@ RUN npm install --only=production
 
 EXPOSE 4000
 
-CMD ["node", "dist/my-app/server/server.mjs"]
+CMD ["node", "dist/frontend/server/server.mjs"]
