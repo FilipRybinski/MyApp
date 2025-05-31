@@ -38,7 +38,6 @@ export class InitializeService {
         this.http.get<HttpResponse<FeatureFlags>>(environment.URL.FEATURE_FLAGS)
       );
       this.appStore.attachInitialData(user.data, featureFlags.data);
-      console.log('initialize data fetched', user, featureFlags);
     } catch (error) {
       return;
     }
