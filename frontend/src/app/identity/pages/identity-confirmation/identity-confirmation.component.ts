@@ -11,9 +11,30 @@ import { getGlobalHomeUrl } from '../../../../common/constants/routing/routing';
 @Component({
   selector: 'app-identity-confirmation',
   imports: [CommonModule, TranslatePipe, MatButton],
-  template: ` <button mat-flat-button (click)="activateIdentity()">
-    {{ 'Confirm' | translate }}
-  </button>`,
+  template: `
+    <div class="grid grid-cols-1 place-items-center py-24 ">
+      <div
+        class="col-span-1 p-4 m-2 flex flex-col gap-4 justify-evenly items-center "
+      >
+        <div class="flex flex-col items-center gap-1 w-full">
+          <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
+          <p class="text-sm uppercase text-gray-400">
+            <strong>{{ 'ThanksForRegistration' | translate }}</strong
+            ><br />
+            {{ 'ActivationInfo' | translate }} „{{
+              'Confirm' | translate
+            }}”.<br /><br />
+            {{ 'ActivationIgnore' | translate }}
+          </p>
+        </div>
+        <div>
+          <button mat-flat-button (click)="activateIdentity()">
+            {{ 'Confirm' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  `,
 })
 export class IdentityConfirmationComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);

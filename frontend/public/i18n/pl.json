@@ -52,6 +52,9 @@
   "Close": "Zamknij",
   "Send": "Wyślij",
   "ResetPassword": "Zresetuj hasło",
-  "Confirm": "Potwierdź"
+  "Confirm": "Potwierdź",
+  "ThanksForRegistration": "Dziękujemy za rejestrację!",
+  "ActivationInfo": "Aby aktywować swoje konto i uzyskać pełny dostęp do platformy, kliknij poniższy przycisk",
+  "ActivationIgnore": "Jeśli nie Ty zakładałeś(-aś) konto, możesz zignorować tę wiadomość."
 }
 
