@@ -64,6 +64,7 @@ internal abstract class TokenRepository(IDatabase dbContext)
         {
             rng.GetBytes(randomNumber);
         }
-        return Convert.ToBase64String(randomNumber);
+
+        return Base64UrlEncoder.Encode(randomNumber);
     }
 }
