@@ -32,6 +32,11 @@ public sealed class SignInHandler(
             throw new InvalidCredentialsException();
         }
 
+        if (!result.IsActive)
+        {
+            throw new InvalidCredentialsException();
+        }
+
         var token = authenticator.CreateToken(result.Id, result.Role.Name);
         httpContextTokenService.Set(token);
         return mapper.Map<IdentityDto>(result);
