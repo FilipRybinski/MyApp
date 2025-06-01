@@ -23,8 +23,7 @@ internal sealed class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) :
     {
         var (statusCode, error) = exception switch
         {
-            CustomException => (StatusCodes.Status400BadRequest, Result.Failure(Error.BadRequest($"{exception
-                .GetType().Name.Replace("Exception", string.Empty)} - ${exception.Message}"))),
+            CustomException => (StatusCodes.Status400BadRequest, Result.Failure(Error.BadRequest(exception.Message))),
             _ => (StatusCodes.Status500InternalServerError, Result.Failure(Error.InternalServerError("Internal Server Error")))
         };
 
