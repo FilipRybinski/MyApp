@@ -43,7 +43,7 @@ import { MatButtonModule } from '@angular/material/button';
           <mat-label>{{ 'Email' | translate }}</mat-label>
           <input
             type="text"
-            autocomplete="email"
+            autocomplete="off"
             formControlName="email"
             matInput
           />
@@ -99,7 +99,7 @@ export class IdentityResetPasswordRequestComponent implements OnInit {
     this.isLoading = true;
 
     this.identityService.identityResetPasswordRequest(body).subscribe({
-      next: (response: BasicHttpResponse) => {
+      next: ({ isSuccess }: BasicHttpResponse) => {
         this.isLoading = false;
         this.dialogRef.close();
       },

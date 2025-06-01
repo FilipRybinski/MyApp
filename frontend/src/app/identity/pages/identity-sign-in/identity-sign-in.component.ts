@@ -46,7 +46,7 @@ import { IdentityResetPasswordRequestComponent } from '../../dialogs/identity-re
           <mat-label>{{ 'Email' | translate }}</mat-label>
           <input
             type="text"
-            autocomplete="email"
+            autocomplete="off"
             formControlName="email"
             matInput
           />
@@ -55,15 +55,19 @@ import { IdentityResetPasswordRequestComponent } from '../../dialogs/identity-re
           <mat-label>{{ 'Password' | translate }}</mat-label>
           <input
             type="password"
-            autocomplete="password"
+            autocomplete="off"
             formControlName="password"
             matInput
           />
         </mat-form-field>
         <div class="flex flex-col gap-2">
-          <button mat-button (click)="openResetPasswordDialog()">
+          <a
+            href="#"
+            (click)="openResetPasswordDialog(); $event.preventDefault()"
+            class="text-center text-gray-400 underline hover:no-underline cursor-pointer"
+          >
             {{ 'ResetPassword' | translate }}
-          </button>
+          </a>
           <button
             (click)="submit()"
             mat-flat-button

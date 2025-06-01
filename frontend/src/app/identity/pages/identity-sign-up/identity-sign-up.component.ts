@@ -42,7 +42,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'UserName' | translate }}</mat-label>
             <input
               type="text"
-              autocomplete="username"
+              autocomplete="off"
               formControlName="username"
               matInput
             />
@@ -51,7 +51,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'Name' | translate }}</mat-label>
             <input
               type="text"
-              autocomplete="name"
+              autocomplete="off"
               formControlName="name"
               matInput
             />
@@ -60,7 +60,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'Surname' | translate }}</mat-label>
             <input
               type="text"
-              autocomplete="surname"
+              autocomplete="off"
               formControlName="surname"
               matInput
             />
@@ -69,7 +69,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'Email' | translate }}</mat-label>
             <input
               type="text"
-              autocomplete="email"
+              autocomplete="off"
               formControlName="email"
               matInput
             />
@@ -78,7 +78,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'Password' | translate }}</mat-label>
             <input
               type="password"
-              autocomplete="password"
+              autocomplete="off"
               formControlName="password"
               matInput
             />
@@ -87,7 +87,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
             <mat-label>{{ 'ConfirmPassword' | translate }}</mat-label>
             <input
               type="password"
-              autocomplete="confirmPassword"
+              autocomplete="off"
               formControlName="confirmPassword"
               matInput
             />

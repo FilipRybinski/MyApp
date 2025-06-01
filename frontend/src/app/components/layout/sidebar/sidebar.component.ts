@@ -21,8 +21,8 @@ import { SidebarToolsComponent } from './sidebar-tools/sidebar-tools.component';
         [mode]="'side'"
         [opened]="isSidebarOpen()"
       >
+        <app-sidebar-avatar class="mb-4" />
         <app-sidebar-tools class="flex items-center gap-2" />
-        <app-sidebar-avatar />
         <app-sidebar-menu class="w-full" />
       </mat-sidenav>
       <mat-sidenav-content class="pt-4">

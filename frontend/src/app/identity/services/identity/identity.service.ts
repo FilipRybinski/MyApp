@@ -63,4 +63,8 @@ export class IdentityService {
       body
     );
   }
+
+  public identityLogout(): Observable<BasicHttpResponse> {
+    return this.http.get<BasicHttpResponse>(environment.URL.IDENTITY.LOGOUT);
+  }
 }

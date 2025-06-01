@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-alert-error',
-  standalone: true,
   imports: [MatIcon, TranslateModule],
   template:
     '<div class="flex justify-between items-center"><span class="titlecase">{{data | translate}}</span><mat-icon class="error-icon-color">error</mat-icon></div>',

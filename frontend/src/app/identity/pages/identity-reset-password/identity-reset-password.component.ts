@@ -40,7 +40,7 @@ import { IdentityResetPasswordSubmissionAction } from '../../../../common/interf
           <mat-label>{{ 'Password' | translate }}</mat-label>
           <input
             type="password"
-            autocomplete="password"
+            autocomplete="off"
             formControlName="password"
             matInput
           />
@@ -49,7 +49,7 @@ import { IdentityResetPasswordSubmissionAction } from '../../../../common/interf
           <mat-label> {{ 'ConfirmPassword' | translate }}</mat-label>
           <input
             type="password"
-            autocomplete="password"
+            autocomplete="off"
             formControlName="confirmPassword"
             matInput
           />
@@ -101,7 +101,7 @@ export class IdentityResetPasswordComponent implements OnInit {
       token: this.token,
       password,
     };
-    this.identityService.identityResetPasswordSubmission(body).subscribe();
+    this.identityService.identityResetPasswordSubmission(body).subscribe({});
   }
 
   private initForm(): void {
