@@ -1,4 +1,5 @@
 using AutoMapper;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.Repositories;
 using Identity.Domain.Identity;
 using RequestClient.Handler;
@@ -14,6 +15,7 @@ namespace Identity.Application.Commands.Password.Submission;
 public class PasswordSubmissionHandler(
     IUserIdentityRepository userIdentityRepository,
     IRequestHandler requestHandler,
+    IPasswordManager passwordManager,
     IRoutes routes,
     IMapper mapper
     ) : ICommandHandler<PasswordSubmission>
@@ -26,6 +28,8 @@ public class PasswordSubmissionHandler(
         {
             return Result.Failure(Error.BadRequest("User not found"));
         }
+        
+        var securedPassword = passwordManager.Secure(request.Password);
         
         var validationResponse = await requestHandler.SendRequestAsync<ValidateToken,TokenValidationDto>(
             routes.RoutesConfiguration.TokenRegistryRoutes.ValidateToken,
@@ -40,7 +44,7 @@ public class PasswordSubmissionHandler(
         }
         
         user.Raise(new UserIdentityPasswordSubmissionDomainEvent(mapper.Map<IdentityDto>(user)));
-        await userIdentityRepository.UserIdentityPasswordSubmissionAsync(user, request.Password);
+        await userIdentityRepository.UserIdentityPasswordSubmissionAsync(user, securedPassword);
         
         return Result.Success();
     }
