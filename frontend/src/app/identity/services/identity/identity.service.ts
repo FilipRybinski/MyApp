@@ -11,6 +11,7 @@ import { IdentitySignInAction } from '../../../../common/interfaces/httpActions/
 import { IdentitySignUpAction } from '../../../../common/interfaces/httpActions/identitySignUpAction';
 import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
 import { IdentityActivationAction } from '../../../../common/interfaces/httpActions/identityActivationAction';
+import { IdentityResetPasswordSubmissionAction } from '../../../../common/interfaces/httpActions/identityResetPasswordSubmissionAction';
 
 @Injectable({
   providedIn: 'root',
@@ -45,9 +46,20 @@ export class IdentityService {
     );
   }
 
-  public identityActivation(body: IdentityActivationAction) {
+  public identityActivation(
+    body: IdentityActivationAction
+  ): Observable<BasicHttpResponse> {
     return this.http.post<BasicHttpResponse>(
       environment.URL.IDENTITY.Activation,
+      body
+    );
+  }
+
+  public identityResetPasswordSubmission(
+    body: IdentityResetPasswordSubmissionAction
+  ): Observable<BasicHttpResponse> {
+    return this.http.post<BasicHttpResponse>(
+      environment.URL.IDENTITY.RESET_PASSWORD_SUBMISSION,
       body
     );
   }

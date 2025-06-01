@@ -34,7 +34,7 @@ public class ResetPasswordRequestHandler(
             routes.RoutesConfiguration.QueueMailerRoutes.PrepareResetPasswordEmail,
             HttpMethod.Post,
             cancellationToken,
-            new PrepareEmail(mapper.Map<IdentityDto>(user),$"{routes.RoutesConfiguration.Host}/{user.Id}/{tokenResponse.Data.Token}")
+            new PrepareEmail(mapper.Map<IdentityDto>(user),$"{routes.RoutesConfiguration.Host}/identity/reset-password/{user.Id}/{tokenResponse.Data.Token}")
         );
         
         await requestHandler.SendRequestAsync(

@@ -4,15 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IDENTITY_PARAMS } from '../../routes/identity.routes';
 import { IdentityService } from '../../services/identity/identity.service';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { IdentityActivationAction } from '../../../../common/interfaces/httpActions/identityActivationAction';
 import { getGlobalHomeUrl } from '../../../../common/constants/routing/routing';
 
 @Component({
   selector: 'app-identity-confirmation',
-  imports: [CommonModule, MatIcon, MatTooltip, TranslatePipe, MatButton],
+  imports: [CommonModule, TranslatePipe, MatButton],
   template: ` <button mat-flat-button (click)="activateIdentity()">
     {{ 'Confirm' | translate }}
   </button>`,

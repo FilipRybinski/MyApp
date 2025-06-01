@@ -29,7 +29,7 @@ public class SignUpDomainEventHandler(IRequestHandler requestHandler, IRoutes ro
                 routes.RoutesConfiguration.QueueMailerRoutes.PrepareConfirmationEmail,
                 HttpMethod.Post,
                 cancellationToken,
-                new PrepareEmail(notification.Identity,$"{routes.RoutesConfiguration.Host}/{notification.Identity.Id}/{tokenResponse.Data.Token}")
+                new PrepareEmail(notification.Identity,$"{routes.RoutesConfiguration.Host}/identity/confirmation/{notification.Identity.Id}/{tokenResponse.Data.Token}")
             );
 
             await requestHandler.SendRequestAsync(

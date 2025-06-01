@@ -31,7 +31,7 @@ export class InitializeService {
     try {
       const user = await firstValueFrom(
         this.http.get<HttpResponse<Identity>>(
-          environment.URL.USERS.IS_AUTHORIZED
+          environment.URL.IDENTITY.IS_AUTHORIZED
         )
       );
       const featureFlags = await firstValueFrom(

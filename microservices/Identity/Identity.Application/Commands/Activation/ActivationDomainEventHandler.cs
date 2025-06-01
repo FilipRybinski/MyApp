@@ -17,7 +17,7 @@ public class ActivationDomainEventHandler(IRequestHandler requestHandler,IRoutes
                 routes.RoutesConfiguration.QueueMailerRoutes.PrepareActivationEmail,
                 HttpMethod.Post,
                 cancellationToken,
-                new PrepareEmail(notification.Identity,$"{routes.RoutesConfiguration.Host}")
+                new PrepareEmail(notification.Identity,routes.RoutesConfiguration.Host)
             );
 
             await requestHandler.SendRequestAsync(

@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { IdentityService } from '../../services/identity/identity.service';
-import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
+import { IdentityResetPasswordSubmissionAction } from '../../../../common/interfaces/httpActions/identityResetPasswordSubmissionAction';
 
 @Component({
   selector: 'app-identity-reset-password',
@@ -91,13 +91,17 @@ export class IdentityResetPasswordComponent implements OnInit {
   }
 
   public passwordSubmission(): void {
-    if (!this.form.valid) {
+    if (!this.form.valid || !this.id || !this.token) {
       return;
     }
-    const body: IdentityResetPasswordRequestAction = {
-      ...this.form.value,
+
+    const { password } = this.form.value;
+    const body: IdentityResetPasswordSubmissionAction = {
+      id: this.id,
+      token: this.token,
+      password,
     };
-    this.identityService.identityResetPasswordRequest(body).subscribe();
+    this.identityService.identityResetPasswordSubmission(body).subscribe();
   }
 
   private initForm(): void {

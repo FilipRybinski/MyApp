@@ -9,7 +9,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { IdentityService } from '../../services/identity/identity.service';
 import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BasicHttpResponse } from '../../../../common/interfaces/http/httpResponse';
 import { MatInput } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogContent,
     MatInput,
     MatButtonModule,
+    ReactiveFormsModule,
   ],
   template: ` <div class="flex flex-col items-center gap-1 pt-4">
       <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
@@ -32,7 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
       </p>
     </div>
     <mat-dialog-content>
-      <form>
+      <form [formGroup]="form">
         <mat-form-field>
           <mat-label>{{ 'Email' | translate }}</mat-label>
           <input
@@ -48,7 +54,12 @@ import { MatButtonModule } from '@angular/material/button';
       <button mat-flat-button (click)="close()">
         {{ 'Close' | translate }}
       </button>
-      <button mat-flat-button (click)="sendRequest()">
+      <button
+        [class.spinner]="isLoading"
+        [disabled]="isLoading"
+        mat-flat-button
+        (click)="sendRequest()"
+      >
         {{ 'Send' | translate }}
       </button>
     </mat-dialog-actions>`,
