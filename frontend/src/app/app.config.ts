@@ -30,7 +30,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([credentialsInterceptor])),
     provideAppInitializer(() => inject(InitializeService).initialize()),
     importProvidersFrom(TranslateModule.forChild()),
-    SsrCookieService,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
