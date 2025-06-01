@@ -25,7 +25,6 @@ export const appRoutes: Route[] = [
       import('./fee-tracker/routes/fee-tracker.routes').then(
         (m) => m.feeTrackerRoutes
       ),
-    canActivate: [Guards.featureFlagGuard],
     canActivateChild: [Guards.featureFlagGuard],
     data: { feature: FeatureFlag.FEE_TRACKER },
   },

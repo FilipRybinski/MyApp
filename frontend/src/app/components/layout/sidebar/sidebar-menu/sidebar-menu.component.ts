@@ -4,6 +4,7 @@ import { GLOBAL_ROUTING_PATH } from '../../../../../common/constants/routing/rou
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { AppStore } from '../../../../../common/store/app.store';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface MenuItems {
   route: string[];
@@ -14,7 +15,7 @@ interface MenuItems {
 
 @Component({
   selector: 'app-sidebar-menu',
-  imports: [MatNavList, MatListItem, MatIcon],
+  imports: [MatNavList, MatListItem, MatIcon, TranslatePipe],
   template: `
     <mat-nav-list class="!flex !flex-col gap-2">
       @for (item of menuItems; track item.route) { @if (!item.isVisible ||
@@ -24,7 +25,7 @@ interface MenuItems {
         (click)="navigate(item.route)"
       >
         <div class="flex items-center justify-between gap-2 w-full">
-          <span class="text-sm">{{ item.displayName }}</span>
+          <span class="text-sm">{{ item.displayName | translate }}</span>
           <mat-icon class="text-center">{{ item.icon }}</mat-icon>
         </div>
       </mat-list-item>
@@ -63,9 +64,8 @@ export class SidebarMenuComponent {
     },
     {
       route: [GLOBAL_ROUTING_PATH.FEE_TRACKER],
-      displayName: 'Account',
-      icon: 'account_circle',
-      isVisible: () => this.appStore.featureFlags().feeTracker,
+      displayName: 'FeeTracker',
+      icon: 'track_changes',
     },
   ];
 

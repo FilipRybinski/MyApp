@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { BottomSheetThemeMenuComponent } from './bottom-sheet-theme-menu/bottom-sheet-theme-menu.component';
 
 @Component({
   selector: 'app-sidebar-theme-tool',
@@ -11,14 +13,16 @@ import { MatTooltip } from '@angular/material/tooltip';
     <button
       mat-icon-button
       matTooltip="{{ 'Theme' | translate }}"
-      (click)="toggleTheme()"
+      (click)="openBottomSheet()"
     >
-      <mat-icon>light_mode</mat-icon>
+      <mat-icon>brightness_medium</mat-icon>
     </button>
   `,
 })
 export class SidebarThemeToolComponent {
-  public toggleTheme(): void {
-    console.log('Toggle theme');
+  private readonly bottomSheet = inject(MatBottomSheet);
+
+  public openBottomSheet(): void {
+    this.bottomSheet.open(BottomSheetThemeMenuComponent);
   }
 }
