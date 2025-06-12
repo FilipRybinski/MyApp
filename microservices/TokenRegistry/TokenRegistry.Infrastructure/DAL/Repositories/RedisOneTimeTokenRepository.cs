@@ -7,9 +7,9 @@ using TokenRegistry.Infrastructure.DAL.Abstractions;
 
 namespace TokenRegistry.Infrastructure.DAL.Repositories;
 
-internal sealed class MultiTimeTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), IMultiTimeTokenRepository
+internal sealed class RedisOneTimeTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), IOneTimeTokenRepository
 {
     public async Task<TokenDto> Retrieve(TokenQuery query, CancellationToken cancellationToken) =>
-        await GetTokenAsync(query, TokenType.MultiTimeToken, cancellationToken);
-
+        await GetTokenAsync(query, TokenType.OneTimeToken, cancellationToken);
+    
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using QueueMailer.Api.Aspects;
 using QueueMailer.Application.Commands.PrepareActivationEmail;
 using QueueMailer.Application.Commands.PrepareConfirmationEmail;
+using QueueMailer.Application.Commands.PrepareCreateContributorEvent;
 using QueueMailer.Application.Commands.PreparePasswordSubmissionEmail;
 using QueueMailer.Application.Commands.PrepareResetPasswordEmail;
 using QueueMailer.Application.Events;
@@ -73,4 +74,15 @@ public sealed class QueueMailerController(
         return Result.MatchResponse(await queueMailerOutBoxRepository.HandlePublishAsync(command, cancellationToken));
     }
     
+    [HttpPost]
+    public async Task<ActionResult<Result<TemplateDto>>> PrepareCreateContributorEmail(CreateContributorEmail command, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Result>> HandleCreateContributorEvent(CreateContributorEmailEvent command, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await queueMailerOutBoxRepository.HandlePublishAsync(command, cancellationToken));
+    }
 }

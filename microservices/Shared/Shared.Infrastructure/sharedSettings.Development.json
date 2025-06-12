@@ -29,7 +29,9 @@
       "PrepareResetPasswordEmail": "http://localhost:5169/QueueMailer/PrepareResetPasswordEmail",
       "HandleResetPasswordEmailEvent": "http://localhost:5169/QueueMailer/HandleResetPasswordEmailEvent",
       "PreparePasswordSubmissionEmail": "http://localhost:5169/QueueMailer/PreparePasswordSubmissionEmail",
-      "HandlePasswordSubmissionEvent": "http://localhost:5169/QueueMailer/HandlePasswordSubmissionEvent"
+      "HandlePasswordSubmissionEvent": "http://localhost:5169/QueueMailer/HandlePasswordSubmissionEvent",
+      "PrepareCreateContributorEmail": "http://localhost:5169/QueueMailer/PrepareCreateContributorEmail",
+      "HandleCreateContributorEvent": "http://localhost:5169/QueueMailer/HandleCreateContributorEvent"
     },
     "NotificationRoutes": {
       
