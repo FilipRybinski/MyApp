@@ -37,7 +37,7 @@ import { IdentityResetPasswordRequestComponent } from '../../dialogs/identity-re
     >
       <div class="flex flex-col items-center gap-1">
         <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
-        <p class="text-sm uppercase">
+        <p class="text-sm uppercase text-gray-400">
           {{ 'Welcome' | translate }}
         </p>
       </div>
@@ -64,7 +64,7 @@ import { IdentityResetPasswordRequestComponent } from '../../dialogs/identity-re
           <a
             href="#"
             (click)="openResetPasswordDialog(); $event.preventDefault()"
-            class="text-center underline hover:no-underline cursor-pointer"
+            class="text-center text-gray-400 underline hover:no-underline cursor-pointer"
           >
             {{ 'ResetPassword' | translate }}
           </a>

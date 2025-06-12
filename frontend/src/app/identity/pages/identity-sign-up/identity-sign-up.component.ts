@@ -33,7 +33,7 @@ import { AlertService } from '../../../../common/services/alert/alert.service';
       >
         <div class="flex flex-col items-center gap-1">
           <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
-          <p class="text-sm uppercase">
+          <p class="text-sm uppercase text-gray-400">
             {{ 'JoinToUs' | translate }}
           </p>
         </div>
