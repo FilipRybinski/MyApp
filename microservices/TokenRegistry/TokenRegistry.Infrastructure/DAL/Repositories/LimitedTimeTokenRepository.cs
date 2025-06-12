@@ -7,7 +7,7 @@ using TokenRegistry.Infrastructure.DAL.Abstractions;
 
 namespace TokenRegistry.Infrastructure.DAL.Repositories;
 
-internal sealed class RedisLimitedTimeTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), ILimitedTimeTokenRepository
+internal sealed class LimitedTimeTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), ILimitedTimeTokenRepository
 {
     public async Task<TokenDto> Retrieve(TokenQuery query, CancellationToken cancellationToken)
     {

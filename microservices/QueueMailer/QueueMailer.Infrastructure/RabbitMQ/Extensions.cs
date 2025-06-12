@@ -21,7 +21,6 @@ internal static class Extensions
             config.AddConsumer<ResetPasswordEmailEventConsumer>();
             config.AddConsumer<ActivationEmailEventConsumer>();
             config.AddConsumer<PasswordSubmissionEmailEventConsumer>();
-            config.AddConsumer<CreateContributorEmailEventConsumer>();
 
             config.UsingRabbitMq((context, cfg) =>
             {

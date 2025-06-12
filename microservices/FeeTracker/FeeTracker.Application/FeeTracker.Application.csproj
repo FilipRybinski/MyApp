@@ -11,10 +11,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\RequestClient\RequestClient\RequestClient.csproj" />
       <ProjectReference Include="..\..\Shared\Shared.Application\Shared.Application.csproj" />
-      <ProjectReference Include="..\FeeTracker.Core\FeeTracker.Core.csproj" />
-      <ProjectReference Include="..\FeeTracker.Domain\FeeTracker.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mapper\" />
+      <Folder Include="Queries\" />
     </ItemGroup>
 
 </Project>
