@@ -21,6 +21,7 @@ import {
 } from '@angular/common/http';
 import { credentialsInterceptor } from '../common/interceptors/credentials.interceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([credentialsInterceptor])),
     provideAppInitializer(() => inject(InitializeService).initialize()),
     importProvidersFrom(TranslateModule.forChild()),
+    provideNativeDateAdapter(),
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {

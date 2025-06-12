@@ -1,44 +1,63 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatButton } from '@angular/material/button';
 import {
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { IdentityService } from '../../services/identity/identity.service';
-import { IdentityResetPasswordRequestAction } from '../../../../common/interfaces/httpActions/identityResetPasswordRequestAction';
+import { MatInput } from '@angular/material/input';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { BasicHttpResponse } from '../../../../common/interfaces/http/httpResponse';
-import { MatInput } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { ContributorService } from '../../services/contributor/contributor.service';
+import { AlertService } from '../../../../common/services/alert/alert.service';
+import { CreateContributorAction } from '../../../../common/interfaces/contributor/createContributorAction';
 
 @Component({
-  selector: 'app-identity-reset-password-request',
+  selector: 'app-create-contributor',
   imports: [
     CommonModule,
-    TranslatePipe,
+    MatButton,
     MatDialogActions,
-    MatFormFieldModule,
     MatDialogContent,
+    MatFormFieldModule,
     MatInput,
-    MatButtonModule,
+    TranslatePipe,
     ReactiveFormsModule,
   ],
-  template: ` <div class="flex flex-col items-center gap-1 pt-4">
+  template: `
+    <div class="flex flex-col items-center gap-1 pt-4">
       <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
       <p class="text-sm uppercase">
         {{ 'ResetPassword' | translate }}
       </p>
     </div>
     <mat-dialog-content>
-      <form [formGroup]="form">
+      <form [formGroup]="form" class="flex flex-col w-full">
+        <mat-form-field>
+          <mat-label>{{ 'Name' | translate }}</mat-label>
+          <input
+            type="text"
+            autocomplete="off"
+            formControlName="name"
+            matInput
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ 'Surname' | translate }}</mat-label>
+          <input
+            type="text"
+            autocomplete="off"
+            formControlName="surname"
+            matInput
+          />
+        </mat-form-field>
         <mat-form-field>
           <mat-label>{{ 'Email' | translate }}</mat-label>
           <input
@@ -60,15 +79,16 @@ import { MatButtonModule } from '@angular/material/button';
         mat-flat-button
         (click)="sendRequest()"
       >
-        {{ 'Send' | translate }}
+        {{ 'Confirm' | translate }}
       </button>
-    </mat-dialog-actions>`,
+    </mat-dialog-actions>
+  `,
 })
-export class IdentityResetPasswordRequestComponent implements OnInit {
-  private readonly dialogRef = inject(
-    MatDialogRef<IdentityResetPasswordRequestComponent>
-  );
-  private readonly identityService = inject(IdentityService);
+export class CreateContributorComponent implements OnInit {
+  private readonly dialogRef = inject(MatDialogRef<CreateContributorComponent>);
+  private readonly contributorService = inject(ContributorService);
+  private readonly alertService = inject(AlertService);
+
   private readonly fb = inject(FormBuilder);
 
   public form!: FormGroup;
@@ -80,6 +100,8 @@ export class IdentityResetPasswordRequestComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
     });
   }
@@ -92,15 +114,16 @@ export class IdentityResetPasswordRequestComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const body: IdentityResetPasswordRequestAction = {
+    const body: CreateContributorAction = {
       ...this.form.value,
     };
 
     this.isLoading = true;
 
-    this.identityService.identityResetPasswordRequest(body).subscribe({
-      next: ({ isSuccess }: BasicHttpResponse) => {
+    this.contributorService.createContributor(body).subscribe({
+      next: () => {
         this.isLoading = false;
+        this.alertService.handleSuccess('Created successfully');
         this.dialogRef.close();
       },
       error: () => (this.isLoading = false),

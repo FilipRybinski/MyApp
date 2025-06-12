@@ -25,7 +25,7 @@ import { SidebarToolsComponent } from './sidebar-tools/sidebar-tools.component';
         <app-sidebar-tools class="flex items-center gap-2" />
         <app-sidebar-menu class="w-full" />
       </mat-sidenav>
-      <mat-sidenav-content class="pt-4">
+      <mat-sidenav-content>
         <router-outlet></router-outlet>
       </mat-sidenav-content>
     </mat-sidenav-container>

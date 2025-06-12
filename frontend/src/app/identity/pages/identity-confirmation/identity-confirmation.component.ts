@@ -18,7 +18,7 @@ import { getGlobalHomeUrl } from '../../../../common/constants/routing/routing';
       >
         <div class="flex flex-col items-center gap-1 w-full">
           <div class="w-8 h-8 bg-logo bg-center bg-no-repeat bg-contain"></div>
-          <p class="text-sm uppercase text-gray-400">
+          <p class="text-sm uppercase">
             <strong>{{ 'ThanksForRegistration' | translate }}</strong
             ><br />
             {{ 'ActivationInfo' | translate }} „{{

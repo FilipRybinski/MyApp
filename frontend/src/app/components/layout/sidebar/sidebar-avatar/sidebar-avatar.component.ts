@@ -12,13 +12,11 @@ import { GLOBAL_ROUTING_PATH } from '../../../../../common/constants/routing/rou
         (click)="navigate()"
         class="w-12 h-12 bg-identity bg-center bg-no-repeat bg-contain cursor-pointer"
       ></div>
-      <div
-        class="flex flex-col justify-between items-start font-medium dark:text-white"
-      >
-        <div>{{ identity.name }} {{ identity.surname }}</div>
-        <div class="text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex flex-col justify-between items-start font-medium ">
+        <p>{{ identity.name }} {{ identity.surname }}</p>
+        <p class="text-sm ">
           {{ identity.email }}
-        </div>
+        </p>
       </div>
     </div>
     }
