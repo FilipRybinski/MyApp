@@ -6,7 +6,7 @@ using TokenRegistry.Infrastructure.DAL.Abstractions;
 
 namespace TokenRegistry.Infrastructure.DAL.Repositories;
 
-internal sealed class ValidateTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), IValidateTokenRepository
+internal sealed class RedisValidateTokenRepository(IDatabase dbContext) : TokenRepository(dbContext), IValidateTokenRepository
 {
     public async Task<bool> ValidateToken(TokenQuery query, string token,TokenType tokenType, CancellationToken cancellationToken) =>
        await IsTokenValidAsync(query, token, tokenType, cancellationToken);
