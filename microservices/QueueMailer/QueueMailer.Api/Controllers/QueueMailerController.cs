@@ -1,7 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QueueMailer.Api.Aspects;
 using QueueMailer.Application.Commands.PrepareActivationEmail;
 using QueueMailer.Application.Commands.PrepareConfirmationEmail;
 using QueueMailer.Application.Commands.PreparePasswordSubmissionEmail;
@@ -17,8 +16,7 @@ namespace QueueMailer.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-[Authorize(Policy = AuthPolicies.Internal)]
-[LogExecutionTime]
+/*[Authorize(Policy = AuthPolicies.Internal)]*/
 public sealed class QueueMailerController(
     ILogger<QueueMailerController> logger,
     ISender sender,
