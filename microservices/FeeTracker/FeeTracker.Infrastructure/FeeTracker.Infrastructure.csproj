@@ -9,12 +9,15 @@
     <ItemGroup>
       <ProjectReference Include="..\..\RequestClient\RequestClient\RequestClient.csproj" />
       <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
-      <ProjectReference Include="..\FeeTracker.Core\FeeTracker.Core.csproj" />
-      <ProjectReference Include="..\FeeTracker.Domain\FeeTracker.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="DAL\Configurations\" />
+      <Folder Include="DAL\Context\" />
+      <Folder Include="DAL\Extensions\" />
+      <Folder Include="DAL\Initializer\" />
       <Folder Include="DAL\Migrations\" />
+      <Folder Include="DAL\Repositories\" />
     </ItemGroup>
 
 </Project>

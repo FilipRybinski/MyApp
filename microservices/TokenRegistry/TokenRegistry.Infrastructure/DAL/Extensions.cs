@@ -17,10 +17,10 @@ internal static class Extensions
         services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(options.Host));
         services.AddRedisDbContext();
 
-        services.AddScoped<ILimitedTimeTokenRepository, RedisLimitedTimeTokenRepository>();
-        services.AddScoped<IMultiTimeTokenRepository, RedisMultiTimeTokenRepository>();
-        services.AddScoped<IOneTimeTokenRepository, RedisOneTimeTokenRepository>();
-        services.AddScoped<IValidateTokenRepository, RedisValidateTokenRepository>();
+        services.AddScoped<ILimitedTimeTokenRepository, LimitedTimeTokenRepository>();
+        services.AddScoped<IMultiTimeTokenRepository, MultiTimeTokenRepository>();
+        services.AddScoped<IOneTimeTokenRepository, OneTimeTokenRepository>();
+        services.AddScoped<IValidateTokenRepository, ValidateTokenRepository>();
         return services;
     }
 }

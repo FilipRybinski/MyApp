@@ -20,12 +20,6 @@ public sealed class QueueMailerRoutes
      public string PreparePasswordSubmissionEmail { get; set; }
      
      public string HandlePasswordSubmissionEvent { get; set; }
-     
-     public string PrepareCreateContributorEmail { get; set; }
-     
-     public string HandleCreateContributorEvent  { get; set; }
-     
-     
 }
 
 public sealed class NotificationRoutes
