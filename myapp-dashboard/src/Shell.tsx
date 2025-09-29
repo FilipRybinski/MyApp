@@ -1,7 +1,10 @@
-import {Shell} from "./shared/shell/Shell.tsx";
+import {ShellProvider} from "./Providers/ShellProvider.tsx";
+import {ShellRouting} from "./Routing/ShellRouting.tsx";
 
-function App() {
-  return <Shell/>
+function Shell() {
+  return <ShellProvider>
+    <ShellRouting/>
+  </ShellProvider>
 }
 
-export default App
+export default Shell
