@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repo_name: ${{ steps.extract-name.outputs.REPO_NAME }} 
+      repo_name: ${{ steps.extract-name.outputs.REPO_NAME }}
 
     steps:
       - name: Checkout
@@ -64,15 +64,10 @@ jobs:
             settingsPath: "./microservices/TokenRegistry/TokenRegistry.Api/appsettings.json"
             settings_secret: "TOKENREGISTRY_SETTINGS"
 
-          - name: "feetracker"
-            dockerPath: "./microservices/FeeTracker/FeeTracker.Api/Dockerfile"
-            settingsPath: "./microservices/FeeTracker/FeeTracker.Api/appsettings.json"
-            settings_secret: "FEE_TRACKER_SETTINGS"
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
+
       - name: Login to Docker
         uses: ./.github/actions/login-to-docker
         with:
