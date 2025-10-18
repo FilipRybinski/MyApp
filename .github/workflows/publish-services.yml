@@ -64,6 +64,11 @@ jobs:
             settingsPath: "./microservices/TokenRegistry/TokenRegistry.Api/appsettings.json"
             settings_secret: "TOKENREGISTRY_SETTINGS"
 
+          - name: "trashtracker"
+            dockerPath: "./microservices/TrashTracker/TrashTracker.Api/Dockerfile"
+            settingsPath: "./microservices/TrashTracker/TrashTracker.Api/appsettings.json"
+            settings_secret: "TRASHTRACKER_SETTINGS"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
