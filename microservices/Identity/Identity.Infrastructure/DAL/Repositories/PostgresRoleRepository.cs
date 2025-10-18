@@ -1,6 +1,6 @@
 using Identity.Core.Dictionary;
-using Identity.Core.Entities;
 using Identity.Core.Repositories;
+using Identity.Domain.Roles;
 using Identity.Infrastructure.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 

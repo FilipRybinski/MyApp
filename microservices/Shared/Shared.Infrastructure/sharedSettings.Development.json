@@ -17,15 +17,28 @@
     "ExpireTime": 1
   },
   "RabbitMqConfiguration": {
-    "Host": "192.168.1.221"
+    "Host": "192.168.0.11"
   },
   "RoutesConfiguration": {
+    "Host": "http://localhost:4200",
     "QueueMailerRoutes": {
-      "SendConfirmationEmail": "http://localhost:5169/QueueMailer/SendConfirmationEmail",
-      "SendResetPasswordEmail": "http://localhost:5169/QueueMailer/SendResetPasswordEmail"
+      "PrepareConfirmationEmail": "http://localhost:5169/QueueMailer/PrepareConfirmationEmail",
+      "HandleConfirmationEmailEvent": "http://localhost:5169/QueueMailer/HandleConfirmationEmailEvent",
+      "PrepareActivationEmail": "http://localhost:5169/QueueMailer/PrepareActivationEmail",
+      "HandleActivationEmailEvent": "http://localhost:5169/QueueMailer/HandleActivationEmailEvent",
+      "PrepareResetPasswordEmail": "http://localhost:5169/QueueMailer/PrepareResetPasswordEmail",
+      "HandleResetPasswordEmailEvent": "http://localhost:5169/QueueMailer/HandleResetPasswordEmailEvent",
+      "PreparePasswordSubmissionEmail": "http://localhost:5169/QueueMailer/PreparePasswordSubmissionEmail",
+      "HandlePasswordSubmissionEvent": "http://localhost:5169/QueueMailer/HandlePasswordSubmissionEvent"
     },
     "NotificationRoutes": {
       
+    },
+    "TokenRegistryRoutes": {
+      "RequestOneTimeToken" :"http://localhost:5228/TokenRegistry/RequestOneTimeToken",
+      "RequestMultiTimeToken" : "http://localhost:5228/TokenRegistry/RequestMultiTimeToken",
+      "RequestLimitedTimeToken" : "http://localhost:5228/TokenRegistry/RequestLimitedTimeToken",
+      "ValidateToken": "http://localhost:5228/TokenRegistry/ValidateToken"
     }
   }
 }

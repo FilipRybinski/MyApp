@@ -5,16 +5,17 @@ import { environment } from '../../../../environments/environment';
 import { SignIn } from '../../../../interfaces/account/signIn';
 import { SignUp } from '../../../../interfaces/account/signUp';
 import { User } from '../../../../interfaces/account/user';
+import { Response } from '../../../../interfaces/response/Response';
 
 @Injectable()
 export class AccountService {
   private _http = inject(HttpClient);
 
-  public signIn(body: SignIn): Observable<User> {
-    return this._http.post<User>(environment.URL.USERS.SIGN_IN, body);
+  public signIn(body: SignIn): Observable<Response<User>> {
+    return this._http.post<Response<User>>(environment.URL.USERS.SIGN_IN, body);
   }
 
-  public signUp(body: SignUp): Observable<boolean> {
-    return this._http.post<boolean>(environment.URL.USERS.SIGN_UP, body);
+  public signUp(body: SignUp): Observable<Response<User>> {
+    return this._http.post<Response<User>>(environment.URL.USERS.SIGN_UP, body);
   }
 }

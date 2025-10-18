@@ -1,4 +1,4 @@
-using Identity.Core.Entities;
+using Identity.Domain.Roles;
 
 namespace Identity.Core.Repositories;
 

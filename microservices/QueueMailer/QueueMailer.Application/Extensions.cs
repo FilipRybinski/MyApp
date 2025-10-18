@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using RequestClient;
 using Shared.Application.CQRS;
 
 namespace QueueMailer.Application;
@@ -10,6 +11,7 @@ public static class Extensions
     {
 
         services.AddCQRS(Assembly.GetExecutingAssembly());
+        services.AddRequestClient();
         return services;
     }
 }

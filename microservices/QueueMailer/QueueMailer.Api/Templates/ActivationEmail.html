@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Account Activated</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .header h1 {
+            color: #2ecc71;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 28px;
+            background-color: #2ecc71;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #27ae60;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🎉 Your Account Is Now Active!</h1>
+    </div>
+    <div class="content">
+        <p>Welcome to <strong>MyAppZone</strong> – we’re excited to have you on board!</p>
+        <p>You can now log in and enjoy the full experience.</p>
+        <a href="{{Link}}" class="button">Go to MyAppZone</a>
+        <p>If you have any questions, our support team is here to help.</p>
+    </div>
+    <div class="footer">
+        &copy; 2025 MyAppZone. All rights reserved.
+    </div>
+</div>
+</body>
+</html>

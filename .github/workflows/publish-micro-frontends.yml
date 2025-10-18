@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - microservices-microfrontends
+      - microservices
       - main
 
 env:
@@ -36,6 +36,9 @@ jobs:
         include:
           - name: "default-frontend"
             dockerPath: "./previous_frontend/MyApp/Dockerfile"
+
+          - name: "frontend"
+            dockerPath: "./frontend/Dockerfile"
 
     steps:
       - name: Checkout Repository

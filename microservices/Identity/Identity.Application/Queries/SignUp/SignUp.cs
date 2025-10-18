@@ -1,5 +1,6 @@
 using Identity.Core.DTO;
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions.CQRS;
+using Shared.Core.DTO;
 
 namespace Identity.Application.Queries.SignUp;
 

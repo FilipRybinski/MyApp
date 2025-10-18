@@ -2,4 +2,4 @@ using Shared.Core.Exceptions;
 
 namespace RequestClient.Exceptions;
 
-internal sealed class RequestClientException() : CustomException("Failed to create send request to internal services");
+internal sealed class RequestClientException(string message) : CustomException(message);

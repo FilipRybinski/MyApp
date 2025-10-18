@@ -1,4 +1,5 @@
-using Identity.Core.Entities;
+using Identity.Domain.Identity;
+using Identity.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.DAL.Context;
@@ -6,7 +7,7 @@ namespace Identity.Infrastructure.DAL.Context;
 internal sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> dbContextOptions)
     : DbContext(dbContextOptions)
 {
-    public DbSet<_Identity> Identities { get; set; }
+    public DbSet<UserIdentity> Identities { get; set; }
     public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

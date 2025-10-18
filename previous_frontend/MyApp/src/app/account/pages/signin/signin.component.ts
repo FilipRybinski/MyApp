@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { getHomeUrl } from '../../../../constants/routing/path';
 import { AlertService } from '../../../../service/alert/alert.service';
 import { AppStore } from '../../../../store/app.store';
+import { Response } from '../../../../interfaces/response/Response';
+import { User } from '../../../../interfaces/account/user';
 
 @Component({
   selector: 'app-signin',
@@ -41,12 +43,12 @@ export class SigninComponent implements OnInit {
     };
     this.isLoading = true;
     this.accountService.signIn(body).subscribe({
-      next: user => {
+      next: ({ data }: Response<User>) => {
         this.alertService.handleSuccess('Sign in successfully');
         this.isLoading = false;
         this.router
           .navigate(getHomeUrl())
-          .then(() => this.appStore.authorizeUser(user));
+          .then(() => this.appStore.authorizeUser(data));
       },
       error: () => (this.isLoading = false),
     });

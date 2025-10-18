@@ -8,6 +8,7 @@ import { AppStore } from '../../store/app.store';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
 import { TranslateService } from '@ngx-translate/core';
 import { LANG_COOKIE } from '../../constants/translation/translation';
+import { Response } from '../../interfaces/response/Response';
 
 @Injectable({
   providedIn: 'root',
@@ -27,12 +28,13 @@ export class InitializeService {
   private async fetchInitializeData(): Promise<void> {
     try {
       const user = await firstValueFrom(
-        this.http.get<User>(environment.URL.USERS.IS_AUTHORIZED)
+        this.http.get<Response<User>>(environment.URL.USERS.IS_AUTHORIZED)
       );
       const featureFlags = await firstValueFrom(
-        this.http.get<FeatureFlags>(environment.URL.FEATURE_FLAGS)
+        this.http.get<Response<FeatureFlags>>(environment.URL.FEATURE_FLAGS)
       );
-      this.appStore.attachInitialData(user, featureFlags);
+      this.appStore.attachInitialData(user.data, featureFlags.data);
+      console.log('initialize data fetched', user, featureFlags);
     } catch (error) {
       return;
     }

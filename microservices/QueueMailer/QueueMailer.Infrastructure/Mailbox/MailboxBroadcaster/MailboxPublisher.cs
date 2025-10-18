@@ -1,4 +1,5 @@
 using MimeKit;
+using QueueMailer.Infrastructure.DAL.Abstractions;
 using QueueMailer.Infrastructure.Mailbox.MailboxConnection;
 
 namespace QueueMailer.Infrastructure.Mailbox.MailboxBroadcaster;

@@ -1,6 +1,8 @@
 using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions;
+using Shared.Application.Abstractions.Behaviors;
 
 namespace Shared.Application.CQRS;
 
@@ -8,28 +10,15 @@ public static class Extensions
 {
     public static IServiceCollection AddCQRS(this IServiceCollection services,Assembly assembly)
     {
-        services.AddCommands(assembly);
-        services.AddQueries(assembly);
-        return services;
-    }
-    
-    private static IServiceCollection AddCommands(this IServiceCollection services,Assembly assembly)
-    {
-        services.Scan(s => s.FromAssemblies(assembly)
-            .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(assembly);
 
-        return services;
-    }
-    
-    private static IServiceCollection AddQueries(this IServiceCollection services,Assembly assembly)
-    {
-        services.Scan(s => s.FromAssemblies(assembly)
-            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
+            config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+        });
 
+        services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
         return services;
     }
 }

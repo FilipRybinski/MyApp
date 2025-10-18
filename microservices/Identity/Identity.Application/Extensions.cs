@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using Identity.Application.Handlers;
-using Identity.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Application.CQRS;
 using Shared.Application.Mapper;
@@ -13,9 +11,7 @@ public static class Extensions
     {
 
         services.AddCQRS(Assembly.GetExecutingAssembly());
-        services.AddHandlers();
         services.AddMapper(Assembly.GetExecutingAssembly());
-        services.AddValidators();
         return services;
     }
 }

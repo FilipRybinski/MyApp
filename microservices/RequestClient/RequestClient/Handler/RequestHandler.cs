@@ -6,9 +6,9 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RequestClient.DTO;
 using RequestClient.Exceptions;
 using Shared.Core.Configuration;
+using Shared.Core.Objects;
 
 namespace RequestClient.Handler;
 
@@ -25,12 +25,34 @@ internal sealed class RequestHandler(
         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SigningKey)),
         SecurityAlgorithms.HmacSha256);
     
-    
-    public async Task<RequestClientResponse<TResponse>> SendRequestAsync<TRequest, TResponse>(string url, HttpMethod method, CancellationToken cancellationToken, TRequest? body = default) where TRequest : class where TResponse : class
+    public async Task<Result> SendRequestAsync<TRequest>(
+        string url, 
+        HttpMethod method, 
+        CancellationToken cancellationToken,
+        TRequest? body = default) where TRequest : class
     {
-        
-        try
-        {
+        return await ProcessRequestAsync<Result, TRequest>(url, method, cancellationToken, body);
+    }
+
+    public async Task<Result<TResponse>> SendRequestAsync<TRequest, TResponse>(
+        string url, 
+        HttpMethod method, 
+        CancellationToken cancellationToken,
+        TRequest? body = default)
+        where TRequest : class 
+        where TResponse : class
+    {
+        return await ProcessRequestAsync<Result<TResponse>, TRequest>(url, method, cancellationToken, body);
+    }
+
+    private async Task<TResponse> ProcessRequestAsync<TResponse, TRequest>(
+        string url,
+        HttpMethod method,
+        CancellationToken cancellationToken,
+        TRequest? body = default)
+        where TRequest : class
+        where TResponse : class
+    {
             using var request = new HttpRequestMessage(method, url);
 
             if (body is not null)
@@ -42,29 +64,20 @@ internal sealed class RequestHandler(
             request.Headers.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", CreateToken());
 
-            using var response = await httpClient.SendAsync(request,cancellationToken);
-            
-            var requestClientResponse = 
-                new RequestClientResponse<TResponse>()
-                {
-                    HttpResponse = response,
-                };
-            
+            using var response = await httpClient.SendAsync(request, cancellationToken);
             var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (responseContent == string.Empty) return requestClientResponse;
-            
-            requestClientResponse.DeserializedResponseBody = DeserializeResponseAsync<TResponse>(responseContent);
-            return requestClientResponse;
-
-        }
-        catch (Exception e)
-        {
-            logger.LogWarning("Internal request failed: {ErrorMessage}", e.Message);
-            throw new RequestClientException();
-        }
+            if (response.IsSuccessStatusCode)
+            {
+                return DeserializeResponseAsync<TResponse>(responseContent);
+            }
+            logger.LogError("Request to {Url} failed. Status: {StatusCode} {ReasonPhrase}. Body: {Body}",
+                url,
+                (int)response.StatusCode,
+                response.ReasonPhrase,
+                responseContent);
+            throw new RequestClientException($"Request to {url} failed with status code {(int)response.StatusCode}.");
     }
-    
     private string CreateToken()
     {
         var now = DateTime.Now;
@@ -85,5 +98,6 @@ internal sealed class RequestHandler(
     
     private static  TResponse DeserializeResponseAsync<TResponse>(string responseContent) => 
         JsonSerializer.Deserialize<TResponse>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+
 
 }

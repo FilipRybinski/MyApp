@@ -1,11 +1,19 @@
-using Identity.Application.Handlers.IsAuthorized;
-using Identity.Application.Handlers.Logout;
+using System.Threading;
+using System.Threading.Tasks;
+using Identity.Application.Commands.Activation;
+using Identity.Application.Commands.Authorized;
+using Identity.Application.Commands.Logout;
+using Identity.Application.Commands.Password;
+using Identity.Application.Commands.Password.Request;
+using Identity.Application.Commands.Password.Submission;
 using Identity.Application.Queries.SignIn;
 using Identity.Application.Queries.SignUp;
 using Identity.Core.DTO;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Core.Abstractions;
+using Shared.Core.DTO;
+using Shared.Core.Objects;
 using Shared.Core.Policies;
 
 namespace Identity.Api.Controllers;
@@ -13,35 +21,51 @@ namespace Identity.Api.Controllers;
 [ApiController]
 [Route("[controller]/[action]")]
 public sealed class IdentityController(
-    IQueryHandler<SignUp, IdentityDto> signUpHandler,
-    IQueryHandler<SignIn, IdentityDto> signInHandler,
-    IAuthorizedHandler authorizedHandler,
-    ILogoutHandler logoutHandler)
+    ISender sender)
     : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<IdentityDto>> SignUp(SignUp command, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<IdentityDto>>> SignUp(SignUp command, CancellationToken cancellationToken)
     {
-        return Ok(await signUpHandler.HandleAsync(command, cancellationToken));
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
 
     }
 
     [HttpPost]
-    public async Task<ActionResult<IdentityDto>> SignIn(SignIn command, CancellationToken cancellationToken)
+    public async Task<ActionResult<Result<IdentityDto>>> SignIn(SignIn command, CancellationToken cancellationToken)
     {
-        return Ok(await signInHandler.HandleAsync(command, cancellationToken));
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
     }
+    
 
     [Authorize(Policy = AuthPolicies.External)]
     [HttpGet]
-    public ActionResult<bool> Logout()
+    public async Task<ActionResult<Result>> Logout()
     {
-        return logoutHandler.Handle();
+        return Result.MatchResponse(await sender.Send(new LogoutAction()));
     }
 
     [HttpGet]
-    public async Task<ActionResult<IdentityDto?>> IsAuthorized()
+    public async Task<ActionResult<Result<IdentityDto?>>> IsAuthorized()
     {
-        return Ok(await authorizedHandler.HandleAsync());
+        return Result.MatchResponse(await sender.Send(new IsAuthorized()));
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Result>> Activation(ActivationAction command, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
+    } 
+    
+    [HttpPost]
+    public async Task<ActionResult<Result>> ResetPasswordRequest(ResetPasswordRequest command, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
+    } 
+    
+    [HttpPost]
+    public async Task<ActionResult<Result>> ResetPasswordSubmission(PasswordSubmission command, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(command, cancellationToken));
+    } 
 }

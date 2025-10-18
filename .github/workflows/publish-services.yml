@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - microservices-microfrontends
+      - microservices
       - main
 
 env:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repo_name: ${{ steps.extract-name.outputs.REPO_NAME }} 
+      repo_name: ${{ steps.extract-name.outputs.REPO_NAME }}
 
     steps:
       - name: Checkout
@@ -61,13 +61,18 @@ jobs:
 
           - name: "tokenregistry"
             dockerPath: "./microservices/TokenRegistry/TokenRegistry.Api/Dockerfile"
-            settingsPath: ""
-            settings_secret: ""
+            settingsPath: "./microservices/TokenRegistry/TokenRegistry.Api/appsettings.json"
+            settings_secret: "TOKENREGISTRY_SETTINGS"
+
+          - name: "trashtracker"
+            dockerPath: "./microservices/TrashTracker/TrashTracker.Api/Dockerfile"
+            settingsPath: "./microservices/TrashTracker/TrashTracker.Api/appsettings.json"
+            settings_secret: "TRASHTRACKER_SETTINGS"
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
+
       - name: Login to Docker
         uses: ./.github/actions/login-to-docker
         with:

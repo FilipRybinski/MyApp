@@ -1,5 +1,4 @@
-using System.Security.Claims;
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -13,18 +12,7 @@ internal sealed class HttpContextTokenService(
     : IHttpContextTokenService
 {
     private readonly CookieSettingsConfiguration CookieSettings = cookieSettings.Value;
-
-    public Guid? ExtractUserIdentityIdentifier()
-    {
-        if (Guid.TryParse(httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
-                out var identifier))
-        {
-            return identifier;
-        }
-
-        return null;
-    }
-
+    
     public void Set(JwtDto jwt)
     {
         HttpContextResponseInjectToken(jwt);

@@ -26,6 +26,12 @@
     },
     "NotificationRoutes": {
 
+    },
+    "TokenRegistryRoutes": {
+      "RequestOneTimeToken" :"",
+      "RequestMultiTimeToken" : "",
+      "RequestLimitedTimeToken" : "",
+      "ValidateToken": ""
     }
   }
 }

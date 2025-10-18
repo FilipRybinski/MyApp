@@ -3,6 +3,7 @@ using Identity.Infrastructure.DAL;
 using Identity.Infrastructure.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RequestClient;
 using Shared.Infrastructure;
 
 namespace Identity.Infrastructure;
@@ -14,7 +15,7 @@ public static class Extensions
         services.AddPostgres(configuration);
         services.AddSecurity();
         services.AddAuth();
-        services.AddHttpContextAccessor();
+        services.AddRequestClient();
         services.AddSharedInfrastructure(configuration);
         
         return services;

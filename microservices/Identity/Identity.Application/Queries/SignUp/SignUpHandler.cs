@@ -1,14 +1,12 @@
 using AutoMapper;
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Identity.Core.DTO;
-using Identity.Core.Entities;
 using Identity.Core.Repositories;
+using Identity.Domain.Identity;
 using Microsoft.Extensions.Logging;
-using QueueMailer.Application.Commands.SendConfirmationEmail;
-using RequestClient.DTO;
-using RequestClient.Handler;
-using Shared.Application.Routes;
-using Shared.Core.Abstractions;
+using Shared.Application.Abstractions.CQRS;
+using Shared.Core.DTO;
+using Shared.Core.Objects;
 
 namespace Identity.Application.Queries.SignUp;
 
@@ -17,35 +15,25 @@ public sealed class SignUpHandler(
     IRoleRepository userRoleRepository,
     IPasswordManager passwordManager,
     IMapper mapper,
-    IRequestHandler requestHandler,
-    IRoutes routes,
     ILogger<SignUpHandler> logger
     )
     : IQueryHandler<SignUp, IdentityDto>
 {
-    public async Task<IdentityDto> HandleAsync(SignUp query, CancellationToken cancellationToken)
+    public async Task<Result<IdentityDto>> Handle(SignUp request, CancellationToken cancellationToken)
     {
-        var securedPassword = passwordManager.Secure(query.Password);
+        var securedPassword = passwordManager.Secure(request.Password);
         var defaultUserRole = await userRoleRepository.GetDefaultRoleAsync();
-        var user = new _Identity(
-            query.Email,
-            query.Username,
+        var user = new UserIdentity(
+            request.Email,
+            request.Username,
             securedPassword,
-            query.Name,
-            query.Surname,
+            request.Name,
+            request.Surname,
             defaultUserRole.Id);
         
-        var response =  await requestHandler.SendRequestAsync<ConfirmationEmail, RequestClientResponseNoContent>(
-            routes.RoutesConfiguration.QueueMailerRoutes.SendConfirmationEmail,
-            HttpMethod.Post,
-            cancellationToken,
-            new ConfirmationEmail(user.Id, user.Email)
-        );
-
-        response.HttpResponse.EnsureSuccessStatusCode();
-        
+        user.Raise(new UserIdentitySignUpDomainEvent(mapper.Map<IdentityDto>(user)));
         var result = await userIdentityRepository.AddUserIdentityAsync(user);
+
         return mapper.Map<IdentityDto>(result);
-     
     }
 }

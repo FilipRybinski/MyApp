@@ -1,4 +1,4 @@
-using Identity.Application.Security;
+using Identity.Application.Abstractions.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Infrastructure.Authorization;

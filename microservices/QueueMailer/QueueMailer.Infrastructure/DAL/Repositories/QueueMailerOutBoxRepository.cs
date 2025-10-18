@@ -1,6 +1,7 @@
 using MassTransit;
-using QueueMailer.Core.Repositories;
+using QueueMailer.Application.Repositories;
 using QueueMailer.Infrastructure.DAL.Context;
+using Shared.Core.Objects;
 
 namespace QueueMailer.Infrastructure.DAL.Repositories;
 
@@ -9,11 +10,20 @@ internal sealed class QueueMailerOutBoxRepository(
     IPublishEndpoint publishEndpoint) : IQueueMailerOutBoxRepository
 {
 
-    public async Task HandlePublishAsync<T>(T message, CancellationToken cancellationToken) where T : class
+    public async Task<Result> HandlePublishAsync<T>(T message, CancellationToken cancellationToken) where T : class
     {
-        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-        await publishEndpoint.Publish(message, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
-        await transaction.CommitAsync(cancellationToken);
+        try
+        {
+            await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+            await publishEndpoint.Publish(message, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            return Result.Failure(Error.InternalServerError("Error while publishing"));
+        }
+       
+        return Result.Success();
     }
 }

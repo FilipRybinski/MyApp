@@ -1,18 +1,49 @@
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Core.Policies;
+using Shared.Application.Commands.Token;
+using Shared.Core.DTO;
+using Shared.Core.Objects;
+using TokenRegistry.Application.Queries.LimitedTimeToken;
+using TokenRegistry.Application.Queries.MultiTimeToken;
+using TokenRegistry.Application.Queries.OneTimeToken;
 
 namespace TokenRegistry.Api.Controllers;
 
 [ApiController]
 [Route("[controller]/[action]")]
-[Authorize(Policy = AuthPolicies.Internal)]
-public class TokenRegistryController(ILogger<TokenRegistryController> logger) : ControllerBase
+
+public sealed class TokenRegistryController(
+    ISender sender,
+    ILogger<TokenRegistryController> logger
+    ) : ControllerBase
 {
-    
-    [HttpGet]
-    public IActionResult Get()
+
+    [HttpPost]
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
+    public async Task<ActionResult<Result<TokenDto>>> RequestOneTimeToken(OneTimeToken query, CancellationToken cancellationToken)
     {
-        return Ok();
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
     }
+    
+    [HttpPost]
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
+    public async Task<ActionResult<Result<TokenDto>>> RequestMultiTimeToken(MultiTimeToken query, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
+    }
+    
+    [HttpPost]
+    /*[Authorize(Policy = AuthPolicies.Internal)]*/
+    public async Task<ActionResult<Result<TokenDto>>> RequestLimitedTimeToken(LimitedTimeQueryToken query, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
+    }
+    
+    [HttpPost]
+    /*[Authorize]*/
+    public async Task<ActionResult<Result<TokenValidationDto>>> ValidateToken(ValidateToken query, CancellationToken cancellationToken)
+    {
+        return Result.MatchResponse(await sender.Send(query, cancellationToken));
+    }
+    
 }
